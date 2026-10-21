@@ -88,8 +88,8 @@ console.log(aleatorio)
 
 // OPERADORES ARITMETICOS
 // fazem contas com numeros
-const x = 10
-const y = 3
+const x: number = 10
+const y: number = 3
 console.log(x + y)   // soma: 13
 console.log(x - y)   // subtracao: 7
 console.log(x * y)   // multiplicacao: 30
@@ -108,9 +108,9 @@ console.log(x > y)    // maior que: true
 console.log(x < y)    // menor que: false
 console.log(x >= 10)  // maior ou igual: true
 console.log(x <= 9)   // menor ou igual: false
-console.log(x == "10")  // igual (so valor, converte o tipo): true - evite
+console.log(x == ("10" as any))  // igual (so valor, converte o tipo): true - evite
 console.log(x === 10)   // estritamente igual (valor E tipo): true - prefira este
-console.log(x === "10") // false, pois number e diferente de string
+console.log(x === ("10" as any)) // false, pois number e diferente de string
 console.log(x != y)     // diferente (so valor): true
 console.log(x !== y)    // estritamente diferente (valor E tipo): true
 
@@ -170,7 +170,7 @@ if (logado) {
 
 // ESCOLHA (switch)
 // compara uma variavel com varios "case"; util no lugar de muitos else if
-const dia = 3
+const dia: number = 3
 switch (dia) {
     case 1:
         console.log("Domingo")
@@ -252,6 +252,51 @@ console.log(numeros.filter((n) => n % 2 === 0))  // novo vetor so com os que pas
 console.log(numeros.find((n) => n > 3))          // primeiro item que passa no teste: 4
 console.log(numeros.reduce((acc, n) => acc + n, 0)) // reduz a um valor so (soma): 15; 0 e o valor inicial
 numeros.forEach((n) => console.log("forEach", n))   // executa algo para cada item
+
+// VETORES (mais metodos de alta ordem)
+// recebem uma funcao (callback) que roda para cada item
+console.log(numeros.findIndex((n) => n > 3))   // indice do primeiro que passa no teste: 3 (-1 se nao achar)
+console.log(numeros.findLast((n) => n < 4))    // ultimo item que passa no teste: 3
+console.log(numeros.some((n) => n > 4))        // ALGUM item passa no teste? true
+console.log(numeros.every((n) => n > 0))       // TODOS os itens passam no teste? true
+console.log(numeros.reduceRight((acc, n) => acc + n, "")) // como reduce, mas da direita p/ esquerda: "54321"
+console.log([3, 1, 10, 2].sort())              // sort sem funcao ordena como TEXTO: [1, 10, 2, 3]
+console.log([3, 1, 10, 2].sort((a, b) => a - b)) // ordem numerica crescente: [1, 2, 3, 10]
+console.log([3, 1, 10, 2].sort((a, b) => b - a)) // ordem numerica decrescente: [10, 3, 2, 1]
+console.log(numeros.flatMap((n) => [n, n * 10]))  // map + achata um nivel: [1, 10, 2, 20, ...]
+console.log([[1, 2], [3, [4]]].flat())         // achata sub-vetores (1 nivel): [1, 2, 3, [4]]
+console.log(numeros.concat([6, 7]))            // junta vetores, devolve novo vetor
+console.log([...numeros, 6, 7])                // spread (...) espalha os itens: outra forma de juntar
+console.log(numeros.at(-1))                    // acessa pelo indice, aceita negativo: ultimo item (5)
+console.log(Array.from({ length: 3 }, (_, i) => i * 2)) // cria vetor por regra: [0, 2, 4]
+
+// splice altera o vetor original: splice(inicio, quantosRemover, ...itensParaInserir)
+const copia = [...numeros]                     // copia para nao mexer em "numeros"
+copia.splice(1, 2)                             // remove 2 itens a partir do indice 1
+console.log(copia)                             // [1, 4, 5]
+copia.splice(1, 0, 99)                         // insere 99 no indice 1 sem remover nada
+console.log(copia)                             // [1, 99, 4, 5]
+
+// Encadeando metodos: o resultado de um vira entrada do proximo
+const somaDosQuadradosPares = numeros
+    .filter((n) => n % 2 === 0)                // [2, 4]
+    .map((n) => n ** 2)                        // [4, 16]
+    .reduce((acc, n) => acc + n, 0)            // 20
+console.log(somaDosQuadradosPares)
+
+// Vetor de objetos: onde map/filter/find/reduce mais aparecem no dia a dia
+const produtos = [
+    { nome: "caneta", preco: 3, estoque: 10 },
+    { nome: "caderno", preco: 15, estoque: 0 },
+    { nome: "mochila", preco: 120, estoque: 4 },
+]
+console.log(produtos.map((p) => p.nome))                       // so os nomes
+console.log(produtos.filter((p) => p.estoque > 0))             // so os que tem estoque
+console.log(produtos.find((p) => p.nome === "mochila"))        // o objeto da mochila
+console.log(produtos.reduce((total, p) => total + p.preco * p.estoque, 0)) // valor total em estoque: 510
+console.log(produtos.some((p) => p.estoque === 0))             // algum esgotado? true
+console.log(produtos.every((p) => p.preco > 0))                // todos com preco valido? true
+console.log([...produtos].sort((a, b) => a.preco - b.preco))   // ordena por preco (copia, nao altera o original)
 
 // FOR OF (percorre os valores do vetor)
 // mais simples que o for quando nao precisa do indice
