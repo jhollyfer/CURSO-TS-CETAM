@@ -1,6 +1,12 @@
 # Prova prática: boletim da aluna (10 pontos)
 
-Você vai criar um programa que monta o boletim da aluna Maria. Crie um arquivo chamado `prova.ts` e vá fazendo os itens na ordem. Quando terminar, rode com `tsx prova.ts` e confira o que aparece no terminal.
+Você vai criar um programa que monta o boletim da aluna Maria. Crie o arquivo `prova-1.ts` dentro da pasta `CURSO-TS-CETAM` e vá fazendo os itens na ordem. Para rodar, use:
+
+```bash
+tsx ~/CURSO-TS-CETAM/prova-1.ts
+```
+
+Confira o que aparece no terminal.
 
 Dica: faz um item, roda, vê se deu certo, e só então passa pro próximo. Não deixa pra testar tudo no final.
 
