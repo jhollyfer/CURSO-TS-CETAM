@@ -1,6 +1,6 @@
-# Guia de Estudos: TypeScript Básico
+# Guia de estudos de TypeScript
 
-Este guia resume o que já vimos no `index.ts`. Leia junto com o código e rode o arquivo para ver os resultados no terminal.
+Aqui está tudo o que a gente viu até agora no `index.ts`. Deixa o código aberto do lado e vai rodando o arquivo pra ver o que aparece no terminal.
 
 ## Sumário
 
@@ -23,7 +23,7 @@ Este guia resume o que já vimos no `index.ts`. Leia junto com o código e rode 
 tsx ~/CURSO-TS-CETAM/index.ts
 ```
 
-O `console.log(...)` mostra valores no terminal. Quando você passa vários valores separados por vírgula, eles aparecem lado a lado, separados por espaço.
+O `console.log(...)` mostra valores no terminal. Se você passar vários valores separados por vírgula, eles saem na mesma linha, com um espaço entre eles.
 
 ```ts
 console.log("Lucas", 12) // Lucas 12
@@ -33,7 +33,7 @@ console.log("Lucas", 12) // Lucas 12
 
 ## 2. Variáveis (`let`)
 
-Uma **variável** é uma "caixinha" com nome que guarda um valor. Com `let`, o valor **pode ser trocado** depois.
+Pensa numa variável como uma caixinha com um nome escrito. Dentro dela vai um valor. Com `let`, dá pra trocar esse valor depois.
 
 ```ts
 let nome = "Lucas"
@@ -46,31 +46,31 @@ idade = 13
 console.log(nome, idade) // Lucas Silva 13
 ```
 
-> ⚠️ Escrever `let nome = ...` duas vezes dá erro. O `let` é usado só na criação.
+> **Atenção:** escrever `let nome = ...` duas vezes dá erro. O `let` só aparece quando você cria a variável.
 
 ---
 
 ## 3. Constantes (`const`)
 
-Com `const`, o valor **não pode ser trocado**.
+Com `const` não tem volta: o valor que você colocou fica ali pra sempre.
 
 ```ts
 const PI = 3.1415
 PI = 10 // ❌ ERRO: não dá para reatribuir uma const
 ```
 
-**Quando usar cada um?**
+Quando usar cada um:
 
 | Use      | Quando                                   |
 | -------- | ---------------------------------------- |
-| `const`  | O valor não vai mudar (use por padrão!)  |
+| `const`  | O valor não vai mudar (na dúvida, comece por ele) |
 | `let`    | O valor vai mudar ao longo do programa   |
 
 ---
 
 ## 4. Tipos de dados
 
-Os três tipos básicos:
+Por enquanto, vimos três tipos:
 
 | Tipo      | O que guarda          | Exemplo                 |
 | --------- | --------------------- | ----------------------- |
@@ -78,7 +78,7 @@ Os três tipos básicos:
 | `string`  | Textos                | `"Uma frase aqui"`      |
 | `boolean` | Verdadeiro ou falso   | `true`, `false`         |
 
-> 💡 No JavaScript/TypeScript não existe tipo separado para inteiro e decimal: tudo é `number`.
+> Diferente de outras linguagens, aqui não tem um tipo pra inteiro e outro pra decimal. É tudo `number`.
 
 ### Inferência de tipo (o TS descobre sozinho)
 
@@ -100,7 +100,7 @@ const aprovado: boolean = false
 const palavra: string = "Uma palavra aqui"
 ```
 
-Se o valor não combinar com o tipo, o TypeScript avisa o erro:
+Se o valor não bater com o tipo, o TypeScript reclama:
 
 ```ts
 const idade2: number = "doze" // ❌ ERRO: string não é number
@@ -118,7 +118,7 @@ texto = 'Texto com aspas simples'
 texto = `Texto com template string ${ano}` // crase
 ```
 
-A **crase** (template string) deixa colocar variáveis dentro do texto com `${...}`:
+A crase (template string) deixa você colocar variáveis no meio do texto com `${...}`:
 
 ```ts
 const nome = "Lucas"
@@ -148,9 +148,9 @@ Exemplo usando `const limpo = "Lucas Silva"`:
 | `"ha".repeat(3)`             | Repete o texto                              | `"hahaha"`             |
 | `"7".padStart(3, "0")`       | Completa à esquerda até ter 3 caracteres    | `"007"`                |
 
-> 💡 Os métodos **não alteram** a string original. Eles devolvem uma string nova.
+> Esses métodos não mexem na string original. Eles devolvem uma string nova, e a original continua igual.
 
-**Posições (índices) em `"Lucas Silva"`:**
+Posições (índices) de cada letra em `"Lucas Silva"`:
 
 ```
 L  u  c  a  s     S  i  l  v  a
@@ -183,7 +183,7 @@ decimal.toString()  // "12.3456" (converte para texto)
 | `Math.abs(-10)`       | Valor absoluto (sem sinal)  | `10`      |
 | `Math.random()`       | Número aleatório entre 0 e 1 (o 1 não entra) | ex: `0.734...` |
 
-**Inteiro aleatório de 0 a 9:**
+Pra sortear um inteiro de 0 a 9:
 
 ```ts
 const aleatorio = Math.floor(Math.random() * 10)
@@ -199,7 +199,7 @@ const aleatorio = Math.floor(Math.random() * 10)
 | `Number.isInteger(10)`  | É inteiro?                       | `true`    |
 | `Number.isNaN(NaN)`     | É NaN ("não é um número")?       | `true`    |
 
-> ⚠️ Cuidado: `"42" + 1` dá `"421"` (junta os textos!). Converta antes com `Number("42") + 1`.
+> **Pegadinha:** `"42" + 1` dá `"421"`, porque o `+` junta os textos. Converta antes: `Number("42") + 1` dá `43`.
 
 ---
 
@@ -216,13 +216,13 @@ Com `x = 10` e `y = 3`:
 | `%`      | Resto da divisão (módulo)  | `x % y`  | `1`         |
 | `**`     | Potência                   | `x ** y` | `1000`      |
 
-> 💡 O `%` serve para saber se um número é par: `numero % 2 === 0` é par.
+> O `%` é ótimo pra saber se um número é par. Se `numero % 2` der `0`, ele é par.
 
 ---
 
 ## 8. Exercícios
 
-Tente resolver no `index.ts` antes de abrir a resposta.
+Tenta resolver no `index.ts` antes de abrir a resposta. Vale errar.
 
 **1.** Crie uma variável `cidade` com `"Manaus"` e depois troque para `"Parintins"`. Mostre os dois valores.
 
@@ -315,8 +315,8 @@ Number("5") parseInt("5.9") parseFloat("5.9")
 **TypeScript**
 - [Documentação oficial do TypeScript](https://www.typescriptlang.org/docs/)
 - [TypeScript Handbook: Tipos do dia a dia](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html)
-- [TypeScript Playground](https://www.typescriptlang.org/play): teste código direto no navegador, sem instalar nada
-- [tsx](https://tsx.is/): a ferramenta que usamos para rodar os arquivos `.ts`
+- [TypeScript Playground](https://www.typescriptlang.org/play): roda código direto no navegador, sem instalar nada
+- [tsx no GitHub](https://github.com/privatenumber/tsx): a ferramenta que usamos pra rodar os arquivos `.ts`
 
 **MDN (referência em português)**
 - [Guia de JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide)
