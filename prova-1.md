@@ -35,7 +35,7 @@ b) Crie estas quatro com `const`, **escrevendo o tipo** de cada uma, igual ao ex
 | `nota2`       | `number` | `8.4`   |
 | `notaTexto`   | `string` | `"9.5"` |
 
-c) Crie mais uma `const`, com o nome e o valor que você quiser, mas **sem escrever o tipo**. Num comentário do lado, diga qual tipo o TypeScript descobriu sozinho.
+c) Crie a `const` `totalAulas` valendo `40`, mas dessa vez **sem escrever o tipo**. Num comentário do lado, diga qual tipo o TypeScript descobriu sozinho.
 
 d) Num comentário, explique com suas palavras por que `NOTA_MINIMA = 8` daria erro.
 
@@ -51,9 +51,9 @@ Não é pra criar uma variável nova: é pra mudar o valor da `faltas` que você
 
 ### Questão 3. Arrumando o nome (2,5 pt)
 
-a) Tire os espaços do começo e do fim do nome e **guarde o resultado de volta em `nomeAluno`**. Daqui pra frente, use sempre o nome já sem os espaços.
+a) Tire os espaços do começo e do fim de `nomeAluno` e guarde o resultado numa nova `const` chamada **`nome`**. Daqui pra frente, use sempre `nome`.
 
-b) Mostre o nome todo em MAIÚSCULAS. Depois, todo em minúsculas.
+b) Mostre o nome todo em MAIÚSCULAS. Depois, todo em minúsculas. Guarda a versão em maiúsculas numa variável, ela entra na questão 7.
 
 c) Mostre quantos caracteres o nome tem (o espaço do meio também conta).
 
@@ -68,7 +68,7 @@ f) Mostre em que posição do nome começa a palavra `"oliveira"`.
 
 g) Mostre só as 5 primeiras letras do nome.
 
-h) Troque `"maria"` por `"ana"` e mostre o resultado. No mesmo `console.log`, mostre também `nomeAluno`, pra provar que ela **continua igual**.
+h) Troque `"maria"` por `"ana"` e mostre o resultado. No mesmo `console.log`, mostre também `nome`, pra provar que ele **continua igual**.
 
 ---
 
@@ -113,7 +113,7 @@ Guarda a matrícula já com os zeros numa variável, ela também entra na quest�
 
 ### Questão 6. Fazendo contas (1,0 pt)
 
-Crie `totalAulas` valendo `40` e mostre:
+Use a `totalAulas` que você criou na questão 1 (não crie de novo) e mostre:
 
 a) quantas aulas a Maria assistiu (usando `totalAulas` e `faltas`)
 
