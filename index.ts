@@ -85,3 +85,14 @@ console.log(Number.isNaN(NaN))       // e NaN (nao e numero)? true
 // Math.random() gera 0 <= x < 1; multiplicando por 10 e usando floor: inteiro de 0 a 9
 const aleatorio = Math.floor(Math.random() * 10)
 console.log(aleatorio)
+
+// OPERADORES ARITMETICOS
+// fazem contas com numeros
+const x: number = 10
+const y: number = 3
+console.log(x + y)   // soma: 13
+console.log(x - y)   // subtracao: 7
+console.log(x * y)   // multiplicacao: 30
+console.log(x / y)   // divisao: 3.3333...
+console.log(x % y)   // resto da divisao (modulo): 1
+console.log(x ** y)  // potencia: 10 elevado a 3 = 1000
