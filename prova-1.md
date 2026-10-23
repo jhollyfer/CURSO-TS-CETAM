@@ -45,7 +45,7 @@ d) Num comentário (linha começando com `//`), explique com suas palavras por q
 
 ### Questão 2. Mudando um valor (0,5 pt)
 
-A Maria faltou mais 3 aulas. Altere o valor da `let` **`faltas`** (criada na questão 1) somando essas 3.
+A Maria faltou mais 3 aulas. Altere o valor da `let` `faltas` (criada na questão 1) somando essas 3.
 
 Não é pra criar uma variável nova: é pra mudar o valor da `faltas` que já existe.
 
@@ -53,13 +53,13 @@ Não é pra criar uma variável nova: é pra mudar o valor da `faltas` que já e
 
 ### Questão 3. Arrumando o nome (2,5 pt)
 
-a) Tire os espaços do começo e do fim de `nomeAluno` e guarde o resultado numa nova `const` chamada **`nome`**. Daqui pra frente, todos os itens usam `nome`.
+a) Tire os espaços do começo e do fim de `nomeAluno` e guarde o resultado numa nova `const` chamada `nome`. Daqui pra frente, todos os itens usam `nome`.
 
-b) Crie a `const` **`nomeMaiusculo`** com `nome` todo em MAIÚSCULAS e mostre `nomeMaiusculo`. Depois mostre `nome` todo em minúsculas (esse não precisa guardar em variável).
+b) Crie a `const` `nomeMaiusculo` com `nome` todo em MAIÚSCULAS e mostre `nomeMaiusculo`. Depois mostre `nome` todo em minúsculas (esse não precisa guardar em variável).
 
 c) Mostre quantos caracteres `nome` tem (o espaço do meio também conta).
 
-d) Crie a `const` **`partes`** com `nome` separado em partes (uma pra cada palavra). Depois crie a `const` **`iniciais`** juntando, num texto só, a primeira letra de cada item de `partes`, em maiúscula. Tem que dar `"MO"`. Mostre `iniciais`.
+d) Crie a `const` `partes` com `nome` separado em partes (uma pra cada palavra). Depois crie a `const` `iniciais` juntando, num texto só, a primeira letra de cada item de `partes`, em maiúscula. Tem que dar `"MO"`. Mostre `iniciais`.
 
    Pra pegar um item de dentro de um vetor, escreva o nome do vetor e a posição do item entre colchetes. A contagem começa em 0, igual às letras de um texto. Exemplo com outro vetor:
 
@@ -84,9 +84,9 @@ h) Em `nome`, troque `"maria"` por `"ana"` e mostre o resultado (não precisa gu
 
 ### Questão 4. Calculando a média (2,0 pt)
 
-a) A terceira nota está guardada como texto, em `notaTexto`. Transforme em número e guarde numa nova `const` chamada **`nota3`**.
+a) A terceira nota está guardada como texto, em `notaTexto`. Transforme em número e guarde numa nova `const` chamada `nota3`.
 
-b) Calcule a média das 3 notas (`nota1`, `nota2` e `nota3`) e guarde numa `const` chamada **`media`**.
+b) Calcule a média das 3 notas (`nota1`, `nota2` e `nota3`) e guarde numa `const` chamada `media`.
 
 c) Mostre `media` de quatro jeitos:
    - com exatamente 2 casas depois da vírgula
@@ -107,11 +107,11 @@ e) Mostre:
 
 Nessa questão você só cria as variáveis, não precisa mostrar nada. Elas aparecem no boletim da questão 7.
 
-a) Crie a `const` **`aprovado`**. Ela vale `true` se `media` for maior ou igual a `NOTA_MINIMA`, e `false` se não for. Não vale escrever `true` ou `false` direto: o valor tem que sair de uma comparação.
+a) Crie a `const` `aprovado`. Ela vale `true` se `media` for maior ou igual a `NOTA_MINIMA`, e `false` se não for. Não vale escrever `true` ou `false` direto: o valor tem que sair de uma comparação.
 
-b) Sorteie um número inteiro de 0 a 999 pra ser a matrícula da Maria, usando o sorteio do objeto `Math`, e guarde numa `const` chamada **`matricula`**. A cada vez que rodar pode sair um número diferente, e tudo bem.
+b) Sorteie um número inteiro de 0 a 999 pra ser a matrícula da Maria, usando o sorteio do objeto `Math`, e guarde numa `const` chamada `matricula`. A cada vez que rodar pode sair um número diferente, e tudo bem.
 
-c) Crie a `const` **`codigo`** com a `matricula` sempre com 4 dígitos, completando com zeros na frente. Por exemplo:
+c) Crie a `const` `codigo` com a `matricula` sempre com 4 dígitos, completando com zeros na frente. Por exemplo:
 
 | Número sorteado | Como deve ficar |
 | --------------- | --------------- |
