@@ -11,7 +11,7 @@ Você vai escrever um programa que monta o boletim da aluna Maria.
   tsx ~/CURSO-TS-CETAM/prova-1.ts
   ```
 
-- Quando a questão pedir para "mostrar" alguma coisa, é pra aparecer no terminal com `console.log`.
+- Quando a questão pedir para "mostrar" alguma coisa, é pra aparecer no terminal com `console.log`. Pode usar um `console.log` pra cada coisa ou juntar várias no mesmo, separadas por vírgula.
 - Faz as questões na ordem, porque uma usa as variáveis da outra.
 - Dica: faz um item, roda, confere se deu certo e só então passa pro próximo. Não deixa pra testar tudo no final.
 
@@ -23,8 +23,10 @@ a) Crie estas duas variáveis com `let`:
 
 | Nome        | Valor                                                       |
 | ----------- | ----------------------------------------------------------- |
-| `nomeAluno` | `"  maria oliveira  "` (os espaços no começo e no fim são de propósito) |
+| `nomeAluno` | `"  maria oliveira  "`                                      |
 | `faltas`    | `2`                                                         |
+
+Os espaços no começo e no fim de `"  maria oliveira  "` são de propósito. Copie do jeito que está.
 
 b) Crie estas quatro com `const`, **escrevendo o tipo** de cada uma, igual ao exemplo `const idade: number = 12`:
 
@@ -37,7 +39,7 @@ b) Crie estas quatro com `const`, **escrevendo o tipo** de cada uma, igual ao ex
 
 c) Crie a `const` `totalAulas` valendo `40`, mas dessa vez **sem escrever o tipo**. Num comentário do lado, diga qual tipo o TypeScript descobriu sozinho.
 
-d) Num comentário, explique com suas palavras por que `NOTA_MINIMA = 8` daria erro.
+d) Num comentário (linha começando com `//`), explique com suas palavras por que `NOTA_MINIMA = 8` daria erro. Não escreva `NOTA_MINIMA = 8` como código de verdade, senão o programa para de rodar.
 
 ---
 
@@ -57,7 +59,15 @@ b) Crie a `const` **`nomeMaiusculo`** com `nome` todo em MAIÚSCULAS e mostre `n
 
 c) Mostre quantos caracteres `nome` tem (o espaço do meio também conta).
 
-d) Crie a `const` **`partes`** com `nome` separado em partes (uma pra cada palavra). Depois crie a `const` **`iniciais`** juntando a primeira letra de cada item de `partes`, em maiúscula. Tem que dar `"MO"`. Mostre `iniciais`.
+d) Crie a `const` **`partes`** com `nome` separado em partes (uma pra cada palavra). Depois crie a `const` **`iniciais`** juntando, num texto só, a primeira letra de cada item de `partes`, em maiúscula. Tem que dar `"MO"`. Mostre `iniciais`.
+
+   Pra pegar um item de dentro de um vetor, escreva o nome do vetor e a posição do item entre colchetes. A contagem começa em 0, igual às letras de um texto. Exemplo com outro vetor:
+
+   ```ts
+   const frutas = ["uva", "pera", "caju"]
+   console.log(frutas[0]) // uva
+   console.log(frutas[2]) // caju
+   ```
 
 e) Mostre, como `true` ou `false`:
    - se `nome` tem a palavra `"oliveira"`
@@ -94,6 +104,8 @@ e) Mostre:
 ---
 
 ### Questão 5. Aprovação e matrícula (1,5 pt)
+
+Nessa questão você só cria as variáveis, não precisa mostrar nada. Elas aparecem no boletim da questão 7.
 
 a) Crie a `const` **`aprovado`**. Ela vale `true` se `media` for maior ou igual a `NOTA_MINIMA`, e `false` se não for. Não vale escrever `true` ou `false` direto: o valor tem que sair de uma comparação.
 
@@ -133,7 +145,7 @@ g) a diferença entre `nota1` e `nota2`, sem o sinal de negativo
 
 a) Mostre uma linha com 30 sinais de `=`. Digitar os 30 na mão não vale: use um método de string que repete o texto.
 
-b) Usando **crase** (template string), mostre o boletim exatamente assim:
+b) Usando **crase** (template string), mostre o boletim exatamente assim (pode usar um `console.log` pra cada linha):
 
 ```
 Aluno: MARIA OLIVEIRA (MO) | Matricula: 0833
