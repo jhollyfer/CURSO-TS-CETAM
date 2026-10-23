@@ -53,11 +53,11 @@ Não é pra criar uma variável nova: é pra mudar o valor da `faltas` que você
 
 a) Tire os espaços do começo e do fim de `nomeAluno` e guarde o resultado numa nova `const` chamada **`nome`**. Daqui pra frente, use sempre `nome`.
 
-b) Mostre o nome todo em MAIÚSCULAS. Depois, todo em minúsculas. Guarda a versão em maiúsculas numa variável, ela entra na questão 7.
+b) Crie a `const` **`nomeMaiusculo`** com o nome todo em MAIÚSCULAS e mostre ela. Depois mostre o nome todo em minúsculas (esse não precisa guardar em variável).
 
 c) Mostre quantos caracteres o nome tem (o espaço do meio também conta).
 
-d) Monte as iniciais da aluna. Tem que dar `"MO"`, as duas letras maiúsculas. O caminho é separar o nome em partes (uma pra cada palavra) e pegar a primeira letra de cada parte. Guarda as iniciais numa variável, você vai precisar delas na questão 7.
+d) Crie a `const` **`partes`** com o nome separado em partes (uma pra cada palavra). Depois crie a `const` **`iniciais`** juntando a primeira letra de cada parte, em maiúscula. Tem que dar `"MO"`. Mostre `iniciais`.
 
 e) Mostre, como `true` ou `false`:
    - se o nome tem a palavra `"oliveira"`
@@ -74,9 +74,9 @@ h) Troque `"maria"` por `"ana"` e mostre o resultado. No mesmo `console.log`, mo
 
 ### Questão 4. Calculando a média (2,0 pt)
 
-a) A terceira nota está guardada como texto, em `notaTexto`. Transforme em número e guarde numa variável nova chamada `nota3`.
+a) A terceira nota está guardada como texto, em `notaTexto`. Transforme em número e guarde numa nova `const` chamada **`nota3`**.
 
-b) Calcule a média das 3 notas (`nota1`, `nota2` e `nota3`) e guarde em `media`.
+b) Calcule a média das 3 notas (`nota1`, `nota2` e `nota3`) e guarde numa `const` chamada **`media`**.
 
 c) Mostre a média de quatro jeitos:
    - com exatamente 2 casas depois da vírgula
@@ -95,11 +95,11 @@ e) Mostre:
 
 ### Questão 5. Aprovação e matrícula (1,5 pt)
 
-a) Crie a variável `aprovado`. Ela vale `true` se a média for maior ou igual a `NOTA_MINIMA`, e `false` se não for. Não vale escrever `true` ou `false` direto: o valor tem que sair de uma comparação.
+a) Crie a `const` **`aprovado`**. Ela vale `true` se a média for maior ou igual a `NOTA_MINIMA`, e `false` se não for. Não vale escrever `true` ou `false` direto: o valor tem que sair de uma comparação.
 
-b) Sorteie um número inteiro de 0 a 999 pra ser a matrícula da Maria, usando o sorteio do objeto `Math`. A cada vez que rodar pode sair um número diferente, e tudo bem.
+b) Sorteie um número inteiro de 0 a 999 pra ser a matrícula da Maria, usando o sorteio do objeto `Math`, e guarde numa `const` chamada **`matricula`**. A cada vez que rodar pode sair um número diferente, e tudo bem.
 
-c) Deixe a matrícula sempre com 4 dígitos, completando com zeros na frente. Por exemplo:
+c) Crie a `const` **`codigo`** com a `matricula` sempre com 4 dígitos, completando com zeros na frente. Por exemplo:
 
 | Número sorteado | Como deve ficar |
 | --------------- | --------------- |
@@ -107,7 +107,6 @@ c) Deixe a matrícula sempre com 4 dígitos, completando com zeros na frente. Po
 | 42              | `0042`          |
 | 833             | `0833`          |
 
-Guarda a matrícula já com os zeros numa variável, ela também entra na questão 7.
 
 ---
 
@@ -121,7 +120,7 @@ b) o dobro das faltas
 
 c) o total de aulas dividido pelas faltas
 
-d) o resto da divisão de 40 por 6
+d) o resto da divisão de `totalAulas` por 6
 
 e) 2 elevado a 3, de dois jeitos: um com operador e outro com uma função do `Math`
 
@@ -143,9 +142,10 @@ Media: 8.2 | Aprovado: true
 ```
 
 Repare que:
-- o nome sai em MAIÚSCULAS, com as iniciais entre parênteses;
-- a matrícula é a da questão 5 (o número na sua tela vai ser outro, mas com 4 dígitos);
-- a média aparece com **1 casa** depois da vírgula;
-- nada disso é digitado direto no texto: nome, iniciais, matrícula, média e aprovado vêm das variáveis.
+- o nome vem de `nomeMaiusculo`, com `iniciais` entre parênteses;
+- a matrícula vem de `codigo` (o número na sua tela vai ser outro, mas com 4 dígitos);
+- a média vem de `media`, mostrada com **1 casa** depois da vírgula;
+- o `true` vem de `aprovado`;
+- nada disso é digitado direto no texto: tudo tem que vir das variáveis.
 
 c) Termine o programa com uma mensagem final, a que você quiser, escrita entre **aspas simples** (`'...'`).
