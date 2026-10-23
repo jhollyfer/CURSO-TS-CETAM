@@ -43,32 +43,32 @@ d) Num comentário, explique com suas palavras por que `NOTA_MINIMA = 8` daria e
 
 ### Questão 2. Mudando um valor (0,5 pt)
 
-A Maria faltou mais 3 aulas. Atualize `faltas` somando essas 3.
+A Maria faltou mais 3 aulas. Altere o valor da `let` **`faltas`** (criada na questão 1) somando essas 3.
 
-Não é pra criar uma variável nova: é pra mudar o valor da `faltas` que você já tem.
+Não é pra criar uma variável nova: é pra mudar o valor da `faltas` que já existe.
 
 ---
 
 ### Questão 3. Arrumando o nome (2,5 pt)
 
-a) Tire os espaços do começo e do fim de `nomeAluno` e guarde o resultado numa nova `const` chamada **`nome`**. Daqui pra frente, use sempre `nome`.
+a) Tire os espaços do começo e do fim de `nomeAluno` e guarde o resultado numa nova `const` chamada **`nome`**. Daqui pra frente, todos os itens usam `nome`.
 
-b) Crie a `const` **`nomeMaiusculo`** com o nome todo em MAIÚSCULAS e mostre ela. Depois mostre o nome todo em minúsculas (esse não precisa guardar em variável).
+b) Crie a `const` **`nomeMaiusculo`** com `nome` todo em MAIÚSCULAS e mostre `nomeMaiusculo`. Depois mostre `nome` todo em minúsculas (esse não precisa guardar em variável).
 
-c) Mostre quantos caracteres o nome tem (o espaço do meio também conta).
+c) Mostre quantos caracteres `nome` tem (o espaço do meio também conta).
 
-d) Crie a `const` **`partes`** com o nome separado em partes (uma pra cada palavra). Depois crie a `const` **`iniciais`** juntando a primeira letra de cada parte, em maiúscula. Tem que dar `"MO"`. Mostre `iniciais`.
+d) Crie a `const` **`partes`** com `nome` separado em partes (uma pra cada palavra). Depois crie a `const` **`iniciais`** juntando a primeira letra de cada item de `partes`, em maiúscula. Tem que dar `"MO"`. Mostre `iniciais`.
 
 e) Mostre, como `true` ou `false`:
-   - se o nome tem a palavra `"oliveira"`
-   - se o nome começa com `"ma"`
-   - se o nome termina com `"x"`
+   - se `nome` tem a palavra `"oliveira"`
+   - se `nome` começa com `"ma"`
+   - se `nome` termina com `"x"`
 
-f) Mostre em que posição do nome começa a palavra `"oliveira"`.
+f) Mostre em que posição de `nome` começa a palavra `"oliveira"`.
 
-g) Mostre só as 5 primeiras letras do nome.
+g) Mostre só as 5 primeiras letras de `nome`.
 
-h) Troque `"maria"` por `"ana"` e mostre o resultado. No mesmo `console.log`, mostre também `nome`, pra provar que ele **continua igual**.
+h) Em `nome`, troque `"maria"` por `"ana"` e mostre o resultado (não precisa guardar em variável). No mesmo `console.log`, mostre também `nome`, pra provar que ele **continua igual**.
 
 ---
 
@@ -78,16 +78,16 @@ a) A terceira nota está guardada como texto, em `notaTexto`. Transforme em núm
 
 b) Calcule a média das 3 notas (`nota1`, `nota2` e `nota3`) e guarde numa `const` chamada **`media`**.
 
-c) Mostre a média de quatro jeitos:
+c) Mostre `media` de quatro jeitos:
    - com exatamente 2 casas depois da vírgula
    - arredondada para o inteiro mais próximo
    - arredondada sempre pra baixo
    - arredondada sempre pra cima
 
-d) Mostre a maior das 3 notas. Depois, a menor.
+d) Mostre a maior nota entre `nota1`, `nota2` e `nota3`. Depois, a menor entre as mesmas três.
 
 e) Mostre:
-   - se a média é um número inteiro (`true` ou `false`)
+   - se `media` é um número inteiro (`true` ou `false`)
    - se converter o texto `"abc"` para número dá `NaN` (`true` ou `false`)
    - que número sai quando você converte o texto `"8.9"` para inteiro
 
@@ -95,7 +95,7 @@ e) Mostre:
 
 ### Questão 5. Aprovação e matrícula (1,5 pt)
 
-a) Crie a `const` **`aprovado`**. Ela vale `true` se a média for maior ou igual a `NOTA_MINIMA`, e `false` se não for. Não vale escrever `true` ou `false` direto: o valor tem que sair de uma comparação.
+a) Crie a `const` **`aprovado`**. Ela vale `true` se `media` for maior ou igual a `NOTA_MINIMA`, e `false` se não for. Não vale escrever `true` ou `false` direto: o valor tem que sair de uma comparação.
 
 b) Sorteie um número inteiro de 0 a 999 pra ser a matrícula da Maria, usando o sorteio do objeto `Math`, e guarde numa `const` chamada **`matricula`**. A cada vez que rodar pode sair um número diferente, e tudo bem.
 
@@ -107,18 +107,17 @@ c) Crie a `const` **`codigo`** com a `matricula` sempre com 4 dígitos, completa
 | 42              | `0042`          |
 | 833             | `0833`          |
 
-
 ---
 
 ### Questão 6. Fazendo contas (1,0 pt)
 
-Use a `totalAulas` que você criou na questão 1 (não crie de novo) e mostre:
+Aqui você usa a `const` `totalAulas` (questão 1) e a `let` `faltas` (já atualizada na questão 2). Não crie nenhuma das duas de novo. Mostre:
 
-a) quantas aulas a Maria assistiu (usando `totalAulas` e `faltas`)
+a) quantas aulas a Maria assistiu, usando `totalAulas` e `faltas`
 
-b) o dobro das faltas
+b) o dobro de `faltas`
 
-c) o total de aulas dividido pelas faltas
+c) `totalAulas` dividido por `faltas`
 
 d) o resto da divisão de `totalAulas` por 6
 
