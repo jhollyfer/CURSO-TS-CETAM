@@ -96,3 +96,79 @@ console.log(x * y)   // multiplicacao: 30
 console.log(x / y)   // divisao: 3.3333...
 console.log(x % y)   // resto da divisao (modulo): 1
 console.log(x ** y)  // potencia: 10 elevado a 3 = 1000
+
+// OPERADORES DE ATRIBUICAO
+// jeito curto de fazer uma conta com a variavel e guardar o resultado nela mesma
+let valor = 5
+console.log(valor)   // 5
+//valor = valor + 10
+valor += 10
+console.log(valor)   // 15
+//valor = valor - 5
+valor -= 5
+console.log(valor)   // 10
+//valor = valor * 2
+valor *= 2
+console.log(valor)   // 20
+//valor = valor / 2
+valor /= 2
+console.log(valor)   // 10
+// valor = valor ** 3
+valor **= 3
+console.log(valor)   // 1000
+//incremento: soma 1
+valor += 1
+valor += 1
+valor += 1
+valor += 1
+valor += 1
+valor++              // o mesmo que valor += 1
+valor++
+console.log(valor)   // 1007
+//decremento: tira 1
+valor -= 1
+valor -= 1
+valor--              // o mesmo que valor -= 1
+valor--
+console.log(valor)   // 1003
+
+// OPERADORES RELACIONAIS
+// comparam dois valores e sempre devolvem boolean (true/false)
+console.log(10 > 5, 3 > 5)    // maior que: true false
+console.log(10 < 5, 3 < 5)    // menor que: false true
+console.log(10 >= 5, 3 >= 5)  // maior ou igual a: true false
+console.log(10 <= 5, 3 <= 5)  // menor ou igual a: false true
+// nas 4 linhas abaixo o editor sublinha de vermelho o 10 com '10': o TypeScript avisa que
+// number e string nunca deveriam ser comparados. O tsx roda mesmo assim, e serve pra ver a diferenca
+console.log(10 == '10', 10 == 10)    // igual a (so o valor, converte o tipo): true true
+console.log(10 === '10', 10 === 10)  // igual a (valor E tipo): false true - prefira este
+console.log(10 != '10', 10 != 10)    // diferente de (so o valor): false false
+console.log(10 !== '10', 10 !== 10)  // diferente de (valor E tipo): true false - prefira este
+
+// OPERADORES LOGICOS
+// and, e, &&: so da true se os dois lados forem true
+console.log(true && true, true && false)    // true false
+console.log(false && true, false && false)  // false false
+console.log(10 > 5 && 5 < 7)                // true
+// or, ou, || (pipe): da true se pelo menos um lado for true
+console.log(true || true, true || false)    // true true
+console.log(false || true, false || false)  // true false
+console.log(10 < 5 || 5 < 7)                // true
+// not, nao, !: inverte o valor
+console.log(!true, !false, !!false)         // false true false
+console.log(!(10 === 10))                   // false
+
+// juntando relacionais e logicos (idade vale 13, la de cima)
+let maiorIdade = idade >= 18
+console.log(maiorIdade)                     // false
+let temCarteira = true
+let podeDirigir = idade >= 18 && temCarteira
+console.log(podeDirigir)                    // false
+
+//CONDICIONAIS SIMPLES
+// o if so executa a linha de baixo se a condicao for true
+podeDirigir = !podeDirigir                  // inverte: agora e true
+if (podeDirigir)
+    console.log("Você pode dirigir!")
+
+console.log("Mostrando depois do if")       // essa roda sempre, esta fora do if
