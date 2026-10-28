@@ -96,10 +96,19 @@ console.log(x * y)   // multiplicacao: 30
 console.log(x / y)   // divisao: 3.3333...
 console.log(x % y)   // resto da divisao (modulo): 1
 console.log(x ** y)  // potencia: 10 elevado a 3 = 1000
+
+// OPERADORES DE ATRIBUICAO
+// jeito curto de fazer uma conta com a variavel e guardar o resultado nela mesma
 let valor = 5
-valor++              // incremento: valor = valor + 1 -> 6
-valor--              // decremento: valor = valor - 1 -> 5
-valor += 2           // valor = valor + 2 -> 7 (tambem existem -=, *=, /=, %=)
+valor += 10          // valor = valor + 10 -> 15
+valor -= 5           // valor = valor - 5 -> 10
+valor *= 2           // valor = valor * 2 -> 20
+valor /= 2           // valor = valor / 2 -> 10
+valor **= 3          // valor = valor ** 3 -> 1000
+valor %= 7           // valor = valor % 7 -> 6 (resto de 1000 / 7)
+console.log(valor)
+valor++              // incremento: valor = valor + 1 -> 7
+valor--              // decremento: valor = valor - 1 -> 6
 console.log(valor)
 
 // OPERADORES RELACIONAIS (de comparacao)
@@ -108,11 +117,11 @@ console.log(x > y)    // maior que: true
 console.log(x < y)    // menor que: false
 console.log(x >= 10)  // maior ou igual: true
 console.log(x <= 9)   // menor ou igual: false
-console.log(x == ("10" as any))  // igual (so valor, converte o tipo): true - evite
-console.log(x === 10)   // estritamente igual (valor E tipo): true - prefira este
-console.log(x === ("10" as any)) // false, pois number e diferente de string
-console.log(x != y)     // diferente (so valor): true
-console.log(x !== y)    // estritamente diferente (valor E tipo): true
+// 10 com '10' (number com string): o editor sublinha de vermelho, mas o tsx roda
+console.log(10 == '10', 10 == 10)    // igual (so valor, converte o tipo): true true - evite
+console.log(10 === '10', 10 === 10)  // estritamente igual (valor E tipo): false true - prefira este
+console.log(10 != '10', 10 != 10)    // diferente (so valor): false false - evite
+console.log(10 !== '10', 10 !== 10)  // estritamente diferente (valor E tipo): true false - prefira este
 
 // OPERADORES LOGICOS
 // combinam resultados booleanos
@@ -120,8 +129,24 @@ console.log(true && false)  // && (E): so e true se TODOS forem true -> false
 console.log(true || false)  // || (OU): e true se PELO MENOS UM for true -> true
 console.log(!true)          // ! (NAO): inverte o valor -> false
 console.log(x > 5 && y < 5) // exemplo combinando comparacoes: true
+console.log(10 < 5 || 5 < 7) // pelo menos uma verdadeira: true
+console.log(!!false)        // dois ! se cancelam: false
+console.log(!(10 === 10))   // inverte o resultado da comparacao: false
+
+// juntando relacionais e logicos e guardando o resultado (idade vale 13)
+let maiorIdade = idade >= 18
+console.log(maiorIdade)                     // false
+let temCarteira = true
+let podeDirigir = idade >= 18 && temCarteira
+console.log(podeDirigir)                    // false
 
 // CONDICIONAL SIMPLES
+// if sem chaves: so a linha logo abaixo fica dentro do if
+podeDirigir = !podeDirigir                  // inverte: agora e true
+if (podeDirigir)
+    console.log("Voce pode dirigir!")
+console.log("Mostrando depois do if")       // roda sempre, esta fora do if
+
 // if executa o bloco se a condicao for true; senao, executa o else
 if (idade >= 18) {
     console.log("Maior de idade")
@@ -143,7 +168,7 @@ if (nota >= 9) {
 }
 
 // operadores logicos: && (E: ambos true), || (OU: um true basta), ! (NAO: inverte)
-const temCarteira = true
+// temCarteira ja foi criada la nos operadores logicos
 if (idade >= 18 && temCarteira) {
     console.log("Pode dirigir")
 }
