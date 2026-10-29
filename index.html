@@ -4,10 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Byte Burger · Desafios em dupla</title>
+  <!-- fonte fixa: a fonte do sistema (system-ui) em alguns Linux deixa o espaco entre palavras enorme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/inter@5.3.0/index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/jetbrains-mono@5.3.0/index.css">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked@18.1.2/lib/marked.umd.js"></script>
   <style type="text/tailwindcss">
     @custom-variant dark (&:where(.dark, .dark *));
+    @theme {
+      --font-sans: "Inter Variable", Arial, Helvetica, sans-serif;
+      --font-mono: "JetBrains Mono Variable", "DejaVu Sans Mono", "Courier New", monospace;
+    }
   </style>
   <script>
     // tema salvo no navegador; sem escolha salva, segue o tema do sistema
@@ -39,7 +46,7 @@
     .md ol { list-style: decimal; padding-left: 1.4rem; }
     .md strong { color: var(--forte); }
     .md a { color: var(--destaque); text-decoration: underline; }
-    .md code { font-family: ui-monospace, monospace; font-size: .9em; color: var(--codigo); background: var(--fundo-codigo); padding: .1em .35em; border-radius: .3em; }
+    .md code { font-family: var(--font-mono); font-size: .9em; color: var(--codigo); background: var(--fundo-codigo); padding: .1em .35em; border-radius: .3em; }
     .md pre { background: var(--fundo-bloco); border: 1px solid var(--borda); border-radius: .6rem; padding: 1rem; overflow-x: auto; }
     .md pre code { background: none; padding: 0; color: var(--bloco); }
     .md table { display: block; overflow-x: auto; border-collapse: collapse; font-size: .95rem; }
@@ -100,7 +107,7 @@
         </label>
       </div>
     </div>
-    <nav id="abas" class="mx-auto max-w-7xl px-4 flex gap-1 overflow-x-auto"></nav>
+    <nav id="abas" class="mx-auto max-w-7xl px-4 flex gap-1 overflow-x-auto [scrollbar-width:thin]"></nav>
   </header>
 
   <div id="aviso" class="hidden fixed inset-0 z-20 flex items-center justify-center bg-black/80 p-4">
