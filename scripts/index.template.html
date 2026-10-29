@@ -58,16 +58,22 @@
   <!--
     Para abrir: duplo clique neste arquivo (precisa de internet para o Tailwind e o marked).
     Nao edite o index.html: ele e gerado por "pnpm index" a partir deste modelo e do desafios.md.
-    Atalhos: espaco = play/pause, R = zerar, setas = trocar de aba, M = som, T = tema claro/escuro.
+    Cronometro: fica escondido para os alunos. O professor mostra ou esconde com Ctrl+Shift+E
+    (ou abrindo a pagina com #professor no fim do endereco). A escolha fica salva no navegador.
+    Atalhos com o cronometro visivel: espaco = play/pause, R = zerar, M = som.
+    Atalhos sempre: setas = trocar de aba, T = tema claro/escuro.
   -->
   <header class="sticky top-0 z-10 border-b border-zinc-200 bg-white/90 dark:border-zinc-800 dark:bg-zinc-950/90 backdrop-blur">
     <div class="mx-auto max-w-7xl px-4 py-3 flex flex-wrap items-center justify-between gap-4">
-      <div>
-        <p class="text-xs uppercase tracking-widest text-amber-600 dark:text-amber-400">Byte Burger · Time de desenvolvimento</p>
-        <h1 class="text-xl font-bold">Desafios em dupla</h1>
+      <div class="flex items-center gap-3">
+        <div>
+          <p class="text-xs uppercase tracking-widest text-amber-600 dark:text-amber-400">Byte Burger · Time de desenvolvimento</p>
+          <h1 class="text-xl font-bold">Desafios em dupla</h1>
+        </div>
+        <button id="tema" title="Tema claro/escuro (T)" class="rounded-lg bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 px-3 py-1 text-sm"><span class="dark:hidden">🌙</span><span class="hidden dark:inline">☀️</span></button>
       </div>
 
-      <div id="cronometro" class="rounded-xl border border-zinc-300 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 px-4 py-3 w-full sm:w-auto transition-colors">
+      <div id="cronometro" class="hidden rounded-xl border border-zinc-300 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 px-4 py-3 w-full sm:w-auto transition-colors">
         <div class="flex items-center gap-4">
           <div>
             <p id="turno" class="text-xs uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Turno 1 · integrante A no teclado</p>
@@ -80,7 +86,6 @@
               <button id="zerar" title="Zerar (R)" class="rounded-lg bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 px-3 py-1 text-sm">↺</button>
               <button id="pular" title="Pular para a troca" class="rounded-lg bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 px-3 py-1 text-sm">⇥</button>
               <button id="som" title="Som (M)" class="rounded-lg bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 px-3 py-1 text-sm">🔊</button>
-              <button id="tema" title="Tema claro/escuro (T)" class="rounded-lg bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 px-3 py-1 text-sm"><span class="dark:hidden">🌙</span><span class="hidden dark:inline">☀️</span></button>
             </div>
           </div>
         </div>
@@ -365,11 +370,34 @@ __DESAFIOS_MD__
       zerar()
     })
 
+    // o cronometro e do professor: comeca escondido, e so Ctrl+Shift+E (ou #professor) mostra
+    let cronometroVisivel = false
+
+    function mostrarCronometro(visivel) {
+      cronometroVisivel = visivel
+      el("cronometro").classList.toggle("hidden", !visivel)
+      let escolha = "escondido"
+      if (visivel) escolha = "visivel"
+      try { localStorage.setItem("cronometro", escolha) } catch {}
+    }
+
+    function cronometroSalvoVisivel() {
+      try { return localStorage.getItem("cronometro") === "visivel" } catch { return false }
+    }
+
+    mostrarCronometro(location.hash === "#professor" || cronometroSalvoVisivel())
+
     document.addEventListener("keydown", (e) => {
+      if (e.ctrlKey && e.shiftKey && e.code === "KeyE") {
+        e.preventDefault()
+        mostrarCronometro(!cronometroVisivel)
+        return
+      }
+      if (e.ctrlKey || e.metaKey || e.altKey) return
       if (e.target.tagName === "INPUT") return
-      if (e.code === "Space") { e.preventDefault(); playPause() }
-      if (e.key === "r" || e.key === "R") zerar()
-      if (e.key === "m" || e.key === "M") alternarSom()
+      if (cronometroVisivel && e.code === "Space") { e.preventDefault(); playPause() }
+      if (cronometroVisivel && (e.key === "r" || e.key === "R")) zerar()
+      if (cronometroVisivel && (e.key === "m" || e.key === "M")) alternarSom()
       if (e.key === "t" || e.key === "T") alternarTema()
       if (e.key === "ArrowRight") mostrarAba(abaAtual + 1)
       if (e.key === "ArrowLeft") mostrarAba(abaAtual - 1)
