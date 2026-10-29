@@ -3,6 +3,9 @@
 // Para ver a nota: tsx ~/CURSO-TS-CETAM/desafios.spec.ts 4
 // Escreva cada resposta embaixo do comentario da tarefa.
 
+// input le o que a pessoa digita no teclado (sempre devolve texto)
+import { input } from '#core/input.ts'
+
 // DADOS DO SISTEMA (nao mexa)
 const nomeCliente: string = "Maria"
 const subtotal: number = 84.8

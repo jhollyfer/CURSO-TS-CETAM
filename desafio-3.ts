@@ -3,6 +3,9 @@
 // Para ver a nota: tsx ~/CURSO-TS-CETAM/desafios.spec.ts 3
 // Escreva cada resposta embaixo do comentario da tarefa.
 
+// input le o que a pessoa digita no teclado (sempre devolve texto)
+import { input } from '#core/input.ts'
+
 // DADOS DO SISTEMA (nao mexa)
 const totalPedido: number = 93.28
 const qtdBurger: number = 2

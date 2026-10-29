@@ -50,7 +50,7 @@ Cada desafio tem 5 tarefas de 2 pontos: **10 pontos por desafio**.
 
 - Quando a tarefa mandar criar alguma coisa, ela diz se é com `let` ou com `const`, e qual nome usar. Use **exatamente** esse nome.
 - Quando a tarefa pedir para "mostrar", é com `console.log`.
-- Quando a tarefa pedir para **ler** (o usuário digita), é com o `input`. Coloca esta linha uma vez, lá em cima do arquivo:
+- Quando a tarefa pedir para **ler** (o usuário digita), é com o `input`. Todo arquivo já vem com ele importado lá em cima, não precisa escrever de novo:
 
   ```ts
   import { input } from '#core/input.ts'
