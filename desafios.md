@@ -4,6 +4,28 @@ Hoje vocês são a equipe de desenvolvimento da **Byte Burger**, uma lanchonete 
 
 Os desafios contam uma história só, mas cada arquivo já traz os dados de que precisa. Se a dupla não terminar um, começa o próximo do zero sem problema.
 
+## Preparando o computador
+
+Antes do primeiro desafio, cada dupla abre o terminal, cola os comandos abaixo e aperta Enter. Eles apagam a pasta antiga do curso, baixam os desafios de novo, instalam o que o `input` precisa e abrem o projeto no Zed. O `sudo` pede a senha do computador.
+
+```bash
+cd ~
+
+npm install --global tsx pnpm
+
+sudo rm -rf ~/CURSO-TS-CETAM
+
+git clone -b main https://github.com/jhollyfer/CURSO-TS-CETAM.git
+
+cd ~/CURSO-TS-CETAM
+
+pnpm install
+
+zed .
+```
+
+A pasta é apagada inteira. Se alguém tinha código lá que quer guardar, copia para outro lugar antes.
+
 ## Como funciona (programação em par)
 
 A gente vai trabalhar do jeito que muita empresa trabalha: **programação em par**, uma prática do XP (Extreme Programming). Duas pessoas usam o mesmo computador para resolver o mesmo problema, e cada uma tem um papel.
