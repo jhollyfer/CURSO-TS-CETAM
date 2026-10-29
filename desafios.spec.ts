@@ -11,11 +11,19 @@ import * as fs from "node:fs"
 import * as os from "node:os"
 import * as path from "node:path"
 
-const numero = process.argv[2]
-if (!["1", "2", "3", "4"].includes(numero ?? "")) {
+const NUMEROS_DOS_DESAFIOS = ["1", "2", "3", "4"] as const
+type NumeroDoDesafio = (typeof NUMEROS_DOS_DESAFIOS)[number]
+
+// o numero chega da linha de comando como texto qualquer; so vira NumeroDoDesafio depois de conferido
+const ehNumeroDoDesafio = (texto: string | undefined): texto is NumeroDoDesafio =>
+  NUMEROS_DOS_DESAFIOS.some((n) => n === texto)
+
+const numeroDigitado = process.argv[2]
+if (!ehNumeroDoDesafio(numeroDigitado)) {
   console.log("Diga qual desafio corrigir. Exemplo: tsx ~/CURSO-TS-CETAM/desafios.spec.ts 1")
   process.exit(1)
 }
+const numero: NumeroDoDesafio = numeroDigitado
 
 const pastaDoSpec = path.dirname(path.resolve(process.argv[1]))
 const arquivoAluno = path.resolve(process.argv[3] ?? path.join(pastaDoSpec, `desafio-${numero}.ts`))
@@ -26,7 +34,7 @@ if (!fs.existsSync(arquivoAluno)) {
 }
 
 // todas as variaveis que cada desafio manda criar (e os dados que ja vem prontos)
-const NOMES: Record<string, string[]> = {
+const NOMES = {
   "1": [
     "nomeCliente", "telefone", "LOJA", "ANO_ABERTURA", "clienteNovo",
     "anosDeLoja",
@@ -52,15 +60,15 @@ const NOMES: Record<string, string[]> = {
     "nomeCliente", "subtotal", "ehVip", "cupom", "pagouComPix", "distanciaKm", "horaPedido", "aniversario",
     "desconto", "taxaEntrega", "brindes", "total", "comprovante",
   ],
-}
+} satisfies Record<NumeroDoDesafio, ReadonlyArray<string>>
 
 // o que a correcao "digita" quando o programa chama input, em ordem
-const ENTRADAS: Record<string, string[]> = {
+const ENTRADAS = {
   "1": ["  maria eduarda lima  ", "92991234567"],
   "2": ["2", "1", "3"],
   "3": [],
   "4": [],
-}
+} satisfies Record<NumeroDoDesafio, ReadonlyArray<string>>
 
 // RODANDO O CODIGO DO ALUNO
 // antes do codigo do aluno entra uma linha que, quando o programa termina (mesmo com erro),
@@ -73,7 +81,7 @@ const arquivoRodar = path.join(pastaTemp, `desafio-${numero}.ts`)
 const coleta = NOMES[numero].map((n) => `try { __v[${JSON.stringify(n)}] = ${n} } catch {}`).join("; ")
 const ganchoDeSaida =
   `const __entradas: string[] = ${JSON.stringify(ENTRADAS[numero])}; ` +
-  `process.on("exit", () => { const __v: any = {}; ${coleta}; ` +
+  `process.on("exit", () => { const __v: Record<string, unknown> = {}; ${coleta}; ` +
   `require("node:fs").writeFileSync(${JSON.stringify(arquivoValores)}, JSON.stringify(__v)) });`
 
 // o import do input vira um input de mentira, que responde com as ENTRADAS e mostra a pergunta
@@ -92,10 +100,14 @@ const execucao = spawnSync(process.execPath, [...process.execArgv, arquivoRodar]
 const saida = execucao.stdout ?? ""
 const erro = (execucao.stderr ?? "").split(arquivoRodar).join(arquivoAluno).trim()
 
-let v: Record<string, any> = {}
-if (fs.existsSync(arquivoValores)) {
-  v = JSON.parse(fs.readFileSync(arquivoValores, "utf8"))
+// o JSON vem do programa do aluno: entra como unknown e so vira objeto depois de conferido
+const lerValores = (caminho: string): Readonly<Record<string, unknown>> => {
+  if (!fs.existsSync(caminho)) return {}
+  const lido: unknown = JSON.parse(fs.readFileSync(caminho, "utf8"))
+  if (typeof lido !== "object" || lido === null) return {}
+  return Object.fromEntries(Object.entries(lido))
 }
+const v = lerValores(arquivoValores)
 fs.rmSync(pastaTemp, { recursive: true, force: true })
 
 // AJUDANTES PARA OLHAR O CODIGO-FONTE
@@ -108,7 +120,7 @@ const semComentarios = codigoAluno
 // comentarios escritos pela dupla (os do modelo do arquivo ficam de fora)
 const comentariosDaDupla = codigoAluno
   .split("\n")
-  .map((l) => (l.match(/\/\/(.*)$/) ?? ["", ""])[1].trim())
+  .map((l) => l.match(/\/\/(.*)$/)?.[1]?.trim() ?? "")
   .filter((c) => c && !/^(DESAFIO|Para |Escreva|TAREFA|DADOS DO SISTEMA)/.test(c))
 
 const escapar = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
@@ -127,7 +139,7 @@ const semTipo = (nome: string) => new RegExp(`\\bconst\\s+${escapar(nome)}\\s*=`
 // o que vem depois do "=" na linha em que a variavel foi criada
 const valorDaLinha = (nome: string) => {
   const achado = semComentarios.match(new RegExp(`\\b(?:let|const)\\s+${escapar(nome)}\\b\\s*(?::[^=]*)?=\\s*([^\\n]*)`))
-  return achado ? achado[1].trim() : ""
+  return achado?.[1]?.trim() ?? ""
 }
 
 // a variavel foi criada com crase e usa cada uma das variaveis dentro de ${...}
@@ -159,9 +171,10 @@ const dentroDeIf = (i: number) => {
 
 // toda linha que muda a variavel (fora a que cria com let) esta dentro de um if
 const sempreDentroDeIf = (regra: RegExp) => {
-  const posicoes = linhasDeCodigo
-    .map((l, i) => (regra.test(l) && !/\b(let|const)\s/.test(l) ? i : -1))
-    .filter((i) => i >= 0)
+  const posicoes = linhasDeCodigo.flatMap((l, i) => {
+    if (regra.test(l) && !/\b(let|const)\s/.test(l)) return [i]
+    return []
+  })
   return posicoes.length > 0 && posicoes.every(dentroDeIf)
 }
 
@@ -173,14 +186,23 @@ const mostrouEmOrdem = (...textos: string[]) => {
   return i >= 0 && textos.every((t, j) => linhasDaSaida[i + j] === t)
 }
 
+// os valores vieram do programa do aluno (unknown): estas tres conferem o tipo antes de comparar
 const perto = (a: unknown, b: number) => typeof a === "number" && Math.abs(a - b) < 1e-9
+const inteiroEntre = (a: unknown, minimo: number, maximo: number) =>
+  typeof a === "number" && Number.isInteger(a) && a >= minimo && a <= maximo
+// texto que nunca aparece na saida, para "mostrou X" falhar quando X nem existe
+const textoOuNada = (a: unknown) => {
+  if (typeof a === "string") return a
+  return "\u0000"
+}
 const igual = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b)
 
 // OS DESAFIOS
-type Checagem = [descricao: string, passou: boolean]
-type Tarefa = { titulo: string; checagens: Checagem[] }
+type Checagem = readonly [descricao: string, passou: boolean]
+type Tarefa = { readonly titulo: string; readonly checagens: ReadonlyArray<Checagem> }
+type Desafio = { readonly titulo: string; readonly tarefas: ReadonlyArray<Tarefa> }
 
-const desafios: Record<string, { titulo: string; tarefas: Tarefa[] }> = {
+const desafios = {
   "1": {
     titulo: "Cadastro do cliente",
     tarefas: [
@@ -289,9 +311,9 @@ const desafios: Record<string, { titulo: string; tarefas: Tarefa[] }> = {
           ["pagamento = 100 e troco = pagamento - total", v.pagamento === 100 && perto(v.troco, 100 - 93.28) && /pagamento/.test(valorDaLinha("troco"))],
           ["trocoTexto = \"6.72\"", criadaCom("const", "trocoTexto") && v.trocoTexto === "6.72"],
           ["notasDe5 = 1 (so a parte inteira)", criadaCom("const", "notasDe5") && v.notasDe5 === 1 && /troco/.test(valorDaLinha("notasDe5"))],
-          ["numeroPedido inteiro de 0 a 99 com Math.random", Number.isInteger(v.numeroPedido) && v.numeroPedido >= 0 && v.numeroPedido <= 99 && /Math\.random\s*\(/.test(valorDaLinha("numeroPedido"))],
+          ["numeroPedido inteiro de 0 a 99 com Math.random", inteiroEntre(v.numeroPedido, 0, 99) && /Math\.random\s*\(/.test(valorDaLinha("numeroPedido"))],
           ["senha com 3 digitos", typeof v.senha === "string" && v.senha === String(v.numeroPedido).padStart(3, "0")],
-          ["resumo certo, feito com as variaveis e mostrado", v.resumo === `Pedido ${v.senha} | Total: R$ 93.28 | Troco: R$ 6.72 | Notas de 5: 1` && templateCom("resumo", "senha", "notasDe5") && mostrouLinha(v.resumo)],
+          ["resumo certo, feito com as variaveis e mostrado", v.resumo === `Pedido ${v.senha} | Total: R$ 93.28 | Troco: R$ 6.72 | Notas de 5: 1` && templateCom("resumo", "senha", "notasDe5") && mostrouLinha(textoOuNada(v.resumo))],
         ],
       },
     ],
@@ -347,7 +369,7 @@ const desafios: Record<string, { titulo: string; tarefas: Tarefa[] }> = {
           ["painel1 feito com as variaveis", templateCom("painel1", "pontos", "visitas", "estoqueBurger")],
           ["painel2 certo", v.painel2 === "VIP: true | Batata gratis: true | Desconto: true | Sorteio: false"],
           ["painel2 feito com as variaveis", templateCom("painel2", "ehVip", "ganhaBatata", "ganhaDesconto", "participaSorteio")],
-          ["mostrou os dois paineis", mostrouLinha(v.painel1 ?? "\u0000") && mostrouLinha(v.painel2 ?? "\u0000")],
+          ["mostrou os dois paineis", mostrouLinha(textoOuNada(v.painel1)) && mostrouLinha(textoOuNada(v.painel2))],
         ],
       },
     ],
@@ -403,12 +425,12 @@ const desafios: Record<string, { titulo: string; tarefas: Tarefa[] }> = {
           ["\"Pagamento na entrega\" NAO apareceu", saida !== "" && !mostrou("Pagamento na entrega")],
           ["comprovante certo", v.comprovante === "Cliente: Maria | Desconto: R$ 17.00 | Entrega: R$ 12.00 | Total: R$ 79.80 | Brindes: 2"],
           ["comprovante feito com as variaveis e toFixed", templateCom("comprovante", "nomeCliente", "desconto", "taxaEntrega", "total", "brindes") && /toFixed/.test(valorDaLinha("comprovante"))],
-          ["mostrou o comprovante", mostrouLinha(v.comprovante ?? "\u0000")],
+          ["mostrou o comprovante", mostrouLinha(textoOuNada(v.comprovante))],
         ],
       },
     ],
   },
-}
+} satisfies Record<NumeroDoDesafio, Desafio>
 
 // RESULTADO
 const desafio = desafios[numero]
@@ -429,7 +451,9 @@ desafio.tarefas.forEach((t, i) => {
   total += pontos
   console.log(`\nTAREFA ${i + 1} - ${t.titulo}: ${pontos.toFixed(2)} / 2 pts`)
   for (const [descricao, passou] of t.checagens) {
-    console.log(`  ${passou ? "✅" : "❌"} ${descricao}`)
+    let marca = "❌"
+    if (passou) marca = "✅"
+    console.log(`  ${marca} ${descricao}`)
   }
 })
 
