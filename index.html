@@ -6,63 +6,90 @@
   <title>Byte Burger · Desafios em dupla</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <style type="text/tailwindcss">
+    @custom-variant dark (&:where(.dark, .dark *));
+  </style>
+  <script>
+    // tema salvo no navegador; sem escolha salva, segue o tema do sistema
+    try {
+      const salvo = localStorage.getItem("tema")
+      const escuro = salvo ? salvo === "escuro" : matchMedia("(prefers-color-scheme: dark)").matches
+      document.documentElement.classList.toggle("dark", escuro)
+    } catch {
+      document.documentElement.classList.add("dark")
+    }
+  </script>
   <style>
-    /* texto do desafio (vem do markdown) */
-    .md { line-height: 1.7; color: #d4d4d8; }
-    .md h2 { font-size: 1.9rem; font-weight: 800; line-height: 1.2; color: #fff; margin: 0 0 1rem; }
-    .md h3 { font-size: 1.2rem; font-weight: 700; color: #fbbf24; margin: 2.2rem 0 .6rem; padding-top: 1rem; border-top: 1px solid #27272a; }
-    .md h1 { font-size: 2.2rem; font-weight: 800; color: #fff; margin-bottom: 1rem; }
+    /* cores do texto do desafio (vem do markdown) */
+    :root {
+      --texto: #3f3f46; --forte: #09090b; --destaque: #b45309; --linha: #e4e4e7;
+      --codigo: #92400e; --fundo-codigo: #f4f4f5; --fundo-bloco: #fafafa; --borda: #d4d4d8; --bloco: #047857;
+    }
+    .dark {
+      --texto: #d4d4d8; --forte: #fff; --destaque: #fbbf24; --linha: #27272a;
+      --codigo: #fcd34d; --fundo-codigo: #27272a; --fundo-bloco: #18181b; --borda: #3f3f46; --bloco: #a7f3d0;
+    }
+    .md { line-height: 1.7; color: var(--texto); }
+    .md h2 { font-size: 1.9rem; font-weight: 800; line-height: 1.2; color: var(--forte); margin: 0 0 1rem; }
+    .md h3 { font-size: 1.2rem; font-weight: 700; color: var(--destaque); margin: 2.2rem 0 .6rem; padding-top: 1rem; border-top: 1px solid var(--linha); }
+    .md h1 { font-size: 2.2rem; font-weight: 800; color: var(--forte); margin-bottom: 1rem; }
     .md p, .md ul, .md ol, .md pre, .md table { margin: .8rem 0; }
     .md ul { list-style: disc; padding-left: 1.4rem; }
     .md ol { list-style: decimal; padding-left: 1.4rem; }
-    .md strong { color: #fff; }
-    .md a { color: #fbbf24; text-decoration: underline; }
-    .md code { font-family: ui-monospace, monospace; font-size: .9em; color: #fcd34d; background: #27272a; padding: .1em .35em; border-radius: .3em; }
-    .md pre { background: #18181b; border: 1px solid #3f3f46; border-radius: .6rem; padding: 1rem; overflow-x: auto; }
-    .md pre code { background: none; padding: 0; color: #a7f3d0; }
+    .md strong { color: var(--forte); }
+    .md a { color: var(--destaque); text-decoration: underline; }
+    .md code { font-family: ui-monospace, monospace; font-size: .9em; color: var(--codigo); background: var(--fundo-codigo); padding: .1em .35em; border-radius: .3em; }
+    .md pre { background: var(--fundo-bloco); border: 1px solid var(--borda); border-radius: .6rem; padding: 1rem; overflow-x: auto; }
+    .md pre code { background: none; padding: 0; color: var(--bloco); }
     .md table { display: block; overflow-x: auto; border-collapse: collapse; font-size: .95rem; }
-    .md th { text-align: left; color: #fff; background: #27272a; }
-    .md th, .md td { border: 1px solid #3f3f46; padding: .4rem .7rem; }
+    .md th { text-align: left; color: var(--forte); background: var(--fundo-codigo); }
+    .md th, .md td { border: 1px solid var(--borda); padding: .4rem .7rem; }
+    #cronometro.final { border-color: #ef4444; background: #fef2f2; }
+    .dark #cronometro.final { background: #450a0a; }
+    #cronometro.final #tempo { color: #dc2626; }
+    .dark #cronometro.final #tempo { color: #f87171; }
+    #cronometro.final #barra { background: #ef4444; }
     .piscar { animation: piscar 0.5s steps(2, start) infinite; }
     @keyframes piscar { to { visibility: hidden; } }
   </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 min-h-screen">
+<body class="bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 min-h-screen">
   <!--
     Para abrir: duplo clique neste arquivo (precisa de internet para o Tailwind e o marked).
     O texto dos desafios vem do bloco "desafios-md" la embaixo, copiado do desafios.md.
-    Atalhos: espaco = play/pause, R = zerar, setas = trocar de aba, M = som.
+    Atalhos: espaco = play/pause, R = zerar, setas = trocar de aba, M = som, T = tema claro/escuro.
   -->
-  <header class="sticky top-0 z-10 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur">
+  <header class="sticky top-0 z-10 border-b border-zinc-200 bg-white/90 dark:border-zinc-800 dark:bg-zinc-950/90 backdrop-blur">
     <div class="mx-auto max-w-7xl px-4 py-3 flex flex-wrap items-center justify-between gap-4">
       <div>
-        <p class="text-xs uppercase tracking-widest text-amber-400">Byte Burger · Time de desenvolvimento</p>
+        <p class="text-xs uppercase tracking-widest text-amber-600 dark:text-amber-400">Byte Burger · Time de desenvolvimento</p>
         <h1 class="text-xl font-bold">Desafios em dupla</h1>
       </div>
 
-      <div id="cronometro" class="rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-3 w-full sm:w-auto transition-colors">
+      <div id="cronometro" class="rounded-xl border border-zinc-300 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 px-4 py-3 w-full sm:w-auto transition-colors">
         <div class="flex items-center gap-4">
           <div>
-            <p id="turno" class="text-xs uppercase tracking-widest text-zinc-400">Turno 1 · integrante A no teclado</p>
+            <p id="turno" class="text-xs uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Turno 1 · integrante A no teclado</p>
             <p id="tempo" class="font-mono text-5xl font-bold tabular-nums leading-none">15:00</p>
             <p id="total" class="text-xs text-zinc-500 mt-1">Desafio: 30:00 restantes</p>
           </div>
           <div class="flex flex-col gap-2">
-            <button id="play" class="rounded-lg bg-emerald-600 hover:bg-emerald-500 px-4 py-2 font-semibold">▶ Play</button>
+            <button id="play" class="rounded-lg bg-emerald-600 hover:bg-emerald-500 px-4 py-2 font-semibold text-white">▶ Play</button>
             <div class="flex gap-2">
-              <button id="zerar" title="Zerar (R)" class="rounded-lg bg-zinc-800 hover:bg-zinc-700 px-3 py-1 text-sm">↺</button>
-              <button id="pular" title="Pular para a troca" class="rounded-lg bg-zinc-800 hover:bg-zinc-700 px-3 py-1 text-sm">⇥</button>
-              <button id="som" title="Som (M)" class="rounded-lg bg-zinc-800 hover:bg-zinc-700 px-3 py-1 text-sm">🔊</button>
+              <button id="zerar" title="Zerar (R)" class="rounded-lg bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 px-3 py-1 text-sm">↺</button>
+              <button id="pular" title="Pular para a troca" class="rounded-lg bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 px-3 py-1 text-sm">⇥</button>
+              <button id="som" title="Som (M)" class="rounded-lg bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 px-3 py-1 text-sm">🔊</button>
+              <button id="tema" title="Tema claro/escuro (T)" class="rounded-lg bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 px-3 py-1 text-sm"><span class="dark:hidden">🌙</span><span class="hidden dark:inline">☀️</span></button>
             </div>
           </div>
         </div>
-        <div class="relative mt-3 h-2 rounded bg-zinc-800 overflow-hidden">
+        <div class="relative mt-3 h-2 rounded bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
           <div id="barra" class="h-full bg-emerald-500 transition-[width]" style="width:0%"></div>
-          <div class="absolute inset-y-0 left-1/2 w-0.5 bg-zinc-400" title="Troca de piloto"></div>
+          <div class="absolute inset-y-0 left-1/2 w-0.5 bg-zinc-500 dark:bg-zinc-400" title="Troca de piloto"></div>
         </div>
         <label class="mt-2 flex items-center gap-2 text-xs text-zinc-500">
           Duração do desafio
-          <input id="minutos" type="number" min="2" max="120" step="2" value="30" class="w-14 rounded bg-zinc-800 px-1 text-zinc-200">
+          <input id="minutos" type="number" min="2" max="120" step="2" value="30" class="w-14 rounded bg-zinc-200 px-1 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200">
           min (troca na metade)
         </label>
       </div>
@@ -71,9 +98,9 @@
   </header>
 
   <div id="aviso" class="hidden fixed inset-0 z-20 flex items-center justify-center bg-black/80 p-4">
-    <div class="rounded-2xl border border-amber-400 bg-zinc-900 p-8 text-center max-w-lg">
-      <p id="aviso-titulo" class="text-4xl font-black text-amber-400">TROCA!</p>
-      <p id="aviso-texto" class="mt-3 text-zinc-300"></p>
+    <div class="rounded-2xl border border-amber-400 bg-white dark:bg-zinc-900 p-8 text-center max-w-lg">
+      <p id="aviso-titulo" class="text-4xl font-black text-amber-600 dark:text-amber-400">TROCA!</p>
+      <p id="aviso-texto" class="mt-3 text-zinc-700 dark:text-zinc-300"></p>
       <button id="aviso-ok" class="mt-6 rounded-lg bg-amber-500 hover:bg-amber-400 px-6 py-2 font-semibold text-zinc-950">Ok</button>
     </div>
   </div>
@@ -470,7 +497,7 @@ Volta no desafio e procura um jeito de deixar o código mais claro: nomes, comen
       abaAtual = (i + abas.length) % abas.length
       conteudo.innerHTML = marked.parse(abas[abaAtual].texto.replace(/^---\s*$/gm, ""))
       navAbas.innerHTML = abas.map((a, j) =>
-        `<button data-aba="${j}" class="whitespace-nowrap px-3 py-2 text-sm border-b-2 ${j === abaAtual ? "border-amber-400 text-amber-300" : "border-transparent text-zinc-400 hover:text-zinc-200"}">${a.nome}</button>`
+        `<button data-aba="${j}" class="whitespace-nowrap px-3 py-2 text-sm border-b-2 ${j === abaAtual ? "border-amber-500 text-amber-700 dark:border-amber-400 dark:text-amber-300" : "border-transparent text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200"}">${a.nome}</button>`
       ).join("")
       window.scrollTo({ top: 0 })
     }
@@ -541,15 +568,11 @@ Volta no desafio e procura um jeito de deixar o código mais claro: nomes, comen
       el("total").textContent = `Desafio: ${formatar(duracao - decorrido)} restantes`
       el("barra").style.width = `${Math.min(100, (decorrido / duracao) * 100)}%`
       el("play").textContent = rodando ? "❚❚ Pausar" : "▶ Play"
-      el("play").className = `rounded-lg px-4 py-2 font-semibold ${rodando ? "bg-amber-600 hover:bg-amber-500" : "bg-emerald-600 hover:bg-emerald-500"}`
+      el("play").className = `rounded-lg px-4 py-2 font-semibold text-white ${rodando ? "bg-amber-600 hover:bg-amber-500" : "bg-emerald-600 hover:bg-emerald-500"}`
 
       const final = rodando && restante <= 60 && decorrido < duracao
-      el("cronometro").classList.toggle("border-red-500", final)
-      el("cronometro").classList.toggle("bg-red-950", final)
-      el("tempo").classList.toggle("text-red-400", final)
+      el("cronometro").classList.toggle("final", final)
       el("tempo").classList.toggle("piscar", rodando && restante <= 10 && decorrido < duracao)
-      el("barra").classList.toggle("bg-red-500", final)
-      el("barra").classList.toggle("bg-emerald-500", !final)
     }
 
     function avisar(titulo, texto) {
@@ -633,7 +656,13 @@ Volta no desafio e procura um jeito de deixar o código mais claro: nomes, comen
       el("som").textContent = somLigado ? "🔊" : "🔇"
     }
 
+    function alternarTema() {
+      const escuro = document.documentElement.classList.toggle("dark")
+      try { localStorage.setItem("tema", escuro ? "escuro" : "claro") } catch {}
+    }
+
     el("play").addEventListener("click", playPause)
+    el("tema").addEventListener("click", alternarTema)
     el("zerar").addEventListener("click", zerar)
     el("pular").addEventListener("click", pularParaTroca)
     el("som").addEventListener("click", alternarSom)
@@ -650,6 +679,7 @@ Volta no desafio e procura um jeito de deixar o código mais claro: nomes, comen
       if (e.code === "Space") { e.preventDefault(); playPause() }
       if (e.key === "r" || e.key === "R") zerar()
       if (e.key === "m" || e.key === "M") alternarSom()
+      if (e.key === "t" || e.key === "T") alternarTema()
       if (e.key === "ArrowRight") mostrarAba(abaAtual + 1)
       if (e.key === "ArrowLeft") mostrarAba(abaAtual - 1)
       if (e.key === "Escape") el("aviso").classList.add("hidden")
