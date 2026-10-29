@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Byte Burger · Desafios em dupla</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
-  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@18.1.2/lib/marked.umd.js"></script>
   <style type="text/tailwindcss">
     @custom-variant dark (&:where(.dark, .dark *));
   </style>
@@ -13,7 +13,8 @@
     // tema salvo no navegador; sem escolha salva, segue o tema do sistema
     try {
       const salvo = localStorage.getItem("tema")
-      const escuro = salvo ? salvo === "escuro" : matchMedia("(prefers-color-scheme: dark)").matches
+      let escuro = matchMedia("(prefers-color-scheme: dark)").matches
+      if (salvo) escuro = salvo === "escuro"
       document.documentElement.classList.toggle("dark", escuro)
     } catch {
       document.documentElement.classList.add("dark")
@@ -56,7 +57,7 @@
 <body class="bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 min-h-screen">
   <!--
     Para abrir: duplo clique neste arquivo (precisa de internet para o Tailwind e o marked).
-    O texto dos desafios vem do bloco "desafios-md" la embaixo, copiado do desafios.md.
+    Nao edite o index.html: ele e gerado por "pnpm index" a partir deste modelo e do desafios.md.
     Atalhos: espaco = play/pause, R = zerar, setas = trocar de aba, M = som, T = tema claro/escuro.
   -->
   <header class="sticky top-0 z-10 border-b border-zinc-200 bg-white/90 dark:border-zinc-800 dark:bg-zinc-950/90 backdrop-blur">
@@ -115,6 +116,28 @@
 Hoje vocês são a equipe de desenvolvimento da **Byte Burger**, uma lanchonete que está montando o próprio sistema. São 4 desafios, e cada um é um pedaço do sistema: o cadastro do cliente, o pedido, o programa de pontos e o fechamento da conta.
 
 Os desafios contam uma história só, mas cada arquivo já traz os dados de que precisa. Se a dupla não terminar um, começa o próximo do zero sem problema.
+
+## Preparando o computador
+
+Antes do primeiro desafio, cada dupla abre o terminal, cola os comandos abaixo e aperta Enter. Eles apagam a pasta antiga do curso, baixam os desafios de novo, instalam o que o `input` precisa e abrem o projeto no Zed. O `sudo` pede a senha do computador.
+
+```bash
+cd ~
+
+npm install --global tsx pnpm
+
+sudo rm -rf ~/CURSO-TS-CETAM
+
+git clone -b main https://github.com/jhollyfer/CURSO-TS-CETAM.git
+
+cd ~/CURSO-TS-CETAM
+
+pnpm install
+
+zed .
+```
+
+A pasta é apagada inteira. Se alguém tinha código lá que quer guardar, copia para outro lugar antes.
 
 ## Como funciona (programação em par)
 
@@ -493,12 +516,48 @@ Volta no desafio e procura um jeito de deixar o código mais claro: nomes, comen
     const navAbas = document.getElementById("abas")
     const conteudo = document.getElementById("conteudo")
 
+    const CLASSES_DA_ABA = {
+      ativa: "border-amber-500 text-amber-700 dark:border-amber-400 dark:text-amber-300",
+      inativa: "border-transparent text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200",
+    }
+
+    function botaoDaAba(aba, j) {
+      let classes = CLASSES_DA_ABA.inativa
+      if (j === abaAtual) classes = CLASSES_DA_ABA.ativa
+      return `<button data-aba="${j}" class="whitespace-nowrap px-3 py-2 text-sm border-b-2 ${classes}">${aba.nome}</button>`
+    }
+
+    // aberto por duplo clique (file://) alguns navegadores negam a area de transferencia:
+    // ai o texto fica selecionado e o aluno so aperta Ctrl+C
+    async function copiarBloco(bloco, botao) {
+      const codigo = bloco.querySelector("code")
+      try {
+        await navigator.clipboard.writeText(codigo.textContent)
+        botao.textContent = "Copiado!"
+      } catch {
+        getSelection().selectAllChildren(codigo)
+        botao.textContent = "Aperte Ctrl+C"
+      }
+      setTimeout(() => { botao.textContent = "Copiar" }, 2500)
+    }
+
+    // cada bloco de codigo ganha um botao de copiar (os comandos de preparar o computador, por exemplo)
+    function botoesDeCopiar() {
+      conteudo.querySelectorAll("pre").forEach((bloco) => {
+        const botao = document.createElement("button")
+        botao.textContent = "Copiar"
+        botao.className = "absolute top-2 right-2 rounded bg-zinc-200 px-2 py-0.5 text-xs text-zinc-700 hover:bg-zinc-300 dark:bg-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-600"
+        botao.addEventListener("click", () => copiarBloco(bloco, botao))
+        bloco.classList.add("relative")
+        bloco.append(botao)
+      })
+    }
+
     function mostrarAba(i) {
       abaAtual = (i + abas.length) % abas.length
       conteudo.innerHTML = marked.parse(abas[abaAtual].texto.replace(/^---\s*$/gm, ""))
-      navAbas.innerHTML = abas.map((a, j) =>
-        `<button data-aba="${j}" class="whitespace-nowrap px-3 py-2 text-sm border-b-2 ${j === abaAtual ? "border-amber-500 text-amber-700 dark:border-amber-400 dark:text-amber-300" : "border-transparent text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200"}">${a.nome}</button>`
-      ).join("")
+      navAbas.innerHTML = abas.map(botaoDaAba).join("")
+      botoesDeCopiar()
       window.scrollTo({ top: 0 })
     }
 
@@ -555,20 +614,32 @@ Volta no desafio e procura um jeito de deixar o código mais claro: nomes, comen
 
     function restanteNoTurno() {
       const meio = duracao / 2
-      return decorrido < meio ? meio - decorrido : duracao - decorrido
+      if (decorrido < meio) return meio - decorrido
+      return duracao - decorrido
+    }
+
+    // o que muda no botao play conforme o cronometro roda ou nao
+    const BOTAO_PLAY = {
+      parado: { texto: "▶ Play", cor: "bg-emerald-600 hover:bg-emerald-500" },
+      rodando: { texto: "❚❚ Pausar", cor: "bg-amber-600 hover:bg-amber-500" },
+    }
+
+    function textoDoTurno() {
+      if (decorrido >= duracao) return "Tempo esgotado"
+      if (decorrido < duracao / 2) return "Turno 1 · integrante A no teclado"
+      return "Turno 2 · integrante B no teclado"
     }
 
     function desenhar() {
-      const turno = decorrido < duracao / 2 ? 1 : 2
       const restante = restanteNoTurno()
       el("tempo").textContent = formatar(restante)
-      el("turno").textContent = decorrido >= duracao
-        ? "Tempo esgotado"
-        : `Turno ${turno} · integrante ${turno === 1 ? "A" : "B"} no teclado`
+      el("turno").textContent = textoDoTurno()
       el("total").textContent = `Desafio: ${formatar(duracao - decorrido)} restantes`
       el("barra").style.width = `${Math.min(100, (decorrido / duracao) * 100)}%`
-      el("play").textContent = rodando ? "❚❚ Pausar" : "▶ Play"
-      el("play").className = `rounded-lg px-4 py-2 font-semibold text-white ${rodando ? "bg-amber-600 hover:bg-amber-500" : "bg-emerald-600 hover:bg-emerald-500"}`
+      let play = BOTAO_PLAY.parado
+      if (rodando) play = BOTAO_PLAY.rodando
+      el("play").textContent = play.texto
+      el("play").className = `rounded-lg px-4 py-2 font-semibold text-white ${play.cor}`
 
       const final = rodando && restante <= 60 && decorrido < duracao
       el("cronometro").classList.toggle("final", final)
@@ -602,7 +673,9 @@ Volta no desafio e procura um jeito de deixar o código mais claro: nomes, comen
       if (restante <= 60 && restante > 0) {
         if (proximoBipFinal === Infinity) proximoBipFinal = decorrido
         if (decorrido >= proximoBipFinal) {
-          bip(restante <= 30 ? 1400 : 1000, 0.08)
+          let frequencia = 1000
+          if (restante <= 30) frequencia = 1400
+          bip(frequencia, 0.08)
           proximoBipFinal = decorrido + intervaloFinal(restante)
         }
       }
@@ -645,7 +718,8 @@ Volta no desafio e procura um jeito de deixar o código mais claro: nomes, comen
     }
 
     function pularParaTroca() {
-      const alvo = decorrido < duracao / 2 ? duracao / 2 - 3 : duracao - 3
+      let alvo = duracao - 3
+      if (decorrido < duracao / 2) alvo = duracao / 2 - 3
       decorrido = Math.max(decorrido, alvo)
       proximoBipFinal = decorrido
       desenhar()
@@ -653,12 +727,15 @@ Volta no desafio e procura um jeito de deixar o código mais claro: nomes, comen
 
     function alternarSom() {
       somLigado = !somLigado
-      el("som").textContent = somLigado ? "🔊" : "🔇"
+      el("som").textContent = "🔇"
+      if (somLigado) el("som").textContent = "🔊"
     }
 
     function alternarTema() {
       const escuro = document.documentElement.classList.toggle("dark")
-      try { localStorage.setItem("tema", escuro ? "escuro" : "claro") } catch {}
+      let tema = "claro"
+      if (escuro) tema = "escuro"
+      try { localStorage.setItem("tema", tema) } catch {}
     }
 
     el("play").addEventListener("click", playPause)

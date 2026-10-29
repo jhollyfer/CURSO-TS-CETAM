@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Byte Burger · Desafios em dupla</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@18.1.2/lib/marked.umd.js"></script>
+  <style type="text/tailwindcss">
+    @custom-variant dark (&:where(.dark, .dark *));
+  </style>
+  <script>
+    // tema salvo no navegador; sem escolha salva, segue o tema do sistema
+    try {
+      const salvo = localStorage.getItem("tema")
+      let escuro = matchMedia("(prefers-color-scheme: dark)").matches
+      if (salvo) escuro = salvo === "escuro"
+      document.documentElement.classList.toggle("dark", escuro)
+    } catch {
+      document.documentElement.classList.add("dark")
+    }
+  </script>
+  <style>
+    /* cores do texto do desafio (vem do markdown) */
+    :root {
+      --texto: #3f3f46; --forte: #09090b; --destaque: #b45309; --linha: #e4e4e7;
+      --codigo: #92400e; --fundo-codigo: #f4f4f5; --fundo-bloco: #fafafa; --borda: #d4d4d8; --bloco: #047857;
+    }
+    .dark {
+      --texto: #d4d4d8; --forte: #fff; --destaque: #fbbf24; --linha: #27272a;
+      --codigo: #fcd34d; --fundo-codigo: #27272a; --fundo-bloco: #18181b; --borda: #3f3f46; --bloco: #a7f3d0;
+    }
+    .md { line-height: 1.7; color: var(--texto); }
+    .md h2 { font-size: 1.9rem; font-weight: 800; line-height: 1.2; color: var(--forte); margin: 0 0 1rem; }
+    .md h3 { font-size: 1.2rem; font-weight: 700; color: var(--destaque); margin: 2.2rem 0 .6rem; padding-top: 1rem; border-top: 1px solid var(--linha); }
+    .md h1 { font-size: 2.2rem; font-weight: 800; color: var(--forte); margin-bottom: 1rem; }
+    .md p, .md ul, .md ol, .md pre, .md table { margin: .8rem 0; }
+    .md ul { list-style: disc; padding-left: 1.4rem; }
+    .md ol { list-style: decimal; padding-left: 1.4rem; }
+    .md strong { color: var(--forte); }
+    .md a { color: var(--destaque); text-decoration: underline; }
+    .md code { font-family: ui-monospace, monospace; font-size: .9em; color: var(--codigo); background: var(--fundo-codigo); padding: .1em .35em; border-radius: .3em; }
+    .md pre { background: var(--fundo-bloco); border: 1px solid var(--borda); border-radius: .6rem; padding: 1rem; overflow-x: auto; }
+    .md pre code { background: none; padding: 0; color: var(--bloco); }
+    .md table { display: block; overflow-x: auto; border-collapse: collapse; font-size: .95rem; }
+    .md th { text-align: left; color: var(--forte); background: var(--fundo-codigo); }
+    .md th, .md td { border: 1px solid var(--borda); padding: .4rem .7rem; }
+    #cronometro.final { border-color: #ef4444; background: #fef2f2; }
+    .dark #cronometro.final { background: #450a0a; }
+    #cronometro.final #tempo { color: #dc2626; }
+    .dark #cronometro.final #tempo { color: #f87171; }
+    #cronometro.final #barra { background: #ef4444; }
+    .piscar { animation: piscar 0.5s steps(2, start) infinite; }
+    @keyframes piscar { to { visibility: hidden; } }
+  </style>
+</head>
+<body class="bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 min-h-screen">
+  <!--
+    Para abrir: duplo clique neste arquivo (precisa de internet para o Tailwind e o marked).
+    Nao edite o index.html: ele e gerado por "pnpm index" a partir deste modelo e do desafios.md.
+    Atalhos: espaco = play/pause, R = zerar, setas = trocar de aba, M = som, T = tema claro/escuro.
+  -->
+  <header class="sticky top-0 z-10 border-b border-zinc-200 bg-white/90 dark:border-zinc-800 dark:bg-zinc-950/90 backdrop-blur">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <p class="text-xs uppercase tracking-widest text-amber-600 dark:text-amber-400">Byte Burger · Time de desenvolvimento</p>
+        <h1 class="text-xl font-bold">Desafios em dupla</h1>
+      </div>
+
+      <div id="cronometro" class="rounded-xl border border-zinc-300 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 px-4 py-3 w-full sm:w-auto transition-colors">
+        <div class="flex items-center gap-4">
+          <div>
+            <p id="turno" class="text-xs uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Turno 1 · integrante A no teclado</p>
+            <p id="tempo" class="font-mono text-5xl font-bold tabular-nums leading-none">15:00</p>
+            <p id="total" class="text-xs text-zinc-500 mt-1">Desafio: 30:00 restantes</p>
+          </div>
+          <div class="flex flex-col gap-2">
+            <button id="play" class="rounded-lg bg-emerald-600 hover:bg-emerald-500 px-4 py-2 font-semibold text-white">▶ Play</button>
+            <div class="flex gap-2">
+              <button id="zerar" title="Zerar (R)" class="rounded-lg bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 px-3 py-1 text-sm">↺</button>
+              <button id="pular" title="Pular para a troca" class="rounded-lg bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 px-3 py-1 text-sm">⇥</button>
+              <button id="som" title="Som (M)" class="rounded-lg bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 px-3 py-1 text-sm">🔊</button>
+              <button id="tema" title="Tema claro/escuro (T)" class="rounded-lg bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 px-3 py-1 text-sm"><span class="dark:hidden">🌙</span><span class="hidden dark:inline">☀️</span></button>
+            </div>
+          </div>
+        </div>
+        <div class="relative mt-3 h-2 rounded bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
+          <div id="barra" class="h-full bg-emerald-500 transition-[width]" style="width:0%"></div>
+          <div class="absolute inset-y-0 left-1/2 w-0.5 bg-zinc-500 dark:bg-zinc-400" title="Troca de piloto"></div>
+        </div>
+        <label class="mt-2 flex items-center gap-2 text-xs text-zinc-500">
+          Duração do desafio
+          <input id="minutos" type="number" min="2" max="120" step="2" value="30" class="w-14 rounded bg-zinc-200 px-1 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200">
+          min (troca na metade)
+        </label>
+      </div>
+    </div>
+    <nav id="abas" class="mx-auto max-w-7xl px-4 flex gap-1 overflow-x-auto"></nav>
+  </header>
+
+  <div id="aviso" class="hidden fixed inset-0 z-20 flex items-center justify-center bg-black/80 p-4">
+    <div class="rounded-2xl border border-amber-400 bg-white dark:bg-zinc-900 p-8 text-center max-w-lg">
+      <p id="aviso-titulo" class="text-4xl font-black text-amber-600 dark:text-amber-400">TROCA!</p>
+      <p id="aviso-texto" class="mt-3 text-zinc-700 dark:text-zinc-300"></p>
+      <button id="aviso-ok" class="mt-6 rounded-lg bg-amber-500 hover:bg-amber-400 px-6 py-2 font-semibold text-zinc-950">Ok</button>
+    </div>
+  </div>
+
+  <main class="mx-auto max-w-7xl px-4 py-8">
+    <article id="conteudo" class="md max-w-3xl"></article>
+  </main>
+
+  <script type="text/markdown" id="desafios-md">
+__DESAFIOS_MD__
+  </script>
+
+  <script>
+    // ABAS: o desafios.md e quebrado nos titulos "## " (Como funciona + Desafio 1..4)
+    const md = document.getElementById("desafios-md").textContent.trim()
+    const blocos = md.split(/^## /m)
+    const abertura = blocos.shift()
+    const desafios = blocos.filter((b) => b.startsWith("Desafio"))
+    const geral = blocos.filter((b) => !b.startsWith("Desafio"))
+    const abas = [
+      { nome: "Como funciona", texto: abertura + geral.map((b) => "## " + b).join("\n") },
+      ...desafios.map((b) => ({ nome: b.split("\n")[0].replace(/^Desafio (\d)\./, "Desafio $1 ·"), texto: "## " + b })),
+    ]
+
+    let abaAtual = 0
+    const navAbas = document.getElementById("abas")
+    const conteudo = document.getElementById("conteudo")
+
+    const CLASSES_DA_ABA = {
+      ativa: "border-amber-500 text-amber-700 dark:border-amber-400 dark:text-amber-300",
+      inativa: "border-transparent text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200",
+    }
+
+    function botaoDaAba(aba, j) {
+      let classes = CLASSES_DA_ABA.inativa
+      if (j === abaAtual) classes = CLASSES_DA_ABA.ativa
+      return `<button data-aba="${j}" class="whitespace-nowrap px-3 py-2 text-sm border-b-2 ${classes}">${aba.nome}</button>`
+    }
+
+    // aberto por duplo clique (file://) alguns navegadores negam a area de transferencia:
+    // ai o texto fica selecionado e o aluno so aperta Ctrl+C
+    async function copiarBloco(bloco, botao) {
+      const codigo = bloco.querySelector("code")
+      try {
+        await navigator.clipboard.writeText(codigo.textContent)
+        botao.textContent = "Copiado!"
+      } catch {
+        getSelection().selectAllChildren(codigo)
+        botao.textContent = "Aperte Ctrl+C"
+      }
+      setTimeout(() => { botao.textContent = "Copiar" }, 2500)
+    }
+
+    // cada bloco de codigo ganha um botao de copiar (os comandos de preparar o computador, por exemplo)
+    function botoesDeCopiar() {
+      conteudo.querySelectorAll("pre").forEach((bloco) => {
+        const botao = document.createElement("button")
+        botao.textContent = "Copiar"
+        botao.className = "absolute top-2 right-2 rounded bg-zinc-200 px-2 py-0.5 text-xs text-zinc-700 hover:bg-zinc-300 dark:bg-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-600"
+        botao.addEventListener("click", () => copiarBloco(bloco, botao))
+        bloco.classList.add("relative")
+        bloco.append(botao)
+      })
+    }
+
+    function mostrarAba(i) {
+      abaAtual = (i + abas.length) % abas.length
+      conteudo.innerHTML = marked.parse(abas[abaAtual].texto.replace(/^---\s*$/gm, ""))
+      navAbas.innerHTML = abas.map(botaoDaAba).join("")
+      botoesDeCopiar()
+      window.scrollTo({ top: 0 })
+    }
+
+    navAbas.addEventListener("click", (e) => {
+      const botao = e.target.closest("[data-aba]")
+      if (botao) mostrarAba(Number(botao.dataset.aba))
+    })
+
+    // links do cronograma (#desafio-2-...) abrem a aba do desafio
+    conteudo.addEventListener("click", (e) => {
+      const link = e.target.closest('a[href^="#desafio-"]')
+      if (!link) return
+      e.preventDefault()
+      mostrarAba(Number(link.getAttribute("href").match(/#desafio-(\d)/)[1]))
+    })
+
+    // SOM: bips gerados na hora com Web Audio (nao precisa de arquivo)
+    let audio = null
+    let somLigado = true
+
+    function bip(freq = 880, duracao = 0.12, volume = 0.25) {
+      if (!somLigado) return
+      audio ??= new AudioContext()
+      const osc = audio.createOscillator()
+      const ganho = audio.createGain()
+      osc.type = "square"
+      osc.frequency.value = freq
+      ganho.gain.setValueAtTime(volume, audio.currentTime)
+      ganho.gain.exponentialRampToValueAtTime(0.0001, audio.currentTime + duracao)
+      osc.connect(ganho).connect(audio.destination)
+      osc.start()
+      osc.stop(audio.currentTime + duracao)
+    }
+
+    const bipMarco = () => { bip(660, 0.15); setTimeout(() => bip(880, 0.2), 180) }
+    const alarme = () => [0, 250, 500, 750].forEach((t) => setTimeout(() => bip(1200, 0.22, 0.35), t))
+
+    // CRONOMETRO
+    // o desafio tem 2 turnos iguais (troca de piloto na metade).
+    // bip a cada 5 min; no ultimo minuto de cada turno, bip a cada 3 s;
+    // nos ultimos 30 s o intervalo vai encurtando ate virar quase um apito continuo.
+    const el = (id) => document.getElementById(id)
+    let duracao = 30 * 60
+    let decorrido = 0
+    let rodando = false
+    let ultimoInstante = 0
+    let proximoBipFinal = Infinity
+    let anuncioFeito = { meio: false, fim: false }
+
+    const formatar = (s) => {
+      const t = Math.max(0, Math.ceil(s))
+      return `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}`
+    }
+
+    function restanteNoTurno() {
+      const meio = duracao / 2
+      if (decorrido < meio) return meio - decorrido
+      return duracao - decorrido
+    }
+
+    // o que muda no botao play conforme o cronometro roda ou nao
+    const BOTAO_PLAY = {
+      parado: { texto: "▶ Play", cor: "bg-emerald-600 hover:bg-emerald-500" },
+      rodando: { texto: "❚❚ Pausar", cor: "bg-amber-600 hover:bg-amber-500" },
+    }
+
+    function textoDoTurno() {
+      if (decorrido >= duracao) return "Tempo esgotado"
+      if (decorrido < duracao / 2) return "Turno 1 · integrante A no teclado"
+      return "Turno 2 · integrante B no teclado"
+    }
+
+    function desenhar() {
+      const restante = restanteNoTurno()
+      el("tempo").textContent = formatar(restante)
+      el("turno").textContent = textoDoTurno()
+      el("total").textContent = `Desafio: ${formatar(duracao - decorrido)} restantes`
+      el("barra").style.width = `${Math.min(100, (decorrido / duracao) * 100)}%`
+      let play = BOTAO_PLAY.parado
+      if (rodando) play = BOTAO_PLAY.rodando
+      el("play").textContent = play.texto
+      el("play").className = `rounded-lg px-4 py-2 font-semibold text-white ${play.cor}`
+
+      const final = rodando && restante <= 60 && decorrido < duracao
+      el("cronometro").classList.toggle("final", final)
+      el("tempo").classList.toggle("piscar", rodando && restante <= 10 && decorrido < duracao)
+    }
+
+    function avisar(titulo, texto) {
+      el("aviso-titulo").textContent = titulo
+      el("aviso-texto").textContent = texto
+      el("aviso").classList.remove("hidden")
+    }
+
+    function intervaloFinal(restante) {
+      if (restante > 30) return 3
+      return Math.max(0.12, (restante / 30) * 1.2)
+    }
+
+    function passo(agora) {
+      if (!rodando) return
+      const antes = decorrido
+      decorrido = Math.min(duracao, decorrido + (agora - ultimoInstante) / 1000)
+      ultimoInstante = agora
+
+      // bip de marco a cada 5 minutos (fora do fim de turno, que tem alarme proprio)
+      const marcoAntes = Math.floor(antes / 300)
+      const marcoAgora = Math.floor(decorrido / 300)
+      if (marcoAgora > marcoAntes && decorrido % (duracao / 2) > 1 && restanteNoTurno() > 60) bipMarco()
+
+      // contagem final de cada turno, estilo bomba
+      const restante = restanteNoTurno()
+      if (restante <= 60 && restante > 0) {
+        if (proximoBipFinal === Infinity) proximoBipFinal = decorrido
+        if (decorrido >= proximoBipFinal) {
+          let frequencia = 1000
+          if (restante <= 30) frequencia = 1400
+          bip(frequencia, 0.08)
+          proximoBipFinal = decorrido + intervaloFinal(restante)
+        }
+      }
+
+      if (!anuncioFeito.meio && decorrido >= duracao / 2) {
+        anuncioFeito.meio = true
+        proximoBipFinal = Infinity
+        alarme()
+        avisar("TROCA!", "Quem estava no teclado vira navegador. Quem navegava assume o teclado. O tempo continua correndo.")
+      }
+      if (!anuncioFeito.fim && decorrido >= duracao) {
+        anuncioFeito.fim = true
+        rodando = false
+        alarme()
+        setTimeout(alarme, 1100)
+        avisar("TEMPO!", "Mãos fora do teclado. Rodem a correção: tsx ~/CURSO-TS-CETAM/desafios.spec.ts <número do desafio>")
+      }
+
+      desenhar()
+      if (rodando) requestAnimationFrame(passo)
+    }
+
+    function playPause() {
+      if (decorrido >= duracao) return
+      rodando = !rodando
+      if (rodando) {
+        bip(0, 0.01, 0.0001) // destrava o som do navegador no primeiro clique
+        ultimoInstante = performance.now()
+        requestAnimationFrame(passo)
+      }
+      desenhar()
+    }
+
+    function zerar() {
+      rodando = false
+      decorrido = 0
+      proximoBipFinal = Infinity
+      anuncioFeito = { meio: false, fim: false }
+      desenhar()
+    }
+
+    function pularParaTroca() {
+      let alvo = duracao - 3
+      if (decorrido < duracao / 2) alvo = duracao / 2 - 3
+      decorrido = Math.max(decorrido, alvo)
+      proximoBipFinal = decorrido
+      desenhar()
+    }
+
+    function alternarSom() {
+      somLigado = !somLigado
+      el("som").textContent = "🔇"
+      if (somLigado) el("som").textContent = "🔊"
+    }
+
+    function alternarTema() {
+      const escuro = document.documentElement.classList.toggle("dark")
+      let tema = "claro"
+      if (escuro) tema = "escuro"
+      try { localStorage.setItem("tema", tema) } catch {}
+    }
+
+    el("play").addEventListener("click", playPause)
+    el("tema").addEventListener("click", alternarTema)
+    el("zerar").addEventListener("click", zerar)
+    el("pular").addEventListener("click", pularParaTroca)
+    el("som").addEventListener("click", alternarSom)
+    el("aviso-ok").addEventListener("click", () => el("aviso").classList.add("hidden"))
+    el("minutos").addEventListener("change", (e) => {
+      const minutos = Math.min(120, Math.max(2, Number(e.target.value) || 30))
+      e.target.value = minutos
+      duracao = minutos * 60
+      zerar()
+    })
+
+    document.addEventListener("keydown", (e) => {
+      if (e.target.tagName === "INPUT") return
+      if (e.code === "Space") { e.preventDefault(); playPause() }
+      if (e.key === "r" || e.key === "R") zerar()
+      if (e.key === "m" || e.key === "M") alternarSom()
+      if (e.key === "t" || e.key === "T") alternarTema()
+      if (e.key === "ArrowRight") mostrarAba(abaAtual + 1)
+      if (e.key === "ArrowLeft") mostrarAba(abaAtual - 1)
+      if (e.key === "Escape") el("aviso").classList.add("hidden")
+    })
+
+    mostrarAba(0)
+    desenhar()
+  </script>
+</body>
+</html>
