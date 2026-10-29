@@ -2,6 +2,9 @@
 // Para rodar: tsx ~/CURSO-TS-CETAM/desafio-2.ts
 // Para ver a nota: tsx ~/CURSO-TS-CETAM/desafios.spec.ts 2
 // Escreva cada resposta embaixo do comentario da tarefa.
+//
+// Para ler dados do teclado use:
+// import { input } from '#core/input.ts'
 
 // TAREFA 1 - O cardapio
 

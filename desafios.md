@@ -6,7 +6,7 @@ Os desafios contam uma história só, mas cada arquivo já traz os dados de que 
 
 ## Como funciona (programação em par)
 
-A gente vai trabalhar do jeito que muita empresa trabalha: **programação em par**, uma prática do XP (Extreme Programming). São duas pessoas, um computador e um problema.
+A gente vai trabalhar do jeito que muita empresa trabalha: **programação em par**, uma prática do XP (Extreme Programming). Duas pessoas usam o mesmo computador para resolver o mesmo problema, e cada uma tem um papel.
 
 | Papel         | O que faz                                                                                                              |
 | ------------- | ---------------------------------------------------------------------------------------------------------------------- |
@@ -15,7 +15,8 @@ A gente vai trabalhar do jeito que muita empresa trabalha: **programação em pa
 
 Regras da dupla:
 
-- Cada desafio tem **30 minutos**. Aos **15 minutos** o professor avisa e vocês **trocam de papel**: quem era piloto vira navegador e o contrário.
+- Cada desafio tem **30 minutos**. Aos **15 minutos** o cronômetro apita e vocês **trocam de papel**: quem era piloto vira navegador e o contrário.
+- Nos primeiros minutos, leiam o desafio inteiro juntos antes de digitar qualquer coisa. Esse tempo já conta no turno do primeiro piloto.
 - O navegador não pega o teclado nem "dita letra por letra". Ele diz **o que** fazer ("agora tira os espaços do nome"), e o piloto decide **como** escrever.
 - Fez uma tarefa? Roda. Deu certo? Próxima. Não deixa para testar tudo no final.
 - Travou? Primeiro a dupla conversa e olha o `index.ts` e o `GUIA-DE-ESTUDOS.md`. Só depois chama o professor.
@@ -49,6 +50,13 @@ Cada desafio tem 5 tarefas de 2 pontos: **10 pontos por desafio**.
 
 - Quando a tarefa mandar criar alguma coisa, ela diz se é com `let` ou com `const`, e qual nome usar. Use **exatamente** esse nome.
 - Quando a tarefa pedir para "mostrar", é com `console.log`.
+- Quando a tarefa pedir para **ler** (o usuário digita), é com o `input`. Coloca esta linha uma vez, lá em cima do arquivo:
+
+  ```ts
+  import { input } from '#core/input.ts'
+  ```
+
+  O `input` sempre devolve **texto** (`string`). Se precisar de número, converte com `Number(...)`.
 - Nos desafios 3 e 4 o arquivo já começa com um bloco `// DADOS DO SISTEMA (nao mexa)`. Não mude nada ali.
 - Valor que dá para calcular **não se digita direto**. Se a tarefa pede o total, o total sai de uma conta, não de você escrever `93.28`.
 
@@ -62,14 +70,14 @@ Arquivo: `desafio-1.ts`
 
 ### Tarefa 1. Criando o cadastro (2 pts)
 
-Crie estas duas com `let`:
+O atendente digita os dados da cliente. Crie estas duas com `let`, **lendo com `input`**:
 
-| Crie com `let` | Valor                       |
-| -------------- | --------------------------- |
-| `nomeCliente`  | `"  maria eduarda lima  "`  |
-| `telefone`     | `"92991234567"`             |
+| Crie com `let` | Pergunta na tela          | O que digitar ao rodar     |
+| -------------- | ------------------------- | -------------------------- |
+| `nomeCliente`  | `"Nome do cliente: "`     | `  maria eduarda lima  `   |
+| `telefone`     | `"Telefone (so numeros): "` | `92991234567`            |
 
-Os espaços no começo e no fim do nome são de propósito. Copie do jeito que está.
+Na hora de rodar, digite o nome com 2 espaços antes e 2 depois: é de propósito, o atendente se enrolou no teclado.
 
 Crie estas duas com `const`, **escrevendo o tipo** (igual a `const idade: number = 12`):
 
@@ -135,7 +143,7 @@ Codigo: 2019-018 | Tel: (92) 98888-7777
 
 ## Desafio 2. Montando o pedido
 
-A Maria pediu 2 hambúrgueres, 1 batata e 3 refrigerantes. Ela vai dividir a conta com 2 amigos e pagar com uma nota de 100.
+A Maria pediu 2 hambúrgueres, 1 batata e 3 refrigerantes. Primeiro ela pensou em dividir a conta com 2 amigos, mas no fim pagou tudo com uma nota de 100. O sistema precisa calcular as duas coisas.
 
 Arquivo: `desafio-2.ts`
 
@@ -151,7 +159,15 @@ Crie com `const`, **escrevendo o tipo**:
 
 O preço do refri veio do cardápio digital como **texto**. Vamos ter que converter.
 
-Crie com `const`, **sem escrever o tipo**: `qtdBurger` valendo `2`, `qtdBatata` valendo `1` e `qtdRefri` valendo `3`.
+O caixa digita as quantidades. Crie com `const`, **sem escrever o tipo**, **lendo com `input`** e convertendo para número com `Number(...)`:
+
+| Crie com `const` | Pergunta na tela               | O que digitar ao rodar |
+| ---------------- | ------------------------------ | ---------------------- |
+| `qtdBurger`      | `"Quantos hamburgueres? "`     | `2`                    |
+| `qtdBatata`      | `"Quantas batatas? "`          | `1`                    |
+| `qtdRefri`       | `"Quantos refrigerantes? "`    | `3`                    |
+
+Por que precisa do `Number`? Porque o `input` devolve texto, e `"2" * 24.9` até funciona, mas `"2" + 1` vira `"21"`.
 
 ### Tarefa 2. Somando o pedido (2 pts)
 
@@ -283,7 +299,7 @@ VIP: true | Batata gratis: true | Desconto: true | Sorteio: false
 
 ## Desafio 4. Fechando a conta
 
-Hora de fechar a conta da Maria, que pediu por delivery. Cada regra da loja só vale **se** uma condição for verdadeira: é aqui que entra o `if`.
+A Maria pediu por delivery e a conta precisa ser fechada. Cada regra da loja só vale **se** uma condição for verdadeira, e quem confere isso no código é o `if`.
 
 Arquivo: `desafio-4.ts`. Ele já começa com os dados do pedido. **Não mexa neles.**
 

@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "customConditions": ["development"],
+    // "typeRoots": ["_types", "./node_modules/@types"],
+    "target": "ES2024",
+    "module": "ESNext",
+    "lib": ["ES2024"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noUnusedParameters": true,
+    "noUncheckedSideEffectImports": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "types": ["node"],
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true
+  },
+  // "include": [],
+  "exclude": ["node_modules"]
+}

@@ -54,6 +54,14 @@ const NOMES: Record<string, string[]> = {
   ],
 }
 
+// o que a correcao "digita" quando o programa chama input, em ordem
+const ENTRADAS: Record<string, string[]> = {
+  "1": ["  maria eduarda lima  ", "92991234567"],
+  "2": ["2", "1", "3"],
+  "3": [],
+  "4": [],
+}
+
 // RODANDO O CODIGO DO ALUNO
 // antes do codigo do aluno entra uma linha que, quando o programa termina (mesmo com erro),
 // salva num arquivo o valor de cada variavel. Variavel que nao existe fica de fora.
@@ -64,11 +72,18 @@ const arquivoRodar = path.join(pastaTemp, `desafio-${numero}.ts`)
 
 const coleta = NOMES[numero].map((n) => `try { __v[${JSON.stringify(n)}] = ${n} } catch {}`).join("; ")
 const ganchoDeSaida =
+  `const __entradas: string[] = ${JSON.stringify(ENTRADAS[numero])}; ` +
   `process.on("exit", () => { const __v: any = {}; ${coleta}; ` +
   `require("node:fs").writeFileSync(${JSON.stringify(arquivoValores)}, JSON.stringify(__v)) });`
 
+// o import do input vira um input de mentira, que responde com as ENTRADAS e mostra a pergunta
+// com a resposta, como se alguem tivesse digitado (na mesma linha, pra nao mudar a numeracao)
+const inputFalso =
+  `const input = (pergunta: string = ""): string => { const r = __entradas.shift() ?? ""; console.log(pergunta + r); return r };`
+const codigoParaRodar = codigoAluno.replace(/^[ \t]*import\s*\{\s*input\s*\}\s*from\s*['"][^'"]*input(\.ts)?['"]\s*;?/m, inputFalso)
+
 // o gancho entra na mesma linha 1 do aluno, assim o numero das linhas nos erros bate com o arquivo dele
-fs.writeFileSync(arquivoRodar, ganchoDeSaida + codigoAluno)
+fs.writeFileSync(arquivoRodar, ganchoDeSaida + codigoParaRodar)
 
 const execucao = spawnSync(process.execPath, [...process.execArgv, arquivoRodar], {
   encoding: "utf8",
@@ -172,8 +187,8 @@ const desafios: Record<string, { titulo: string; tarefas: Tarefa[] }> = {
       {
         titulo: "Criando o cadastro",
         checagens: [
-          ["let nomeCliente = \"  maria eduarda lima  \"", criadaCom("let", "nomeCliente") && v.nomeCliente === "  maria eduarda lima  "],
-          ["let telefone criada", criadaCom("let", "telefone")],
+          ["let nomeCliente lida com input", criadaCom("let", "nomeCliente") && /\binput\s*\(/.test(valorDaLinha("nomeCliente")) && v.nomeCliente === "  maria eduarda lima  "],
+          ["let telefone lida com input", criadaCom("let", "telefone") && /\binput\s*\(/.test(valorDaLinha("telefone"))],
           ["const LOJA: string = \"Byte Burger\"", comTipo("LOJA", "string") && v.LOJA === "Byte Burger"],
           ["const ANO_ABERTURA: number = 2019", comTipo("ANO_ABERTURA", "number") && v.ANO_ABERTURA === 2019],
           ["const clienteNovo = true, sem escrever o tipo", semTipo("clienteNovo") && v.clienteNovo === true],
@@ -231,7 +246,8 @@ const desafios: Record<string, { titulo: string; tarefas: Tarefa[] }> = {
           ["const PRECO_BURGER: number = 24.9", comTipo("PRECO_BURGER", "number") && v.PRECO_BURGER === 24.9],
           ["const PRECO_BATATA: number = 12.5", comTipo("PRECO_BATATA", "number") && v.PRECO_BATATA === 12.5],
           ["const precoRefriTexto: string = \"7.5\"", comTipo("precoRefriTexto", "string") && v.precoRefriTexto === "7.5"],
-          ["qtdBurger, qtdBatata e qtdRefri sem escrever o tipo", semTipo("qtdBurger") && semTipo("qtdBatata") && semTipo("qtdRefri") && v.qtdBurger === 2 && v.qtdBatata === 1 && v.qtdRefri === 3],
+          ["qtdBurger, qtdBatata e qtdRefri sem escrever o tipo", semTipo("qtdBurger") && semTipo("qtdBatata") && semTipo("qtdRefri")],
+          ["quantidades lidas com input e convertidas em numero", ["qtdBurger", "qtdBatata", "qtdRefri"].every((q) => /\binput\s*\(/.test(valorDaLinha(q)) && /\b(Number|parseInt|parseFloat)\s*\(/.test(valorDaLinha(q))) && v.qtdBurger === 2 && v.qtdBatata === 1 && v.qtdRefri === 3],
         ],
       },
       {
