@@ -100,254 +100,135 @@ console.log(x ** y)  // potencia: 10 elevado a 3 = 1000
 // OPERADORES DE ATRIBUICAO
 // jeito curto de fazer uma conta com a variavel e guardar o resultado nela mesma
 let valor = 5
-console.log(valor)   // 5
-//valor = valor + 10
-valor += 10
-console.log(valor)   // 15
-//valor = valor - 5
-valor -= 5
-console.log(valor)   // 10
-//valor = valor * 2
-valor *= 2
-console.log(valor)   // 20
-//valor = valor / 2
-valor /= 2
-console.log(valor)   // 10
-// valor = valor ** 3
-valor **= 3
-console.log(valor)   // 1000
-//incremento: soma 1
-valor += 1
-valor += 1
-valor += 1
-valor += 1
-valor += 1
-valor++              // o mesmo que valor += 1
-valor++
-console.log(valor)   // 1007
-//decremento: tira 1
-valor -= 1
-valor -= 1
-valor--              // o mesmo que valor -= 1
-valor--
-console.log(valor)   // 1003
+valor += 10          // valor = valor + 10 -> 15
+valor -= 5           // valor = valor - 5 -> 10
+valor *= 2           // valor = valor * 2 -> 20
+valor /= 2           // valor = valor / 2 -> 10
+valor **= 3          // valor = valor ** 3 -> 1000
+valor %= 7           // valor = valor % 7 -> 6 (resto de 1000 / 7)
+console.log(valor)
+valor++              // incremento: valor = valor + 1 -> 7
+valor--              // decremento: valor = valor - 1 -> 6
+console.log(valor)
 
-// OPERADORES RELACIONAIS
+// OPERADORES RELACIONAIS (de comparacao)
 // comparam dois valores e sempre devolvem boolean (true/false)
-console.log(10 > 5, 3 > 5)    // maior que: true false
-console.log(10 < 5, 3 < 5)    // menor que: false true
-console.log(10 >= 5, 3 >= 5)  // maior ou igual a: true false
-console.log(10 <= 5, 3 <= 5)  // menor ou igual a: false true
-// nas 4 linhas abaixo o editor sublinha de vermelho o 10 com '10': o TypeScript avisa que
-// number e string nunca deveriam ser comparados. O tsx roda mesmo assim, e serve pra ver a diferenca
-console.log(10 == '10', 10 == 10)    // igual a (so o valor, converte o tipo): true true
-console.log(10 === '10', 10 === 10)  // igual a (valor E tipo): false true - prefira este
-console.log(10 != '10', 10 != 10)    // diferente de (so o valor): false false
-console.log(10 !== '10', 10 !== 10)  // diferente de (valor E tipo): true false - prefira este
+console.log(x > y)    // maior que: true
+console.log(x < y)    // menor que: false
+console.log(x >= 10)  // maior ou igual: true
+console.log(x <= 9)   // menor ou igual: false
+// 10 com '10' (number com string): o editor sublinha de vermelho, mas o tsx roda
+console.log(10 == '10', 10 == 10)    // igual (so valor, converte o tipo): true true - evite
+console.log(10 === '10', 10 === 10)  // estritamente igual (valor E tipo): false true - prefira este
+console.log(10 != '10', 10 != 10)    // diferente (so valor): false false - evite
+console.log(10 !== '10', 10 !== 10)  // estritamente diferente (valor E tipo): true false - prefira este
 
 // OPERADORES LOGICOS
-// and, e, &&: so da true se os dois lados forem true
-console.log(true && true, true && false)    // true false
-console.log(false && true, false && false)  // false false
-console.log(10 > 5 && 5 < 7)                // true
-// or, ou, || (pipe): da true se pelo menos um lado for true
-console.log(true || true, true || false)    // true true
-console.log(false || true, false || false)  // true false
-console.log(10 < 5 || 5 < 7)                // true
-// not, nao, !: inverte o valor
-console.log(!true, !false, !!false)         // false true false
-console.log(!(10 === 10))                   // false
+// combinam resultados booleanos
+console.log(true && false)  // && (E): so e true se TODOS forem true -> false
+console.log(true || false)  // || (OU): e true se PELO MENOS UM for true -> true
+console.log(!true)          // ! (NAO): inverte o valor -> false
+console.log(x > 5 && y < 5) // exemplo combinando comparacoes: true
+console.log(10 < 5 || 5 < 7) // pelo menos uma verdadeira: true
+console.log(!!false)        // dois ! se cancelam: false
+console.log(!(10 === 10))   // inverte o resultado da comparacao: false
 
-// juntando relacionais e logicos (idade vale 13, la de cima)
+// juntando relacionais e logicos e guardando o resultado (idade vale 13)
 let maiorIdade = idade >= 18
 console.log(maiorIdade)                     // false
 let temCarteira = true
 let podeDirigir = idade >= 18 && temCarteira
 console.log(podeDirigir)                    // false
 
-//CONDICIONAIS SIMPLES
-// o if so executa a linha de baixo se a condicao for true
+// CONDICIONAL SIMPLES
+// if sem chaves: so a linha logo abaixo fica dentro do if
 podeDirigir = !podeDirigir                  // inverte: agora e true
 if (podeDirigir)
-    console.log("Você pode dirigir!")
+    console.log("Voce pode dirigir!")
+console.log("Mostrando depois do if")       // roda sempre, esta fora do if
 
-console.log("Mostrando depois do if")       // essa roda sempre, esta fora do if
+// if executa o bloco se a condicao for true; senao, executa o else
+if (idade >= 18) {
+    console.log("Maior de idade")
+} else {
+    console.log("Menor de idade")
+}
 
-// CONDICIONAIS COMPLETOS
-// if / else: se a condicao for true roda o 1o bloco, senao roda o do else
-// com varias linhas, use chaves { }
+// CONDICIONAL COMPOSTA (else if / operadores logicos)
+// else if testa varias condicoes em ordem; a primeira verdadeira vence
 const nota = 7.5
-if (nota >= 7) {
-    console.log("Aprovado!")
-} else {
-    console.log("Reprovado!")
-}
-
-// else if: testa varias condicoes em ordem; roda so a PRIMEIRA que for true
 if (nota >= 9) {
-    console.log("Conceito A")
+    console.log("Excelente")
 } else if (nota >= 7) {
-    console.log("Conceito B")
+    console.log("Aprovado")
 } else if (nota >= 5) {
-    console.log("Conceito C")
+    console.log("Recuperacao")
 } else {
-    console.log("Conceito D")
+    console.log("Reprovado")
 }
 
-// condicoes combinadas com && e ||
-const hora = 14
-if (hora >= 8 && hora < 18) {
-    console.log("Estamos abertos")
-} else {
-    console.log("Estamos fechados")
+// operadores logicos: && (E: ambos true), || (OU: um true basta), ! (NAO: inverte)
+// temCarteira ja foi criada la nos operadores logicos
+if (idade >= 18 && temCarteira) {
+    console.log("Pode dirigir")
+}
+if (idade < 12 || idade > 65) {
+    console.log("Tem desconto")
+}
+if (!temCarteira) {
+    console.log("Sem carteira")
 }
 
-// if dentro de if (aninhado)
+// CONDICIONAL ANINHADA
+// um if dentro de outro: o de dentro so e avaliado se o de fora for true
 const logado = true
 const admin = false
 if (logado) {
     if (admin) {
         console.log("Painel de administrador")
     } else {
-        console.log("Painel do usuario")
+        console.log("Painel de usuario")
     }
+} else {
+    console.log("Faca login")
 }
 
-// OPERADOR TERNARIO
-// jeito curto de if/else que devolve um valor: condicao ? valorSeTrue : valorSeFalse
-const situacao = nota >= 7 ? "Aprovado" : "Reprovado"
-console.log(situacao)
-
-// SWITCH
-// compara UMA variavel com varios valores exatos
-// "break" encerra o case; sem ele, o codigo "cai" no case de baixo
-// "default" roda quando nenhum case bate (e como o else)
-const dia = 3
+// ESCOLHA (switch)
+// compara uma variavel com varios "case"; util no lugar de muitos else if
+const dia: number = 3
 switch (dia) {
     case 1:
         console.log("Domingo")
-        break
+        break // break encerra o switch; sem ele, cai no proximo case
     case 2:
         console.log("Segunda")
         break
     case 3:
         console.log("Terca")
         break
-    default:
+    default: // executa se nenhum case bater
         console.log("Outro dia")
 }
-// varios cases juntos (sem break entre eles) fazem a mesma coisa
-switch (dia) {
-    case 1:
-    case 7:
-        console.log("Fim de semana")
-        break
-    default:
-        console.log("Dia util")
+
+// WHILE
+// testa a condicao ANTES; pode nao executar nenhuma vez
+// cuidado: lembre de alterar a variavel, senao vira loop infinito
+let contador = 1
+while (contador <= 5) {
+    console.log("while", contador)
+    contador++ // contador = contador + 1
 }
 
-// VETORES (ARRAYS)
-// lista de valores guardados numa unica variavel; os indices comecam em 0
-const frutas: string[] = ["maca", "banana", "uva"]
-const numeros: number[] = [10, 20, 30, 40]
-console.log(frutas, numeros)
-console.log(frutas[0], frutas[2])            // acessa pela posicao: maca uva
-console.log(frutas.length)                   // quantidade de itens: 3
-console.log(frutas[frutas.length - 1])       // ultimo item: uva
-frutas[1] = "laranja"                        // troca o item da posicao 1 (const nao impede mudar o conteudo)
-console.log(frutas)
-
-// metodos de vetor
-frutas.push("pera")                          // adiciona no FINAL
-frutas.unshift("kiwi")                       // adiciona no INICIO
-console.log(frutas)
-const removidoFim = frutas.pop()             // remove e devolve o ultimo
-const removidoInicio = frutas.shift()        // remove e devolve o primeiro
-console.log(removidoFim, removidoInicio, frutas)
-console.log(frutas.includes("uva"))          // existe no vetor? true
-console.log(frutas.indexOf("uva"))           // posicao do item (-1 se nao achar)
-console.log(frutas.join(" - "))              // junta tudo num texto: "maca - laranja - uva"
-console.log(numeros.slice(1, 3))             // recorta do indice 1 ate 3 (3 nao entra): [20, 30]
-
-// LACO FOR
-// repete um bloco: for (inicio; condicao; passo)
-// 1) let i = 0  -> comeca em 0 (roda uma vez)
-// 2) i < 5      -> testado antes de CADA volta; se false, o laco acaba
-// 3) i++        -> roda no fim de cada volta
-for (let i = 0; i < 5; i++) {
-    console.log("volta", i)                  // 0 1 2 3 4
-}
-
-// contagem regressiva (passo negativo)
-for (let i = 3; i >= 1; i--) {
-    console.log(i)                           // 3 2 1
-}
-
-// passo de 2 em 2: so os pares
-for (let i = 0; i <= 10; i += 2) {
-    console.log(i)                           // 0 2 4 6 8 10
-}
-
-// percorrendo um vetor pelo indice
-for (let i = 0; i < numeros.length; i++) {
-    console.log(i, numeros[i])
-}
-
-// acumulador: variavel fora do laco que vai juntando valores
-let soma = 0
-for (let i = 1; i <= 5; i++) {
-    soma += i                                // 1+2+3+4+5
-}
-console.log("soma:", soma)                   // 15
-
-// LACO FOR...OF
-// percorre os VALORES do vetor, sem se preocupar com indice
-for (const fruta of frutas) {
-    console.log(fruta)
-}
-// tambem funciona com texto: percorre letra por letra
-for (const letra of "TS") {
-    console.log(letra)                       // T S
-}
-
-// LACO WHILE
-// repete ENQUANTO a condicao for true (testa antes de cada volta)
-// cuidado: se a condicao nunca virar false, o laco e infinito!
-let contador = 0
-while (contador < 3) {
-    console.log("contador:", contador)
-    contador++                               // sem isso, nunca acaba
-}
-
-// LACO DO...WHILE
-// igual ao while, mas testa DEPOIS: roda pelo menos 1 vez
-let tentativas = 10
+// DO WHILE (executa pelo menos uma vez)
+// executa o bloco primeiro e so depois testa a condicao
+let numero = 10
 do {
-    console.log("rodou uma vez, tentativas:", tentativas)
-    tentativas++
-} while (tentativas < 5)                     // ja e false, mas o bloco rodou 1 vez
+    console.log("do while", numero) // roda 1 vez mesmo com a condicao falsa
+    numero++
+} while (numero < 5)
 
-// BREAK E CONTINUE
-// break: sai do laco na hora
-for (let i = 1; i <= 10; i++) {
-    if (i === 4) {
-        break
-    }
-    console.log("break:", i)                 // 1 2 3
-}
-// continue: pula so a volta atual e segue para a proxima
-for (let i = 1; i <= 5; i++) {
-    if (i === 3) {
-        continue
-    }
-    console.log("continue:", i)              // 1 2 4 5
-}
-
-// LACOS ANINHADOS
-// um laco dentro de outro: o de dentro faz todas as voltas a cada volta do de fora
-// exemplo: tabuada do 1 ao 3
-for (let a = 1; a <= 3; a++) {
-    for (let b = 1; b <= 3; b++) {
-        console.log(`${a} x ${b} = ${a * b}`)
-    }
+// FOR
+// for (inicio; condicao; passo): ideal quando se sabe quantas repeticoes
+for (let i = 0; i < 5; i++) {
+    console.log("for", i)
 }
