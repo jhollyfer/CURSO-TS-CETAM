@@ -172,3 +172,182 @@ if (podeDirigir)
     console.log("Você pode dirigir!")
 
 console.log("Mostrando depois do if")       // essa roda sempre, esta fora do if
+
+// CONDICIONAIS COMPLETOS
+// if / else: se a condicao for true roda o 1o bloco, senao roda o do else
+// com varias linhas, use chaves { }
+const nota = 7.5
+if (nota >= 7) {
+    console.log("Aprovado!")
+} else {
+    console.log("Reprovado!")
+}
+
+// else if: testa varias condicoes em ordem; roda so a PRIMEIRA que for true
+if (nota >= 9) {
+    console.log("Conceito A")
+} else if (nota >= 7) {
+    console.log("Conceito B")
+} else if (nota >= 5) {
+    console.log("Conceito C")
+} else {
+    console.log("Conceito D")
+}
+
+// condicoes combinadas com && e ||
+const hora = 14
+if (hora >= 8 && hora < 18) {
+    console.log("Estamos abertos")
+} else {
+    console.log("Estamos fechados")
+}
+
+// if dentro de if (aninhado)
+const logado = true
+const admin = false
+if (logado) {
+    if (admin) {
+        console.log("Painel de administrador")
+    } else {
+        console.log("Painel do usuario")
+    }
+}
+
+// OPERADOR TERNARIO
+// jeito curto de if/else que devolve um valor: condicao ? valorSeTrue : valorSeFalse
+const situacao = nota >= 7 ? "Aprovado" : "Reprovado"
+console.log(situacao)
+
+// SWITCH
+// compara UMA variavel com varios valores exatos
+// "break" encerra o case; sem ele, o codigo "cai" no case de baixo
+// "default" roda quando nenhum case bate (e como o else)
+const dia = 3
+switch (dia) {
+    case 1:
+        console.log("Domingo")
+        break
+    case 2:
+        console.log("Segunda")
+        break
+    case 3:
+        console.log("Terca")
+        break
+    default:
+        console.log("Outro dia")
+}
+// varios cases juntos (sem break entre eles) fazem a mesma coisa
+switch (dia) {
+    case 1:
+    case 7:
+        console.log("Fim de semana")
+        break
+    default:
+        console.log("Dia util")
+}
+
+// VETORES (ARRAYS)
+// lista de valores guardados numa unica variavel; os indices comecam em 0
+const frutas: string[] = ["maca", "banana", "uva"]
+const numeros: number[] = [10, 20, 30, 40]
+console.log(frutas, numeros)
+console.log(frutas[0], frutas[2])            // acessa pela posicao: maca uva
+console.log(frutas.length)                   // quantidade de itens: 3
+console.log(frutas[frutas.length - 1])       // ultimo item: uva
+frutas[1] = "laranja"                        // troca o item da posicao 1 (const nao impede mudar o conteudo)
+console.log(frutas)
+
+// metodos de vetor
+frutas.push("pera")                          // adiciona no FINAL
+frutas.unshift("kiwi")                       // adiciona no INICIO
+console.log(frutas)
+const removidoFim = frutas.pop()             // remove e devolve o ultimo
+const removidoInicio = frutas.shift()        // remove e devolve o primeiro
+console.log(removidoFim, removidoInicio, frutas)
+console.log(frutas.includes("uva"))          // existe no vetor? true
+console.log(frutas.indexOf("uva"))           // posicao do item (-1 se nao achar)
+console.log(frutas.join(" - "))              // junta tudo num texto: "maca - laranja - uva"
+console.log(numeros.slice(1, 3))             // recorta do indice 1 ate 3 (3 nao entra): [20, 30]
+
+// LACO FOR
+// repete um bloco: for (inicio; condicao; passo)
+// 1) let i = 0  -> comeca em 0 (roda uma vez)
+// 2) i < 5      -> testado antes de CADA volta; se false, o laco acaba
+// 3) i++        -> roda no fim de cada volta
+for (let i = 0; i < 5; i++) {
+    console.log("volta", i)                  // 0 1 2 3 4
+}
+
+// contagem regressiva (passo negativo)
+for (let i = 3; i >= 1; i--) {
+    console.log(i)                           // 3 2 1
+}
+
+// passo de 2 em 2: so os pares
+for (let i = 0; i <= 10; i += 2) {
+    console.log(i)                           // 0 2 4 6 8 10
+}
+
+// percorrendo um vetor pelo indice
+for (let i = 0; i < numeros.length; i++) {
+    console.log(i, numeros[i])
+}
+
+// acumulador: variavel fora do laco que vai juntando valores
+let soma = 0
+for (let i = 1; i <= 5; i++) {
+    soma += i                                // 1+2+3+4+5
+}
+console.log("soma:", soma)                   // 15
+
+// LACO FOR...OF
+// percorre os VALORES do vetor, sem se preocupar com indice
+for (const fruta of frutas) {
+    console.log(fruta)
+}
+// tambem funciona com texto: percorre letra por letra
+for (const letra of "TS") {
+    console.log(letra)                       // T S
+}
+
+// LACO WHILE
+// repete ENQUANTO a condicao for true (testa antes de cada volta)
+// cuidado: se a condicao nunca virar false, o laco e infinito!
+let contador = 0
+while (contador < 3) {
+    console.log("contador:", contador)
+    contador++                               // sem isso, nunca acaba
+}
+
+// LACO DO...WHILE
+// igual ao while, mas testa DEPOIS: roda pelo menos 1 vez
+let tentativas = 10
+do {
+    console.log("rodou uma vez, tentativas:", tentativas)
+    tentativas++
+} while (tentativas < 5)                     // ja e false, mas o bloco rodou 1 vez
+
+// BREAK E CONTINUE
+// break: sai do laco na hora
+for (let i = 1; i <= 10; i++) {
+    if (i === 4) {
+        break
+    }
+    console.log("break:", i)                 // 1 2 3
+}
+// continue: pula so a volta atual e segue para a proxima
+for (let i = 1; i <= 5; i++) {
+    if (i === 3) {
+        continue
+    }
+    console.log("continue:", i)              // 1 2 4 5
+}
+
+// LACOS ANINHADOS
+// um laco dentro de outro: o de dentro faz todas as voltas a cada volta do de fora
+// exemplo: tabuada do 1 ao 3
+for (let a = 1; a <= 3; a++) {
+    for (let b = 1; b <= 3; b++) {
+        console.log(`${a} x ${b} = ${a * b}`)
+    }
+}
