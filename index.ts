@@ -144,7 +144,7 @@ console.log(podeDirigir)                    // false
 // if sem chaves: só a linha logo abaixo fica dentro do if
 podeDirigir = !podeDirigir                  // inverte: agora é true
 if (podeDirigir)
-    console.log("Voce pode dirigir!")
+    console.log("Você pode dirigir!")
 console.log("Mostrando depois do if")       // roda sempre, está fora do if
 
 // if executa o bloco se a condição for true; senão, executa o else
@@ -162,7 +162,7 @@ if (nota >= 9) {
 } else if (nota >= 7) {
     console.log("Aprovado")
 } else if (nota >= 5) {
-    console.log("Recuperacao")
+    console.log("Recuperação")
 } else {
     console.log("Reprovado")
 }
@@ -187,10 +187,10 @@ if (logado) {
     if (admin) {
         console.log("Painel de administrador")
     } else {
-        console.log("Painel de usuario")
+        console.log("Painel de usuário")
     }
 } else {
-    console.log("Faca login")
+    console.log("Faça login")
 }
 
 // ESCOLHA (switch)
@@ -204,7 +204,7 @@ switch (dia) {
         console.log("Segunda")
         break
     case 3:
-        console.log("Terca")
+        console.log("Terça")
         break
     default: // executa se nenhum case bater
         console.log("Outro dia")
@@ -240,7 +240,7 @@ function somar(a: number, b: number): number {
 }
 // void = a função não devolve nada, só executa uma ação
 function saudacao(pessoa: string): void {
-    console.log(`Ola, ${pessoa}!`)
+    console.log(`Olá, ${pessoa}!`)
 }
 console.log(somar(2, 3))
 saudacao("Lucas")
@@ -256,9 +256,9 @@ console.log(subtrair(5, 2), multiplicar(3, 4), dobro(8))
 
 // VETORES (ARRAYS)
 // lista de valores; string[] = vetor de strings; índices começam em 0
-const frutas: string[] = ["maca", "banana", "uva"]
+const frutas: string[] = ["maçã", "banana", "uva"]
 console.log(frutas)
-console.log(frutas[0])          // acessa pelo índice: "maca"
+console.log(frutas[0])          // acessa pelo índice: "maçã"
 console.log(frutas.length)      // quantidade de itens
 frutas.push("laranja")          // adiciona no fim
 frutas.unshift("morango")       // adiciona no início
