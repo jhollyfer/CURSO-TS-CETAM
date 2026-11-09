@@ -4,8 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "typecheck": "tsc --noEmit",
-    "index": "tsx scripts/gerar-index.ts"
+    "typecheck": "tsc --noEmit"
   },
   "packageManager": "pnpm@12.6.0",
   "dependencies": {
@@ -16,8 +15,5 @@
     "@types/prompt-sync": "^4.2.3",
     "tsx": "^4.23.15",
     "typescript": "~7.0.2"
-  },
-  "imports": {
-    "#core/*": "./_core/*"
   }
 }
