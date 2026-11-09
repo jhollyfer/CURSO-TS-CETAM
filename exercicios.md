@@ -35,23 +35,23 @@ Onde a questão pedir um comentário, escreva no próprio arquivo com `//`.
 ## 2. Constantes (`const`)
 1. Crie `const LOJA = "Byte Burger"` e peça `nomeCliente`. Mostre os dois. Depois tente `LOJA = "Outra"`, leia o erro do editor, comente a linha e explique em comentário por que ela não funciona.
    Exemplo: `Byte Burger Maria`.
-2. Crie `const TAXA = 0.1`, peça o preço e mostre o preço somado à taxa (`preco + preco * TAXA`). Escreva em comentário se `preco` deve ser `let` ou `const`, e por quê.
-   Exemplo: `50` vira `55`.
+2. Crie `const TAXA = 0.1`, peça o preço com `input` e mostre os dois numa linha. Escreva em comentário se `TAXA` e `preco` devem ser `let` ou `const`, e por quê.
+   Exemplo: digitando `50`, sai `50 0.1`.
 
 ## 3. Tipos de dados (inferência)
 1. Sem escrever o tipo, crie `preco = 24.9`, `quantidade = 2`, `cardapio = "Hamburguer"` e `ehAdulto = idade >= 18` (com `idade = 15`). Escreva em comentário o tipo de cada uma e confira passando o mouse sobre o nome no editor.
    Exemplo: `number`, `number`, `string`, `boolean`.
-2. Peça dois números com `input` e mostre a soma sem converter e depois convertendo com `Number`. Escreva em comentário qual tipo o `input` devolve.
-   Exemplo: `2` e `3` dão `23` e `5`.
+2. Peça o nome e a idade com `input` e guarde em duas `const`. Escreva em comentário o tipo de cada uma e por que a idade também é `string`, mesmo sendo um número digitado. Confira passando o mouse sobre o nome.
+   Exemplo: `string` e `string`.
 
 ## 4. Tipos de dados (explícito)
 1. Com anotação de tipo, crie `LOJA` (string), `ANO_ABERTURA` (number, `2019`) e `aberto` (boolean). Peça o nome do cliente e guarde em `const cliente: string`. Mostre os quatro.
-2. Crie `let nota: number` lida do teclado e atribua outro número depois. Escreva em comentário por que `nota = "nove"` dá erro e por que `const media: number = "9.5"` também dá.
+2. Crie `let nota: number = 7` e atribua `9` depois. Escreva em comentário por que `nota = "nove"` dá erro e por que `"9.5"` (com aspas) não é um `number`.
 
 ## 5. Strings (aspas, crase e template string)
 1. Escreva `Byte Burger` com aspas duplas, aspas simples e crase e mostre os três. Depois, com `const ano = 2026`, mostre `Ano: ${ano}` com aspas duplas e com crase, e explique em comentário a diferença.
    Exemplo: `Ano: ${ano}` e `Ano: 2026`.
-2. Peça nome e idade e mostre `Meu nome é Maria e daqui a 5 anos terei 18 anos`, com a conta feita dentro do `${...}`.
+2. Peça nome e idade e mostre `Meu nome é Maria e tenho 13 anos`, com template string e uma variável dentro de cada `${...}`.
    Exemplo: `Maria` e `13`.
 
 ## 6. Strings (`trim`, `toUpperCase`, `toLowerCase`, `includes`)
@@ -63,8 +63,8 @@ Onde a questão pedir um comentário, escreva no próprio arquivo com `//`.
 ## 7. Strings (mais métodos)
 1. Com `const nome = "maria eduarda lima"`, mostre a quantidade de caracteres, o nome separado em palavras (`split`) e o `primeiroNome` com inicial maiúscula. Use `indexOf` para achar o espaço, `charAt` e `slice`, e junte com crase.
    Exemplo: `18`, `[ 'maria', 'eduarda', 'lima' ]`, `Maria`.
-2. Com `const telefone = "92988887777"`, monte `(92) 98888-7777` recortando com `slice` (sem digitar os números). Depois peça o número do último pedido, some 1 e mostre a senha com 3 dígitos. Lembre que `padStart` só existe em string.
-   Exemplo: `(92) 98888-7777` e, com pedido `7`, `Senha: 008`.
+2. Com `const telefone = "92988887777"`, monte `(92) 98888-7777` recortando com `slice` (sem digitar os números). Depois peça o número do pedido e mostre a senha com 3 dígitos (`padStart`), mais uma linha de 40 asteriscos (`repeat`).
+   Exemplo: `(92) 98888-7777` e, com pedido `7`, `Senha: 007`.
 
 ## 8. Números (`Math`, `toFixed` e conversões)
 1. A Maria pediu 2 hambúrgueres de `24.9`, 1 batata de `12.5` e 3 refris. O preço do refri veio como texto: `const precoRefriTexto = "7.5"`. Converta, calcule o `subtotal` e mostre: o subtotal com 2 casas, arredondado para cima, o maior e o menor entre os três totais (`Math.max` e `Math.min`) e o total com 10% de taxa, com 2 casas.
@@ -164,7 +164,7 @@ Onde a questão pedir um comentário, escreva no próprio arquivo com `//`.
 ## 24. Vetores (`map`, `filter`, `find`, `reduce`, `forEach`)
 1. Com `const precos = [24.9, 12.5, 7.5]`: use `map` para somar 10% de taxa a cada preço (arredonde cada um para 2 casas), `filter` para ficar com os maiores que 10 e `reduce` para a soma de todos, com 2 casas.
    Exemplo: `[ 27.39, 13.75, 8.25 ]`, `[ 24.9, 12.5 ]`, `44.90`.
-2. Peça 5 números e guarde em um vetor. Peça um valor e use `find` para mostrar o primeiro número maior que ele (ou `undefined`). Use `forEach` para mostrar `Item: X` de cada número.
+2. Peça 5 números e guarde em um vetor. Peça um valor e use `find` para mostrar o primeiro número maior que ele. Use `forEach` para mostrar `Item: X` de cada número.
    Exemplo: números `3 8 1 9 4` e valor `5` mostram `8`.
 
 ## 25. Vetores (outros métodos de alta ordem)
