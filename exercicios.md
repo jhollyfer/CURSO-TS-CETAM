@@ -1,210 +1,238 @@
-# Exercícios — Curso TypeScript (CETAM)
+# Exercícios
 
-Cada módulo tem 5 questões, todas usando **somente** o que aparece no `index.ts`.
-Escolha uma (ou mais) por módulo e resolva em um arquivo `.ts`, rodando com `tsx`.
+São 5 questões por assunto. Escolha uma (ou mais) de cada e resolva em um arquivo `.ts`.
+
+Todas usam o `input` para ler o que a pessoa digita:
+
+```ts
+import { input } from '#core/input.ts'
+
+const nome = input("Digite seu nome: ")
+```
+
+O `input` sempre devolve **texto**. Quando precisar de número, converta com `Number(...)`:
+
+```ts
+const idade = Number(input("Digite sua idade: "))
+```
+
+Para rodar:
+
+```bash
+tsx ~/CURSO-TS-CETAM/seu-arquivo.ts
+```
 
 ---
 
 ## 1. Variáveis (`let`)
-1. Crie `cidade` com seu município, mostre com `console.log`, troque o valor e mostre de novo.
-2. Crie `saldo = 100`, reatribua para `250` e mostre os dois valores (antes e depois).
-3. Crie `nome` e `idade`, mostre os dois juntos em um único `console.log`, depois altere ambos e mostre novamente.
-4. Crie `contador = 0`, reatribua três vezes (1, 2, 3) mostrando o valor após cada troca.
-5. Crie duas variáveis `a = 1` e `b = 2`, depois reatribua `a = b` e mostre as duas.
+1. Peça sua cidade, mostre, depois peça outra cidade e troque o valor da mesma variável. Mostre de novo.
+2. Peça o nome e a idade. Mostre os dois em um único `console.log`, depois peça de novo e mostre os novos valores.
+3. Crie `let saldo = 100`. Peça um valor, atribua esse valor ao `saldo` e mostre antes e depois.
+4. Crie `let contador = 0` e peça três palavras. A cada palavra lida, troque o `contador` (1, 2, 3) e mostre.
+5. Peça dois textos em `a` e `b`. Depois faça `a = b` e mostre as duas variáveis.
 
 ## 2. Constantes (`const`)
-1. Crie `const ANO_NASCIMENTO` com seu ano e mostre.
-2. Crie `const GRAVIDADE = 9.8` e mostre. Tente reatribuir e leia a mensagem de erro (depois comente a linha).
-3. Crie `const nome` e `let sobrenome`; troque apenas o `sobrenome` e mostre os dois.
-4. Crie `const TAXA = 0.1` e `let preco = 200`; mostre `preco * TAXA`.
-5. Explique em um comentário a diferença entre `let` e `const` e dê um exemplo de cada.
+1. Peça o ano de nascimento e guarde em uma `const`. Mostre.
+2. Crie `const GRAVIDADE = 9.8` e mostre. Tente reatribuir, leia o erro e comente a linha.
+3. Crie `const nome` lido do teclado e `let sobrenome` também. Troque só o `sobrenome` e mostre os dois.
+4. Crie `const TAXA = 0.1`, peça o preço e mostre `preco * TAXA`.
+5. Escreva em comentário a diferença entre `let` e `const` e dê um exemplo de cada, lendo o valor com `input`.
 
-## 3. Tipos de dados — inferência
-1. Crie quatro `const` sem anotação (number, decimal, string, boolean) e comente o tipo inferido de cada.
-2. Crie `const maior = 20 > 10` e diga qual tipo o TypeScript infere.
-3. Crie `const temperatura = 36.6` e comente por que não existe separação entre int e float.
-4. Crie `const turma = "3A"` e `const aprovado = turma === "3A"`; mostre os dois e comente os tipos.
-5. Crie `const resultado = 5 + 3` e `const texto = "5" + "3"`; mostre e comente os tipos e valores.
+## 3. Tipos de dados (inferência)
+1. Crie quatro `const` sem anotação (número inteiro, decimal, texto e boolean) e escreva em comentário o tipo de cada uma.
+2. Peça um número com `Number(input(...))` e guarde em `const maior` o resultado de `numero > 10`. Qual é o tipo?
+3. Peça a temperatura em `Number(input(...))` e escreva em comentário por que não existe separação entre inteiro e decimal.
+4. Peça a turma e crie `const aprovado = turma === "3A"`. Mostre os dois e comente os tipos.
+5. Peça dois textos com `input` e mostre a soma deles (`+`). Depois converta os dois com `Number` e mostre a soma de novo. Compare.
 
-## 4. Tipos de dados — explícito (anotação)
-1. Crie `const matricula: number = 2026` e `const aluno: string = "Ana"`.
+## 4. Tipos de dados (explícito)
+1. Peça a matrícula e o nome e guarde em `const matricula: number` e `const aluno: string`.
 2. Crie `const ativo: boolean = true` e mostre.
-3. Crie `const media: number = 8.5` e `const situacao: string = "Aprovado"`.
-4. Reescreva as quatro constantes do módulo 3 com anotação explícita.
-5. Crie `let nota: number = 7` e reatribua para `9`; depois comente por que `nota = "nove"` daria erro.
+3. Peça a média (`number`) e guarde também uma `const situacao: string = "Aprovado"`.
+4. Reescreva as quatro constantes do assunto 3 com o tipo escrito na frente.
+5. Crie `let nota: number` lida do teclado e atribua outro número. Depois escreva em comentário por que `nota = "nove"` dá erro.
 
-## 5. String — básico (aspas, crase, template)
-1. Crie três textos iguais usando aspas duplas, simples e crase; mostre os três.
-2. Com template string, mostre `"Meu nome é <nome> e tenho <idade> anos"`.
-3. Crie `const a = 4` e `const b = 6` e mostre com template string `"4 + 6 = 10"` usando `${a + b}`.
-4. Crie `const produto = "caneta"` e `const preco = 3.5` e mostre `"A caneta custa R$ 3.5"` com template string.
-5. Crie `const ano = 2026` e mostre `"Estamos em 2026"` com template string.
+## 5. Strings (aspas, crase e template string)
+1. Escreva o mesmo texto com aspas duplas, aspas simples e crase. Mostre os três.
+2. Peça nome e idade e mostre: `Meu nome é X e tenho Y anos` com template string.
+3. Peça dois números e mostre `a + b = soma` usando `${...}`.
+4. Peça o produto e o preço e mostre: `A caneta custa R$ 3.5` com template string.
+5. Peça o ano atual e mostre: `Estamos em 2026` com template string.
 
-## 6. String — `trim`, `toUpperCase`, `toLowerCase`, `includes`
-1. Dado `const entrada = "   maria   "`, mostre o texto sem espaços nas pontas.
-2. Mostre `"  Curso TS  "` limpo e em MAIÚSCULAS.
-3. Mostre `"  CURSO TS  "` limpo e em minúsculas.
-4. Dado `const email = " Ana@Mail.com "`, limpe e converta para minúsculas.
-5. Dado `const frase = "aprendendo typescript"`, mostre se ela inclui `"type"` e se inclui `"java"`.
+## 6. Strings (`trim`, `toUpperCase`, `toLowerCase`, `includes`)
+1. Peça um nome e mostre sem os espaços do começo e do fim.
+2. Peça uma frase e mostre limpa e em MAIÚSCULAS.
+3. Peça uma frase e mostre limpa e em minúsculas.
+4. Peça um e-mail, limpe e deixe em minúsculas.
+5. Peça uma frase e uma palavra. Mostre se a frase inclui a palavra.
 
-## 7. String — mais métodos
-1. Dado `const nome = "Lucas Silva"`, mostre a quantidade de caracteres (`length`) e o primeiro caractere (`charAt`).
-2. Com `indexOf`, mostre a posição de `"Silva"` e de `"Souza"` (que não existe).
-3. Com `slice`, recorte `"Lucas"` de `"Lucas Silva"`; com `replace`, troque `"Silva"` por `"Souza"`.
-4. Com `split(" ")`, quebre `"Lucas Silva Souza"` em partes; depois com `startsWith("Lu")` e `endsWith("za")` mostre os dois resultados.
-5. Com `repeat` crie `"abcabcabc"` e com `padStart` transforme `"5"` em `"005"`.
+## 7. Strings (mais métodos)
+1. Peça o nome completo e mostre a quantidade de caracteres (`length`) e o primeiro (`charAt`).
+2. Peça um nome e um trecho. Mostre a posição do trecho com `indexOf` (e `-1` se não existir).
+3. Peça o nome completo e mostre os 5 primeiros caracteres com `slice`. Depois troque um trecho com `replace`.
+4. Peça uma frase, quebre em palavras com `split(" ")` e mostre. Depois mostre `startsWith` e `endsWith` com trechos digitados.
+5. Peça um número e use `padStart` para mostrar com 3 dígitos (`7` vira `007`). Peça uma sílaba e repita 3 vezes com `repeat`.
 
-## 8. Number — métodos e `Math`
-1. Dado `const n = 7.8912`, mostre `toFixed(2)`, `Math.round`, `Math.floor` e `Math.ceil`.
-2. Mostre `Math.max(4, 9, 2)`, `Math.min(4, 9, 2)` e `Math.abs(-25)`.
-3. Mostre `Math.pow(5, 2)` e `Math.sqrt(81)`.
-4. Converta `"100"` com `Number` e some `5`; converta `"3.99"` com `parseInt` e com `parseFloat`.
-5. Gere um inteiro aleatório de 0 a 9 e mostre; depois mostre `Number.isInteger(7.5)` e `Number.isNaN(NaN)`.
+## 8. Números (`Math`, `toFixed` e conversões)
+1. Peça um decimal e mostre `toFixed(2)`, `Math.round`, `Math.floor` e `Math.ceil`.
+2. Peça três números e mostre o maior (`Math.max`), o menor (`Math.min`) e o valor absoluto do primeiro (`Math.abs`).
+3. Peça uma base e um expoente e mostre `Math.pow`. Peça outro número e mostre `Math.sqrt`.
+4. Peça um número como texto, converta com `Number` e some 5. Depois converta o mesmo texto com `parseInt` e com `parseFloat`.
+5. Gere um inteiro aleatório de 0 a 9 e peça um palpite. Mostre os dois. Depois mostre `Number.isInteger` e `Number.isNaN` do que foi digitado.
 
 ## 9. Operadores aritméticos
-1. Com `x = 20` e `y = 6`, mostre soma, subtração, multiplicação e divisão.
-2. Com `x = 20` e `y = 6`, mostre o resto (`%`) e a potência (`**`).
-3. Calcule a área de um retângulo de base `8` e altura `5` e mostre.
-4. Calcule o preço de 3 itens a `12.5` cada, mostrando o total com `toFixed(2)`.
-5. Use `%` para mostrar o resto de `17 % 5` e de `20 % 5` e comente o que cada resto indica.
+1. Peça dois números e mostre soma, subtração, multiplicação e divisão.
+2. Peça dois números e mostre o resto (`%`) e a potência (`**`).
+3. Peça base e altura e mostre a área do retângulo.
+4. Peça o preço de um item e a quantidade e mostre o total com `toFixed(2)`.
+5. Peça um número e mostre o resto da divisão por 5. Escreva em comentário o que o resto indica.
 
 ## 10. Operadores de atribuição
-1. Com `let v = 10`, aplique `+= 5`, `-= 3` e mostre o valor após cada operação.
-2. Com `let v = 4`, aplique `*= 3` e `/= 2` e mostre.
-3. Com `let v = 2`, aplique `**= 5` e depois `%= 7` e mostre.
-4. Com `let c = 0`, use `c++` três vezes e `c--` uma vez; mostre o valor final.
-5. Com `let total = 100`, aplique `-= 20`, `*= 2` e `+= 15`; comente o valor após cada linha.
+1. Peça um número em `let v` e aplique `+= 5` e `-= 3`, mostrando após cada operação.
+2. Peça um número em `let v` e aplique `*= 3` e `/= 2`, mostrando o valor.
+3. Peça um número em `let v` e aplique `**= 2` e `%= 7`, mostrando o valor.
+4. Crie `let c = 0`, use `c++` três vezes e `c--` uma vez e mostre o valor final.
+5. Peça um total inicial e aplique `-= 20`, `*= 2` e `+= 15`, mostrando cada resultado.
 
 ## 11. Operadores relacionais
-1. Com `a = 15` e `b = 9`, mostre `a > b`, `a < b`, `a >= 15` e `a <= 14`.
-2. Mostre `5 == "5"` e `5 === "5"` e comente a diferença.
-3. Mostre `5 != "5"` e `5 !== "5"` e comente a diferença.
-4. Crie `const idade = 17` e guarde em `const podeVotar` o resultado de `idade >= 16`; mostre.
-5. Mostre o resultado de `10 === 10` e `10 !== 10`; comente por que preferir `===` e `!==`.
+1. Peça dois números e mostre `a > b`, `a < b`, `a >= b` e `a <= b`.
+2. Peça um número e mostre `numero == "5"` e `numero === "5"`. Explique a diferença em comentário.
+3. Mostre `5 != "5"` e `5 !== "5"` e explique a diferença em comentário.
+4. Peça a idade e guarde em `const podeVotar` o resultado de `idade >= 16`. Mostre.
+5. Peça dois números e mostre `a === b` e `a !== b`. Escreva por que é melhor usar `===` e `!==`.
 
 ## 12. Operadores lógicos
 1. Mostre `true && false`, `true || false` e `!true`.
-2. Com `x = 10` e `y = 3`, mostre `x > 5 && y < 5`.
-3. Mostre `10 < 5 || 5 < 7` e `!(10 === 10)`.
-4. Com `idade = 20` e `temCarteira = true`, guarde em `podeDirigir` o resultado de `idade >= 18 && temCarteira`.
+2. Peça dois números `x` e `y` e mostre `x > 5 && y < 5`.
+3. Peça um número e mostre `numero < 5 || numero > 100` e `!(numero === 10)`.
+4. Peça idade e se tem carteira (`"s"` ou `"n"`). Guarde em `podeDirigir` o resultado de `idade >= 18 && temCarteira`.
 5. Mostre `!!false` e `!!true` e explique em comentário por que os dois `!` se cancelam.
 
 ## 13. Condicional simples (`if` / `else`)
-1. Com `const idade = 20`, mostre `"Maior de idade"` se `idade >= 18` (apenas `if`).
-2. Com `const nota = 4`, mostre `"Aprovado"` ou `"Reprovado"` usando `if`/`else` (aprovado se `nota >= 6`).
-3. Com `const numero = 8`, mostre se é `"Par"` ou `"Ímpar"` usando `%`.
-4. Com `let podeDirigir = false`, inverta com `!` e mostre `"Pode dirigir"` se ficar `true`, usando `if` sem chaves.
-5. Com `const saldo = 50` e `const valor = 80`, mostre `"Compra aprovada"` ou `"Saldo insuficiente"`.
+1. Peça a idade e mostre `Maior de idade` se for 18 ou mais (só `if`).
+2. Peça a nota e mostre `Aprovado` ou `Reprovado` (aprovado com 6 ou mais).
+3. Peça um número e mostre `Par` ou `Ímpar` usando `%`.
+4. Crie `let podeDirigir = false`, inverta com `!` e mostre `Pode dirigir` se ficar `true`, usando `if` sem chaves.
+5. Peça o saldo e o valor da compra. Mostre `Compra aprovada` ou `Saldo insuficiente`.
 
-## 14. Condicional composta (`else if` / lógicos)
-1. Com `nota = 8`, mostre `"Excelente"` (>= 9), `"Aprovado"` (>= 7), `"Recuperação"` (>= 5) ou `"Reprovado"`.
-2. Com `numero = 0`, mostre `"Positivo"`, `"Negativo"` ou `"Zero"`.
-3. Com `idade = 70`, mostre `"Tem desconto"` se `idade < 12 || idade > 65`.
-4. Com `idade = 25` e `temCarteira = true`, mostre `"Pode dirigir"` se `idade >= 18 && temCarteira`.
-5. Com `temCarteira = false`, mostre `"Sem carteira"` usando `!`.
+## 14. Condicional composta (`else if` e lógicos)
+1. Peça a nota e mostre `Excelente` (9 ou mais), `Aprovado` (7 ou mais), `Recuperação` (5 ou mais) ou `Reprovado`.
+2. Peça um número e mostre `Positivo`, `Negativo` ou `Zero`.
+3. Peça a idade e mostre `Tem desconto` se `idade < 12 || idade > 65`.
+4. Peça idade e se tem carteira. Mostre `Pode dirigir` se `idade >= 18 && temCarteira`.
+5. Peça se tem carteira (`"s"` ou `"n"`) e mostre `Sem carteira` usando `!`.
 
 ## 15. Condicional aninhada
-1. Com `logado = true` e `admin = true`, mostre `"Painel de administrador"`, `"Painel de usuário"` ou `"Faça login"`.
-2. Com `idade = 20` e `temCarteira = false`, se maior de idade, mostre `"Pode tirar carteira"` ou `"Pode dirigir"`; senão `"Menor de idade"`.
-3. Com `nota = 8` e `faltas = 10`, se `nota >= 7`, mostre `"Aprovado"` caso `faltas <= 15`, senão `"Reprovado por falta"`; se nota menor, `"Reprovado por nota"`.
-4. Com `numero = 12`, se for positivo, mostre `"Par"` ou `"Ímpar"`; senão `"Número não positivo"`.
-5. Com `estoque = 3` e `preco = 20`, se há estoque, mostre `"Vender"` se `preco < 50`, senão `"Preço alto"`; sem estoque, `"Esgotado"`.
+1. Peça se está logado e se é admin (`"s"` ou `"n"`). Mostre `Painel de administrador`, `Painel de usuario` ou `Faca login`.
+2. Peça idade e se tem carteira. Se for maior de idade: `Pode dirigir` ou `Pode tirar carteira`. Senão: `Menor de idade`.
+3. Peça nota e faltas. Se a nota for 7 ou mais, `Aprovado` caso as faltas sejam 15 ou menos, senão `Reprovado por falta`. Nota menor: `Reprovado por nota`.
+4. Peça um número. Se for positivo, mostre `Par` ou `Ímpar`. Senão, `Número não positivo`.
+5. Peça estoque e preço. Com estoque, mostre `Vender` se o preço for menor que 50, senão `Preço alto`. Sem estoque, `Esgotado`.
 
 ## 16. Escolha (`switch`)
-1. Com `dia = 1..7`, mostre o nome do dia da semana (1 = Domingo ... 7 = Sábado) com `default` para valores inválidos.
-2. Com `const mes: number = 2`, mostre `"Fevereiro"` e use `default` para `"Outro mês"` (basta 3 cases).
-3. Com `const opcao: number = 2`, mostre `"Iniciar"` (1), `"Pausar"` (2), `"Sair"` (3) ou `"Opção inválida"`.
-4. Com `const nota: number = 2`, mostre `"Ruim"` (1), `"Regular"` (2), `"Bom"` (3) ou `"Inválida"`.
-5. Remova um `break` de um dos seus cases e comente o que acontece (cai no próximo `case`).
+1. Peça um número de 1 a 7 e mostre o dia da semana (1 é Domingo). Use `default` para valores inválidos.
+2. Peça o número do mês (1 a 3) e mostre `Janeiro`, `Fevereiro` ou `Março`. `default`: `Outro mês`.
+3. Peça uma opção de 1 a 3 e mostre `Iniciar`, `Pausar` ou `Sair`. `default`: `Opção inválida`.
+4. Peça uma nota de 1 a 3 e mostre `Ruim`, `Regular` ou `Bom`. `default`: `Inválida`.
+5. Tire um `break` de um dos `case` e veja o que acontece. Escreva em comentário o resultado.
 
 ## 17. `while`
-1. Mostre os números de 1 a 10.
-2. Mostre os números de 10 a 1 (contagem regressiva).
-3. Mostre os números pares de 2 a 20.
-4. Some os números de 1 a 5 e mostre o total ao final.
-5. Mostre a tabuada do 3 (de 3 x 1 até 3 x 10).
+1. Peça um número `n` e mostre de 1 até `n`.
+2. Peça um número `n` e mostre a contagem regressiva de `n` até 1.
+3. Peça um limite e mostre os pares de 2 até o limite.
+4. Peça um número `n` e mostre a soma de 1 até `n`.
+5. Peça um número e mostre a tabuada dele de 1 a 10.
 
 ## 18. `do while`
-1. Mostre os números de 1 a 5 usando `do while`.
-2. Com `numero = 10` e condição `numero < 5`, mostre que o bloco roda uma vez.
-3. Mostre a contagem regressiva de 5 até 1.
-4. Some os números de 1 a 10 e mostre o total.
-5. Mostre a tabuada do 2 com `do while`.
+1. Peça `n` e mostre de 1 até `n` com `do while`.
+2. Com `numero = 10` e condição `numero < 5`, mostre que o bloco roda uma vez. Peça outro valor inicial e teste de novo.
+3. Peça `n` e mostre a contagem regressiva de `n` até 1.
+4. Peça `n` e mostre a soma de 1 até `n`.
+5. Peça um número e mostre a tabuada dele com `do while`.
 
 ## 19. `for`
-1. Mostre os números de 0 a 9.
-2. Mostre os números de 1 a 20 que são múltiplos de 5.
-3. Mostre a contagem regressiva de 10 até 1.
-4. Some os números de 1 a 100 e mostre o total.
-5. Mostre a tabuada do 7 (de 7 x 1 até 7 x 10) com template string.
+1. Peça `n` e mostre de 0 até `n - 1`.
+2. Peça um limite e mostre os múltiplos de 5 de 1 até o limite.
+3. Peça `n` e mostre a contagem regressiva de `n` até 1.
+4. Peça `n` e mostre a soma de 1 até `n`.
+5. Peça um número e mostre a tabuada dele de 1 a 10 com template string.
 
 ## 20. Funções
-1. Crie `dividir(a: number, b: number): number` e mostre `dividir(10, 4)`.
-2. Crie `maior(a: number, b: number): number` que retorna o maior valor (use `if`).
-3. Crie `ehPar(n: number): boolean` e mostre para `4` e para `7`.
-4. Crie `apresentar(nome: string, idade: number): void` que mostra `"Nome tem X anos"`.
-5. Crie `media(a: number, b: number, c: number): number` e mostre `media(7, 8, 9)`.
+1. Crie `dividir(a: number, b: number): number`. Peça dois números e mostre o resultado.
+2. Crie `maior(a: number, b: number): number` com `if`. Peça dois números e mostre o maior.
+3. Crie `ehPar(n: number): boolean`. Peça um número e mostre o resultado.
+4. Crie `apresentar(nome: string, idade: number): void` que mostra `Nome tem X anos`. Chame com valores lidos do teclado.
+5. Crie `media(a: number, b: number, c: number): number`. Peça três notas e mostre a média.
 
 ## 21. Arrow function
-1. Crie `const triplo = (n: number) => n * 3` e mostre `triplo(5)`.
-2. Crie `const somar = (a: number, b: number): number => a + b` e mostre `somar(2, 9)`.
-3. Crie uma arrow com chaves e `return` que calcula a área de um retângulo (`base`, `altura`).
-4. Crie `const ehMaior = (idade: number): boolean => idade >= 18` e teste com `10` e `30`.
-5. Crie `const saudar = (nome: string): void => { console.log(...) }` com template string.
+1. Crie `const triplo = (n: number) => n * 3`. Peça um número e mostre o resultado.
+2. Crie `const somar = (a: number, b: number): number => a + b`. Peça dois números e mostre a soma.
+3. Crie uma arrow com chaves e `return` que calcula a área do retângulo. Peça base e altura.
+4. Crie `const ehMaior = (idade: number): boolean => idade >= 18`. Peça a idade e mostre o resultado.
+5. Crie `const saudar = (nome: string): void => { ... }` com template string. Peça o nome e chame a função.
 
-## 22. Vetores — criação, acesso, `push`/`pop`/`shift`/`unshift`
-1. Crie `const cores: string[] = ["azul", "verde", "rosa"]`, mostre o vetor e a posição `0`.
-2. Mostre a quantidade de itens (`length`) e o último item usando `length - 1`.
-3. Adicione `"preto"` no fim (`push`) e `"branco"` no início (`unshift`); mostre.
-4. Remova o último (`pop`) e o primeiro (`shift`); mostre o vetor.
-5. Crie `const notas: number[] = [6, 8, 10]` e mostre `notas[1]` e `notas.length`.
+## 22. Vetores (criação, acesso, `push`, `pop`, `shift`, `unshift`)
+1. Crie `const cores: string[] = ["azul", "verde", "rosa"]`. Mostre o vetor e a posição que a pessoa digitar.
+2. Mostre `length` e o último item usando `length - 1`.
+3. Peça uma cor e coloque no fim com `push`. Peça outra e coloque no início com `unshift`. Mostre.
+4. Remova o último com `pop` e o primeiro com `shift`. Mostre o vetor.
+5. Crie `const notas: number[] = []`, peça 3 notas com `input`, adicione com `push` e mostre `notas[1]` e `notas.length`.
 
-## 23. Vetores — busca e cópia (`includes`, `indexOf`, `join`, `slice`, `reverse`)
-1. Dado `["maçã", "uva", "pera"]`, mostre se contém `"uva"` e se contém `"kiwi"`.
-2. Mostre o índice de `"pera"` e de `"kiwi"` (que retorna `-1`).
-3. Una os itens do vetor em uma string separada por `" - "` com `join`.
-4. Copie os dois primeiros itens com `slice(0, 2)` e mostre que o original não mudou.
-5. Use `reverse` e mostre o vetor invertido, comentando que ele altera o original.
+## 23. Vetores (`includes`, `indexOf`, `join`, `slice`, `reverse`)
+1. Crie `["maçã", "uva", "pera"]`, peça uma fruta e mostre se ela existe (`includes`).
+2. Peça uma fruta e mostre o índice (`indexOf`). Se não existir, aparece `-1`.
+3. Junte os itens em uma string com `join`, usando como separador o que a pessoa digitar.
+4. Copie só os dois primeiros itens com `slice(0, 2)` e mostre que o original não mudou.
+5. Use `reverse` e mostre o vetor invertido. Escreva em comentário que ele altera o original.
 
-## 24. Vetores — `map`, `filter`, `find`, `reduce`, `forEach`
-1. Com `[1, 2, 3, 4, 5]`, use `map` para obter os quadrados.
-2. Com o mesmo vetor, use `filter` para obter só os ímpares.
-3. Use `find` para achar o primeiro número maior que `2`.
-4. Use `reduce` para somar todos os itens (valor inicial `0`).
-5. Use `forEach` para mostrar `"Item: X"` para cada número.
+## 24. Vetores (`map`, `filter`, `find`, `reduce`, `forEach`)
+1. Peça 5 números com `input` e guarde em um vetor. Use `map` para obter os quadrados.
+2. Com o mesmo vetor, use `filter` para ficar só com os ímpares.
+3. Peça um valor e use `find` para achar o primeiro número maior que ele.
+4. Use `reduce` para somar todos os itens, começando em `0`.
+5. Use `forEach` para mostrar `Item: X` de cada número.
 
-## 25. Vetores — métodos de alta ordem adicionais
-1. Use `findIndex` para achar o índice do primeiro número maior que `2` e `findLast` para o último menor que `5`.
-2. Use `some` e `every` para verificar se algum é maior que `4` e se todos são positivos.
-3. Ordene `[30, 5, 100, 1]` com `sort()` sem função e depois com `(a, b) => a - b`; comente a diferença.
-4. Ordene `[30, 5, 100, 1]` em ordem decrescente com `(a, b) => b - a`.
-5. Use `flatMap` para gerar `[n, n * 10]` e `flat` em `[[1, 2], [3, 4]]`; depois `concat`, spread `...` e `at(-1)` para juntar e acessar o último.
+## 25. Vetores (outros métodos de alta ordem)
+1. Peça 5 números. Use `findIndex` para achar o primeiro maior que 2 e `findLast` para o último menor que 5.
+2. Use `some` para saber se algum é maior que 4 e `every` para saber se todos são positivos.
+3. Ordene com `sort()` sem função e depois com `(a, b) => a - b`. Escreva a diferença em comentário.
+4. Ordene em ordem decrescente com `(a, b) => b - a`.
+5. Use `flatMap` para gerar `[n, n * 10]`. Depois use `flat`, `concat`, spread `...` e `at(-1)` para juntar e acessar o último.
 
-## 26. Vetores — `splice`, `Array.from` e encadeamento
-1. Com uma cópia `[...numeros]`, use `splice(1, 2)` para remover dois itens e mostre.
-2. Com uma cópia, use `splice(1, 0, 99)` para inserir `99` na posição `1` sem remover.
-3. Use `Array.from({ length: 5 }, (_, i) => i * 3)` para gerar `[0, 3, 6, 9, 12]`.
-4. Encadeie `filter` + `map` + `reduce` para somar os cubos dos números ímpares de `[1, 2, 3, 4, 5]`.
-5. Encadeie `map` + `filter` para dobrar os números de `[1, 2, 3, 4, 5]` e manter só os maiores que `4`.
+## 26. Vetores (`splice`, `Array.from` e encadeamento)
+1. Faça uma cópia com `[...numeros]`, peça a posição e use `splice(posicao, 2)` para remover dois itens.
+2. Faça uma cópia, peça um número e insira na posição 1 com `splice(1, 0, numero)`.
+3. Peça `n` e gere `n` múltiplos de 3 com `Array.from({ length: n }, (_, i) => i * 3)`.
+4. Encadeie `filter`, `map` e `reduce` para somar os cubos dos números ímpares de um vetor lido do teclado.
+5. Encadeie `map` e `filter` para dobrar os números e manter só os maiores que um valor digitado.
 
 ## 27. Vetor de objetos
-Use `const produtos = [{ nome: "caneta", preco: 3, estoque: 10 }, { nome: "caderno", preco: 15, estoque: 0 }, { nome: "mochila", preco: 120, estoque: 4 }]`.
-1. Use `map` para mostrar apenas os nomes.
-2. Use `filter` para mostrar os produtos com estoque maior que `0`.
-3. Use `find` para encontrar o produto `"caderno"`.
+Use este vetor:
+
+```ts
+const produtos = [
+    { nome: "caneta", preco: 3, estoque: 10 },
+    { nome: "caderno", preco: 15, estoque: 0 },
+    { nome: "mochila", preco: 120, estoque: 4 },
+]
+```
+
+1. Use `map` para mostrar só os nomes.
+2. Peça um estoque mínimo e use `filter` para mostrar os produtos que atingem esse valor.
+3. Peça o nome de um produto e use `find` para mostrar o objeto (ou `undefined`).
 4. Use `reduce` para calcular o valor total em estoque (`preco * estoque`).
-5. Use `some` (algum esgotado?), `every` (todos com preço > 0?) e `[...produtos].sort` para ordenar por preço decrescente.
+5. Use `some` (algum esgotado?), `every` (todos com preço maior que 0?) e `[...produtos].sort` para ordenar por preço.
 
 ## 28. `for of`
-1. Percorra `["a", "b", "c"]` com `for of` e mostre cada item.
-2. Percorra `[2, 4, 6]` com `for of` e mostre o dobro de cada um.
-3. Percorra `[3, 7, 10]` e some os valores em uma variável `total`.
-4. Percorra um vetor de strings e mostre só as que incluem `"a"`.
-5. Percorra o vetor `produtos` do módulo 27 e mostre `"nome - R$ preco"` de cada item.
+1. Crie `["a", "b", "c"]`, peça uma letra e percorra com `for of` mostrando cada item.
+2. Peça 3 números, guarde em um vetor e percorra com `for of` mostrando o dobro de cada um.
+3. Peça 3 números e some todos em `total` com `for of`.
+4. Peça uma letra e percorra um vetor de textos mostrando só os que incluem essa letra.
+5. Percorra o vetor `produtos` do assunto 27 e mostre `nome - R$ preco`.
 
 ## 29. `for` com índice
-1. Percorra `["x", "y", "z"]` mostrando `índice` e `valor`.
-2. Percorra `[5, 10, 15]` e mostre `"Posição i: valor"` com template string.
-3. Percorra um vetor de números e mostre apenas os que estão em posições pares (`i % 2 === 0`).
-4. Percorra o vetor do fim ao começo (`i--`) mostrando cada item.
-5. Percorra `produtos` e mostre `"1 - caneta"`, `"2 - caderno"`... usando `i + 1`.
+1. Percorra um vetor de 3 textos digitados mostrando índice e valor.
+2. Percorra um vetor de números e mostre `Posição i: valor` com template string.
+3. Peça 5 números e mostre só os que estão em posições pares (`i % 2 === 0`).
+4. Percorra o vetor do fim ao começo (`i--`), mostrando cada item.
+5. Percorra `produtos` mostrando `1 - caneta`, `2 - caderno`... usando `i + 1`.

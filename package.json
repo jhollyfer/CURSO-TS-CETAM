@@ -15,5 +15,8 @@
     "@types/prompt-sync": "^4.2.3",
     "tsx": "^4.23.15",
     "typescript": "~7.0.2"
+  },
+  "imports": {
+    "#core/*": "./_core/*"
   }
 }
