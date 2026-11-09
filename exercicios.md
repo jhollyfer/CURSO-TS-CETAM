@@ -1,6 +1,6 @@
 # Exercícios
 
-Todas usam o `input` para ler o que a pessoa digita:
+As questões usam o `input` para ler o que a pessoa digita:
 
 ```ts
 import { input } from '#core/input.ts'
