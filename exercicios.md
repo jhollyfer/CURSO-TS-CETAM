@@ -1,6 +1,6 @@
 # Exercícios
 
-São 2 questões por assunto. Resolva as duas, em um arquivo `.ts`, sem olhar o `index.ts`.
+São 2 questões por assunto, todas no cenário da **Byte Burger**. Resolva as duas em um arquivo `.ts`, sem olhar o `index.ts`, e confira a saída com o exemplo de cada questão.
 
 As questões usam o `input` para ler o que a pessoa digita:
 
@@ -22,130 +22,188 @@ Para rodar:
 tsx ~/CURSO-TS-CETAM/seu-arquivo.ts
 ```
 
+Onde a questão pedir um comentário, escreva no próprio arquivo com `//`.
+
 ---
 
 ## 1. Variáveis (`let`)
-1. Peça o nome e a idade e mostre os dois em um único `console.log`. Peça de novo, troque os valores das mesmas variáveis (sem repetir o `let`) e mostre os novos.
-2. Peça dois textos em `a` e `b` e troque o conteúdo entre as duas variáveis sem perder nenhum valor. Mostre antes e depois.
+1. Peça `nomeCliente` e `telefone` e mostre os dois numa linha. A cliente corrigiu os dados: peça de novo, reatribua as mesmas variáveis (sem repetir o `let`) e mostre outra vez.
+   Exemplo: `Maria 92991234567`, depois `Maria Eduarda 92988887777`.
+2. Peça dois textos em `a` e `b` e troque o conteúdo das duas variáveis sem perder nenhum valor (você vai precisar de uma terceira variável). Mostre antes e depois.
+   Exemplo: `burger batata` vira `batata burger`.
 
 ## 2. Constantes (`const`)
-1. Crie `const TAXA = 0.1`, peça o preço e mostre o preço somado à taxa. Depois tente reatribuir `TAXA`, leia o erro e comente a linha.
-2. Crie `const nome` e `let sobrenome`, os dois lidos do teclado. Troque só o `sobrenome` e mostre os dois. Escreva em comentário quando você escolhe `let` e quando escolhe `const`.
+1. Crie `const LOJA = "Byte Burger"` e peça `nomeCliente`. Mostre os dois. Depois tente `LOJA = "Outra"`, leia o erro do editor, comente a linha e explique em comentário por que ela não funciona.
+   Exemplo: `Byte Burger Maria`.
+2. Crie `const TAXA = 0.1`, peça o preço e mostre o preço somado à taxa (`preco + preco * TAXA`). Escreva em comentário se `preco` deve ser `let` ou `const`, e por quê.
+   Exemplo: `50` vira `55`.
 
 ## 3. Tipos de dados (inferência)
-1. Crie quatro `const` sem anotação (inteiro, decimal, texto e boolean) e escreva em comentário o tipo de cada uma. Confira passando o mouse sobre o nome no editor.
-2. Peça dois números com `input` e mostre a soma sem converter e depois convertendo com `Number`. Escreva em comentário o tipo que o `input` devolve e por que os resultados diferem.
+1. Sem escrever o tipo, crie `preco = 24.9`, `quantidade = 2`, `cardapio = "Hamburguer"` e `ehAdulto = idade >= 18` (com `idade = 15`). Escreva em comentário o tipo de cada uma e confira passando o mouse sobre o nome no editor.
+   Exemplo: `number`, `number`, `string`, `boolean`.
+2. Peça dois números com `input` e mostre a soma sem converter e depois convertendo com `Number`. Escreva em comentário qual tipo o `input` devolve.
+   Exemplo: `2` e `3` dão `23` e `5`.
 
 ## 4. Tipos de dados (explícito)
-1. Peça a matrícula e o nome e guarde em `const matricula: number` e `const aluno: string`. Crie também `const ativo: boolean = true` e mostre os três.
-2. Crie `let nota: number` lida do teclado e atribua outro número depois. Escreva em comentário por que `nota = "nove"` dá erro.
+1. Com anotação de tipo, crie `LOJA` (string), `ANO_ABERTURA` (number, `2019`) e `aberto` (boolean). Peça o nome do cliente e guarde em `const cliente: string`. Mostre os quatro.
+2. Crie `let nota: number` lida do teclado e atribua outro número depois. Escreva em comentário por que `nota = "nove"` dá erro e por que `const media: number = "9.5"` também dá.
 
 ## 5. Strings (aspas, crase e template string)
-1. Escreva o mesmo texto com aspas duplas, aspas simples e crase. Mostre os três.
-2. Peça o nome e a idade e mostre `Meu nome é X e daqui a 5 anos terei Y anos`, com a conta feita dentro do `${...}`.
+1. Escreva `Byte Burger` com aspas duplas, aspas simples e crase e mostre os três. Depois, com `const ano = 2026`, mostre `Ano: ${ano}` com aspas duplas e com crase, e explique em comentário a diferença.
+   Exemplo: `Ano: ${ano}` e `Ano: 2026`.
+2. Peça nome e idade e mostre `Meu nome é Maria e daqui a 5 anos terei 18 anos`, com a conta feita dentro do `${...}`.
+   Exemplo: `Maria` e `13`.
 
 ## 6. Strings (`trim`, `toUpperCase`, `toLowerCase`, `includes`)
-1. Peça um e-mail e mostre ele sem espaços nas pontas e em minúsculas, encadeando os métodos.
-2. Peça uma frase e uma palavra. Mostre se a frase inclui a palavra sem diferenciar maiúsculas de minúsculas.
+1. O atendente digitou `" maria eduarda lima "` com espaços sobrando. Guarde em `nomeCliente`, crie `nome` sem os espaços das pontas e mostre `nome` em maiúsculas, em minúsculas e se ele inclui `"lima"`.
+   Exemplo: `MARIA EDUARDA LIMA`, `maria eduarda lima`, `true`.
+2. Peça um e-mail e mostre ele sem espaços nas pontas e em minúsculas, encadeando os métodos. Mostre também se ele inclui `"@"`.
+   Exemplo: `"  ALUNO@CETAM.COM  "` vira `aluno@cetam.com` e `true`.
 
 ## 7. Strings (mais métodos)
-1. Peça o nome completo e mostre a quantidade de caracteres e o primeiro nome (use `indexOf` para achar o espaço e `slice` para recortar).
-2. Peça um número, some 1 e mostre o resultado com 3 dígitos (`7` vira `008`). Lembre que `padStart` só existe em string.
+1. Com `const nome = "maria eduarda lima"`, mostre a quantidade de caracteres, o nome separado em palavras (`split`) e o `primeiroNome` com inicial maiúscula. Use `indexOf` para achar o espaço, `charAt` e `slice`, e junte com crase.
+   Exemplo: `18`, `[ 'maria', 'eduarda', 'lima' ]`, `Maria`.
+2. Com `const telefone = "92988887777"`, monte `(92) 98888-7777` recortando com `slice` (sem digitar os números). Depois peça o número do último pedido, some 1 e mostre a senha com 3 dígitos. Lembre que `padStart` só existe em string.
+   Exemplo: `(92) 98888-7777` e, com pedido `7`, `Senha: 008`.
 
 ## 8. Números (`Math`, `toFixed` e conversões)
-1. Peça um preço decimal e mostre com duas casas (`toFixed`), arredondado para cima (`Math.ceil`) e para baixo (`Math.floor`).
-2. Gere um inteiro aleatório de 1 a 6 e mostre. Peça um palpite, converta com `Number` e mostre também `Number.isNaN` do que foi digitado. Teste digitando uma letra.
+1. A Maria pediu 2 hambúrgueres de `24.9`, 1 batata de `12.5` e 3 refris. O preço do refri veio como texto: `const precoRefriTexto = "7.5"`. Converta, calcule o `subtotal` e mostre: o subtotal com 2 casas, arredondado para cima, o maior e o menor entre os três totais (`Math.max` e `Math.min`) e o total com 10% de taxa, com 2 casas.
+   Exemplo: `84.80`, `85`, `49.8`, `12.5`, `93.28`.
+2. Sorteie a senha do pedido, um inteiro de 0 a 99, e mostre. Peça um palpite, converta com `Number` e mostre também `Number.isNaN` do que foi digitado. Teste digitando uma letra.
+   Exemplo: palpite `abc` mostra `true`.
 
 ## 9. Operadores aritméticos
-1. Peça base e altura e mostre a área e o perímetro do retângulo.
-2. Peça três notas e mostre a média com uma casa decimal. Cuidado com a ordem das operações.
+1. A mesa do salão é um retângulo. Peça base e altura e mostre a área e o perímetro.
+   Exemplo: `4` e `3` dão `12` e `14`.
+2. Peça três notas e mostre a média com uma casa decimal. Cuidado com a ordem das operações. Depois mostre o resto da divisão de `17` por `5` e explique em comentário o que o resto indica.
+   Exemplo: `6`, `8` e `10` dão `8.0`; o resto é `2`.
 
 ## 10. Operadores de atribuição
-1. Peça um total inicial e aplique `-= 20`, `*= 2` e `+= 15`, mostrando o valor depois de cada passo.
-2. Crie `let c = 0`, use `c++` três vezes e `c--` uma vez, depois `c **= 3` e `c %= 5`. Escreva em comentário o valor esperado antes de rodar e compare.
+1. Programa de pontos: crie `let pontos = 120` e `const totalPedido = 93.28`. Sem criar outra variável, some o `totalPedido` arredondado para baixo (`Math.floor`), multiplique por 2 (pontos em dobro) e tire 150 (milk-shake trocado). Mostre `pontos` depois de cada passo.
+   Exemplo: `213`, `426`, `276`.
+2. Crie `let visitas = 9` e `let estoqueBurger = 50`. A Maria visitou a loja (`++`), saíram 2 hambúrgueres (`-=`) e um caiu no chão (`--`). Mostre `visitas` e `estoqueBurger`. Depois, sem rodar, escreva em comentário o valor de `let n = 7` depois de `n %= 4` e depois de `n **= 2`, e confira.
+   Exemplo: `10`, `47`; `n` fica `3` e depois `9`.
 
 ## 11. Operadores relacionais
-1. Peça um número com `Number(input(...))` e mostre `numero == "5"` e `numero === "5"`. Explique a diferença em comentário.
-2. Peça dois números `a` e `b` e mostre o resultado de `>`, `<`, `>=`, `<=`, `===` e `!==`, uma comparação por linha, com um rótulo na frente.
+1. Com `pontos = 276`, `qtdItens = 6`, `cupom = "BYTE10"`, `idadeCliente = 15` e `diaDaSemana = "terca"`, crie com `const`, saindo de uma comparação (nada de escrever `true` ou `false`): `ehVip` (pontos de 250 ou mais), `pedidoGrande` (mais de 5 itens), `cupomValido` (igual a `"BYTE10"`), `ehMenor` (menos de 18) e `diaPromocao` (igual a `"sexta"`). Mostre as cinco.
+   Exemplo: `true true true true false`.
+2. Peça um número com `Number(input(...))` e mostre `numero == "5"` e `numero === "5"`. Explique em comentário por que a gente prefere `===` e o que o editor mostra na linha do `==`.
+   Exemplo: digitando `5`, saem `true` e `false`.
 
 ## 12. Operadores lógicos
-1. Peça a idade e se tem carteira (`"s"` ou `"n"`). Guarde em `podeDirigir` o resultado de `idade >= 18 && temCarteira` e mostre.
-2. Peça um número e mostre, sem usar `if`, se ele está fora do intervalo de 5 a 100 (`||`) e se é diferente de 10 (com `!`). Escreva em comentário por que `!!false` continua `false`.
+1. Com as constantes da questão anterior e `pagouComPix = true`, crie: `ganhaBatata` (VIP e pedido grande), `ganhaDesconto` (cupom válido ou dia de promoção), `participaSorteio` (pagou com Pix e não é menor) e `naoEhVip` (o contrário de `ehVip`). Escreva em comentário o que você espera antes de rodar.
+   Exemplo: `true true false false`.
+2. Peça a idade e se tem carteira (`"s"` ou `"n"`). Guarde em `podeDirigir` o resultado de `idade >= 18 && temCarteira`, com `temCarteira` saindo de uma comparação com a resposta. Explique em comentário por que `!!false` continua `false`.
+   Exemplo: `20` e `s` dão `true`; `20` e `n` dão `false`; `15` e `s` dão `false`.
 
 ## 13. Condicional simples (`if` / `else`)
-1. Peça um número e mostre `Par` ou `Ímpar` usando `%`.
-2. Peça o saldo e o valor da compra. Mostre `Compra aprovada` ou `Saldo insuficiente`.
+1. Peça o número do pedido e mostre `Par` ou `Ímpar` usando `%`.
+   Exemplo: `8` mostra `Par`; `7` mostra `Ímpar`.
+2. Peça o saldo de pontos e o valor do resgate. Mostre `Resgate aprovado` ou `Pontos insuficientes`. Teste também o caso em que os dois valores são iguais.
+   Exemplo: `276` e `150` aprovam; `150` e `150` também aprovam.
 
 ## 14. Condicional composta (`else if` e lógicos)
-1. Peça a nota e mostre `Excelente` (9 ou mais), `Aprovado` (7 ou mais), `Recuperação` (5 ou mais) ou `Reprovado`.
-2. Peça a idade e mostre `Criança` (menos de 12), `Adolescente` (de 12 a 17), `Adulto` (de 18 a 65) ou `Idoso` (acima de 65). Teste os limites: 11, 12, 17, 18, 65 e 66.
+1. Peça a nota da avaliação e mostre `Excelente` (9 ou mais), `Aprovado` (7 ou mais), `Recuperação` (5 ou mais) ou `Reprovado`. Teste 9, 7, 5 e 4.9.
+2. Peça o total do pedido e classifique: `Pedido grande` (mais de 100), `Pedido médio` (mais de 50) ou `Pedido pequeno`. Teste os limites 100, 100.01 e 50.
+   Exemplo: `79.8` mostra `Pedido médio`; `100` mostra `Pedido médio`; `100.01` mostra `Pedido grande`.
 
 ## 15. Condicional aninhada
 1. Peça se está logado e se é admin (`"s"` ou `"n"`). Mostre `Painel de administrador`, `Painel de usuário` ou `Faça login`.
+   Exemplo: `s` e `n` mostram `Painel de usuário`; `n` mostra `Faça login`.
 2. Peça nota e faltas. Com nota 7 ou mais, mostre `Aprovado` se as faltas forem 15 ou menos, senão `Reprovado por falta`. Com nota menor, mostre `Reprovado por nota`.
+   Exemplo: nota `8` e faltas `16` mostram `Reprovado por falta`.
 
 ## 16. Escolha (`switch`)
-1. Peça um número de 1 a 7 e mostre o dia da semana (1 é Domingo). Use `default` para valores inválidos.
-2. Peça uma opção de 1 a 3 e mostre `Iniciar`, `Pausar` ou `Sair`. Depois tire um `break` de um dos `case` e escreva em comentário o que acontece.
+1. Peça o número do combo e mostre: 1 `Combo Clássico`, 2 `Combo Duplo`, 3 `Combo Kids`. Qualquer outro, `Combo inválido`.
+   Exemplo: `2` mostra `Combo Duplo`; `9` mostra `Combo inválido`.
+2. Peça a forma de pagamento: 1 `Pagamento por Pix`, 2 `Pagamento no cartão`, 3 `Pagamento em dinheiro`, outro `Forma desconhecida`. Depois tire o `break` do `case 1` e escreva em comentário o que aparece quando a pessoa digita `1`.
+   Exemplo (sem o `break`): `1` mostra `Pagamento por Pix` e `Pagamento no cartão`.
 
 ## 17. `while`
-1. Peça um número `n` e mostre a soma de 1 até `n`.
-2. Peça um número e mostre a tabuada dele de 1 a 10.
+1. A Byte Burger tem senhas na fila. Peça quantas e, com `while`, mostre `Chamando senha 5`, `Chamando senha 4` ... até `Chamando senha 1`.
+   Exemplo: `5` mostra cinco linhas, da 5 até a 1.
+2. Peça um número `n` e mostre a soma de 1 até `n`.
+   Exemplo: `100` mostra `5050`.
 
 ## 18. `do while`
-1. Peça um número positivo e repita a pergunta enquanto a pessoa digitar zero ou negativo. Mostre o número aceito.
+1. Peça o número de itens do pedido e repita a pergunta enquanto a pessoa digitar zero ou negativo. Mostre o número aceito.
+   Exemplo: `0`, `-3`, `4` mostram `4`.
 2. Com `numero = 10` e condição `numero < 5`, mostre que o bloco roda uma vez. Escreva em comentário a diferença para o `while`.
+   Exemplo: sai uma linha, mesmo com a condição falsa desde o começo.
 
 ## 19. `for`
-1. Peça um limite e mostre os múltiplos de 5 de 1 até o limite.
-2. Peça um número e mostre a tabuada dele de 1 a 10 no formato `3 x 4 = 12`, com template string.
+1. Mostre a tabuada de um número lido do teclado, de 1 a 10, no formato `7 x 1 = 7`, com template string.
+   Exemplo: `7` mostra de `7 x 1 = 7` até `7 x 10 = 70`.
+2. Some só os números pares de 1 a 100 com `for`, um `let soma = 0` e `+=`.
+   Exemplo: `2550`.
 
 ## 20. Funções
-1. Crie `maior(a: number, b: number): number` com `if`. Peça dois números e mostre o maior.
-2. Crie `apresentar(nome: string, idade: number): void` que mostra `Nome tem X anos`. Chame com valores lidos do teclado e explique em comentário por que ela é `void`.
+1. Escreva `calcularTotal(preco: number, quantidade: number): number`, que devolve o preço vezes a quantidade. Mostre o total de 2 hambúrgueres de `24.9`, com 2 casas.
+   Exemplo: `49.80`.
+2. Escreva `boasVindas(nome: string): void`, que mostra `Bem-vinda a Byte Burger, Maria!`. Chame com um nome lido do teclado e explique em comentário por que ela é `void` e por que a chamada fica sozinha na linha.
+   Exemplo: `Maria` mostra `Bem-vinda a Byte Burger, Maria!`.
 
 ## 21. Arrow function
-1. Crie `const somar = (a: number, b: number): number => a + b`. Peça dois números e mostre a soma.
-2. Crie uma arrow com chaves e `return` que calcula a área do retângulo. Peça base e altura e mostre o resultado.
+1. Escreva `taxa`, uma arrow sem chaves que devolve 10% do subtotal. Depois `comTaxa`, uma arrow com chaves e `return`, que devolve o subtotal mais a taxa. Mostre `comTaxa(84.8)` com 2 casas.
+   Exemplo: `93.28`.
+2. Escreva `const ehMaior = (idade: number): boolean => idade >= 18`. Peça a idade e mostre o resultado. Depois escreva `dobro` com um parâmetro e sem anotar o retorno, e explique em comentário qual tipo o TypeScript inferiu.
+   Exemplo: `15` mostra `false`; `dobro(8)` mostra `16`.
 
 ## 22. Vetores (criação, acesso, `push`, `pop`, `shift`, `unshift`)
-1. Crie `const cores: string[] = ["azul", "verde", "rosa"]`. Mostre o vetor, a posição que a pessoa digitar e o último item usando `length - 1`.
-2. Peça duas cores, coloque uma no fim (`push`) e outra no início (`unshift`). Depois remova a última (`pop`) e a primeira (`shift`). Mostre o vetor a cada passo.
+1. Crie `const pedidos: string[] = ["burger", "batata"]`. Chegou um `"refri"`: ponha no fim. Chegou um cliente VIP com `"milk-shake"`: ponha no início. Mostre a fila e quantos pedidos tem.
+   Exemplo: `[ 'milk-shake', 'burger', 'batata', 'refri' ]` e `4`.
+2. Atenda o primeiro da fila (`shift`), mostre os pedidos restantes numa linha, separados por `" | "`, o último pedido usando `length - 1` e se ainda tem `"batata"`.
+   Exemplo: `burger | batata | refri`, `refri`, `true`.
 
 ## 23. Vetores (`includes`, `indexOf`, `join`, `slice`, `reverse`)
-1. Crie `["maçã", "uva", "pera"]`, peça uma fruta e mostre se ela existe (`includes`) e em que índice está (`indexOf`, que dá `-1` se não existir).
-2. Copie os dois primeiros itens com `slice(0, 2)` e mostre que o original não mudou. Depois use `reverse` e escreva em comentário que ele altera o original.
+1. Com `["burger", "batata", "refri"]`, peça um item e mostre se ele existe (`includes`) e em que índice está (`indexOf`).
+   Exemplo: `batata` mostra `true` e `1`; `pizza` mostra `false` e `-1`.
+2. Copie os dois primeiros itens com `slice(0, 2)` e mostre que o original não mudou. Depois use `reverse` e mostre o vetor original. Escreva em comentário a diferença entre `slice` e `reverse`.
+   Exemplo: o `slice` dá `[ 'burger', 'batata' ]`; depois do `reverse`, o original fica `[ 'refri', 'batata', 'burger' ]`.
 
 ## 24. Vetores (`map`, `filter`, `find`, `reduce`, `forEach`)
-1. Peça 5 números e guarde em um vetor. Use `map` para obter os quadrados e `filter` para ficar só com os ímpares.
-2. Com o mesmo vetor, use `reduce` para somar os itens, `find` para achar o primeiro maior que um valor digitado e `forEach` para mostrar `Item: X` de cada número.
+1. Com `const precos = [24.9, 12.5, 7.5]`: use `map` para somar 10% de taxa a cada preço (arredonde cada um para 2 casas), `filter` para ficar com os maiores que 10 e `reduce` para a soma de todos, com 2 casas.
+   Exemplo: `[ 27.39, 13.75, 8.25 ]`, `[ 24.9, 12.5 ]`, `44.90`.
+2. Peça 5 números e guarde em um vetor. Peça um valor e use `find` para mostrar o primeiro número maior que ele (ou `undefined`). Use `forEach` para mostrar `Item: X` de cada número.
+   Exemplo: números `3 8 1 9 4` e valor `5` mostram `8`.
 
 ## 25. Vetores (outros métodos de alta ordem)
-1. Com 5 números lidos, use `some` para saber se algum é maior que 4, `every` para saber se todos são positivos e `findIndex` para achar o primeiro maior que 2.
-2. Ordene `[3, 1, 10, 2]` com `sort()` sem função e depois com `(a, b) => a - b`. Escreva em comentário por que os resultados são diferentes.
+1. Com `const notas = [7, 9.5, 4, 8, 6]`, mostre o índice da primeira nota abaixo de 5 (`findIndex`), se alguma nota está abaixo de 5 (`some`) e se todas são maiores ou iguais a 4 (`every`).
+   Exemplo: `2`, `true`, `true`.
+2. Mostre as notas em ordem decrescente sem alterar `notas`, e a última nota com `at(-1)`. Depois ordene `[3, 1, 10, 2]` com `sort()` sem função e com `(a, b) => a - b`, e explique em comentário por que os resultados são diferentes.
+   Exemplo: `[ 9.5, 8, 7, 6, 4 ]`, `6`, `[ 1, 10, 2, 3 ]` e `[ 1, 2, 3, 10 ]`.
 
 ## 26. Vetores (`splice`, `Array.from` e encadeamento)
-1. Faça uma cópia com `[...numeros]`. Peça a posição e use `splice(posicao, 2)` para remover dois itens. Depois insira um número na posição 1 com `splice(1, 0, numero)`.
-2. Encadeie `filter`, `map` e `reduce` para somar os cubos dos números ímpares de um vetor lido do teclado.
+1. Chegaram duas notas atrasadas, `10` e `5`. Junte com `notas.concat` num vetor novo `todas`. Depois, com `splice`, troque a nota do índice 2 de `todas` por `4.5`. Confira que `notas` continua igual.
+   Exemplo: `[ 7, 9.5, 4.5, 8, 6, 10, 5 ]`.
+2. Com `numeros = [1, 2, 3, 4, 5]`, encadeie `filter`, `map` e `reduce` para somar os cubos dos ímpares. Depois gere `[0, 3, 6, 9]` com `Array.from({ length: 4 }, ...)`.
+   Exemplo: `153` e `[ 0, 3, 6, 9 ]`.
 
 ## 27. Vetor de objetos
-Use este vetor:
+Use o cardápio da Byte Burger:
 
 ```ts
-const produtos = [
-    { nome: "caneta", preco: 3, estoque: 10 },
-    { nome: "caderno", preco: 15, estoque: 0 },
-    { nome: "mochila", preco: 120, estoque: 4 },
+const cardapio = [
+    { nome: "burger", preco: 24.9, estoque: 47 },
+    { nome: "batata", preco: 12.5, estoque: 0 },
+    { nome: "refri", preco: 7.5, estoque: 30 },
+    { nome: "milk-shake", preco: 15, estoque: 5 },
 ]
 ```
 
-1. Peça um estoque mínimo e mostre só os nomes dos produtos que atingem esse valor (`filter` e `map`).
-2. Calcule o valor total em estoque (`preco * estoque`) com `reduce`. Peça o nome de um produto e mostre o objeto com `find` (ou `undefined` se não existir).
+1. Mostre só os nomes (`map`), só os itens em falta (`filter`, estoque `0`) e o preço do `"refri"` (`find`).
+   Exemplo: `[ 'burger', 'batata', 'refri', 'milk-shake' ]`, a batata e `7.5`.
+2. Calcule o valor total em estoque (`preco * estoque`, somado com `reduce`), com 2 casas. Mostre se algum item custa mais de 20 (`some`), se todos têm estoque (`every`) e o cardápio do mais caro para o mais barato, sem alterar `cardapio`.
+   Exemplo: `1470.30`, `true`, `false` e a ordem burger, milk-shake, batata, refri.
 
 ## 28. `for of`
-1. Peça 3 números, guarde em um vetor e percorra com `for of` mostrando o dobro de cada um e, no fim, a soma de todos.
-2. Percorra o vetor `produtos` do assunto 27 e mostre `nome - R$ preco`, só dos produtos com estoque.
+1. Com `const pedidos = ["burger", "batata", "refri"]`, mostre cada pedido com `for of`. Depois some `[24.9, 12.5, 7.5]` com `for of` e um `let total = 0`, e mostre com 2 casas.
+   Exemplo: `44.90`.
+2. Percorra o `cardapio` do assunto 27 com `for of` e mostre o nome de cada item, com `esgotado` ao lado se o estoque for 0.
+   Exemplo: `burger`, `batata esgotado`, `refri`, `milk-shake`.
 
 ## 29. `for` com índice
-1. Peça 5 números e mostre só os que estão em posições pares (`i % 2 === 0`), no formato `Posição i: valor`.
-2. Percorra `produtos` mostrando `1 - caneta`, `2 - caderno`... com `i + 1`. Depois percorra do fim ao começo (`i--`).
+1. Com `pedidos` do assunto 28, mostre a fila numerada a partir de 1 (`i + 1`). Depois mostre a mesma fila do fim ao começo, com `i--`.
+   Exemplo: `1 - burger`, `2 - batata`, `3 - refri`; depois `refri`, `batata`, `burger`.
+2. Escreva `classificar(estoque: number): string` com `else if`: `"esgotado"` para 0, `"baixo"` para menos de 10, senão `"ok"`. Percorra o `cardapio` com `for` e índice e mostre a posição, o nome e a classificação.
+   Exemplo: `0 - burger - ok`, `1 - batata - esgotado`, `2 - refri - ok`, `3 - milk-shake - baixo`.
