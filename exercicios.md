@@ -1,7 +1,5 @@
 # Exercícios
 
-São 5 questões por assunto. Escolha uma (ou mais) de cada e resolva em um arquivo `.ts`.
-
 Todas usam o `input` para ler o que a pessoa digita:
 
 ```ts
