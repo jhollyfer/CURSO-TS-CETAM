@@ -138,14 +138,14 @@ tsx ~/CURSO-TS-CETAM/Q8.ts
 
 ## 5. Strings (aspas, crase e template string)
 
-**Questão 9** (arquivo `Q9.ts`). Crie `let texto` com `"Bom dia"` (aspas duplas) e mostre. Troque o valor para `'Boa tarde'` (aspas simples) e mostre. Troque de novo para `` `Boa noite` `` (crase) e mostre.
+**Questão 9** (arquivo `Q9.ts`). Crie `let cidade` com `"Manaus"` (aspas duplas) e mostre. Troque o valor para `'Parintins'` (aspas simples) e mostre. Troque de novo para `` `Tefé` `` (crase) e mostre.
 
 Saída esperada:
 
 ```
-Bom dia
-Boa tarde
-Boa noite
+Manaus
+Parintins
+Tefé
 ```
 
 Para executar:
@@ -154,13 +154,13 @@ Para executar:
 tsx ~/CURSO-TS-CETAM/Q9.ts
 ```
 
-**Questão 10** (arquivo `Q10.ts`). Você tem `const nome = "Lucas"` e `const idade = 13`. Com template string, mostre a frase `Meu nome é Lucas e tenho 13 anos`, sem escrever `Lucas` nem `13` direto na frase: use as variáveis dentro de `${...}`. Depois mostre `"Nome: ${nome}"` com aspas duplas e explique em comentário por que a saída não troca `${nome}` pelo valor.
+**Questão 10** (arquivo `Q10.ts`). Você tem `const produto = "caneta"` e `const preco = 4`. Com template string, mostre a frase `O produto caneta custa 4 reais`, sem escrever `caneta` nem `4` direto na frase: use as variáveis dentro de `${...}`. Depois mostre `"Produto: ${produto}"` com aspas duplas e explique em comentário por que a saída não troca `${produto}` pelo valor.
 
 Saída esperada:
 
 ```
-Meu nome é Lucas e tenho 13 anos
-Nome: ${nome}
+O produto caneta custa 4 reais
+Produto: ${produto}
 ```
 
 Para executar:
@@ -171,12 +171,12 @@ tsx ~/CURSO-TS-CETAM/Q10.ts
 
 ## 6. Strings (`trim`, `toUpperCase`, `toLowerCase`, `includes`)
 
-**Questão 11** (arquivo `Q11.ts`). Um formulário recebeu o nome `"  Ana Souza  "`, com espaços sobrando no começo e no fim. Guarde esse texto em `entrada`. Crie `limpo`, que é `entrada` sem os espaços das pontas, `maiusculo`, que é `limpo` todo em maiúsculas, e `minusculo`, que é `limpo` todo em minúsculas. Mostre `limpo`, `maiusculo` e `minusculo` numa linha.
+**Questão 11** (arquivo `Q11.ts`). Um formulário recebeu o endereço `"  Rua das Flores  "`, com espaços sobrando no começo e no fim. Guarde esse texto em `entrada`. Crie `limpo`, que é `entrada` sem os espaços das pontas, `maiusculo`, que é `limpo` todo em maiúsculas, e `minusculo`, que é `limpo` todo em minúsculas. Mostre `limpo`, `maiusculo` e `minusculo` numa linha.
 
 Saída esperada:
 
 ```
-Ana Souza ANA SOUZA ana souza
+Rua das Flores RUA DAS FLORES rua das flores
 ```
 
 Para executar:
@@ -185,7 +185,7 @@ Para executar:
 tsx ~/CURSO-TS-CETAM/Q11.ts
 ```
 
-**Questão 12** (arquivo `Q12.ts`). Dada `const frase = "Aprender programar é legal"`, mostre numa linha só se a frase inclui a palavra `"programar"` e se ela inclui a palavra `"java"`.
+**Questão 12** (arquivo `Q12.ts`). Dado `const email = "joao@escola.com"`, mostre numa linha só se o e-mail inclui o trecho `"escola"` e se ele inclui o trecho `"gmail"`.
 
 Saída esperada:
 
@@ -201,12 +201,12 @@ tsx ~/CURSO-TS-CETAM/Q12.ts
 
 ## 7. Strings (mais métodos)
 
-**Questão 13** (arquivo `Q13.ts`). Dada `const nome = "Maria Clara"`, mostre numa linha: a quantidade de caracteres, o primeiro caractere, a posição onde começa o trecho `"Clara"` e os 5 primeiros caracteres recortados do nome.
+**Questão 13** (arquivo `Q13.ts`). Dada `const cidade = "Rio Branco"`, mostre numa linha: a quantidade de caracteres, o primeiro caractere, a posição onde começa o trecho `"Branco"` e os 3 primeiros caracteres recortados da cidade.
 
 Saída esperada:
 
 ```
-11 M 6 Maria
+10 R 4 Rio
 ```
 
 Para executar:
@@ -215,14 +215,14 @@ Para executar:
 tsx ~/CURSO-TS-CETAM/Q13.ts
 ```
 
-**Questão 14** (arquivo `Q14.ts`). Faça três coisas, cada uma numa linha de saída. Primeiro, dado `const codigo = "42"`, mostre o código completado à esquerda com zeros até ter 5 caracteres. Depois, dado `const aviso = "ha"`, mostre o aviso repetido 4 vezes. Por fim, dada `const data = "10/05/2025"`, mostre a data separada em pedaços pela barra.
+**Questão 14** (arquivo `Q14.ts`). Faça três coisas, cada uma numa linha de saída. Primeiro, dado `const pedido = "7"`, mostre o pedido completado à esquerda com zeros até ter 4 caracteres. Depois, dado `const risada = "ko"`, mostre a risada repetida 3 vezes. Por fim, dada `const hora = "08:30:15"`, mostre a hora separada em pedaços pelos dois-pontos.
 
 Saída esperada:
 
 ```
-00042
-hahahaha
-[ '10', '05', '2025' ]
+0007
+kokoko
+[ '08', '30', '15' ]
 ```
 
 Para executar:
@@ -233,12 +233,12 @@ tsx ~/CURSO-TS-CETAM/Q14.ts
 
 ## 8. Números (`Math`, `toFixed` e conversões)
 
-**Questão 15** (arquivo `Q15.ts`). Dado `const preco = 7.456`, mostre numa linha: o preço com 2 casas decimais, o preço arredondado do jeito normal, o preço arredondado para baixo e o preço arredondado para cima.
+**Questão 15** (arquivo `Q15.ts`). Dado `const media = 8.349`, mostre numa linha: a média com 2 casas decimais, a média arredondada do jeito normal, a média arredondada para baixo e a média arredondada para cima.
 
 Saída esperada:
 
 ```
-7.46 7 7 8
+8.35 8 8 9
 ```
 
 Para executar:
@@ -247,14 +247,14 @@ Para executar:
 tsx ~/CURSO-TS-CETAM/Q15.ts
 ```
 
-**Questão 16** (arquivo `Q16.ts`). Dado `const texto = "42.9"`, mostre três linhas: o texto convertido em número com `Number` mais 1, o texto convertido em inteiro com `parseInt` e o texto convertido em decimal com `parseFloat`. Em uma quarta linha, mostre um inteiro sorteado de 0 a 9.
+**Questão 16** (arquivo `Q16.ts`). Dado `const texto = "20.5"`, mostre três linhas: o texto convertido em número com `Number` mais 1, o texto convertido em inteiro com `parseInt` e o texto convertido em decimal com `parseFloat`. Em uma quarta linha, mostre um inteiro sorteado de 0 a 9.
 
 Saída esperada:
 
 ```
-43.9
-42
-42.9
+21.5
+20
+20.5
 (um inteiro de 0 a 9, que muda a cada execução)
 ```
 
