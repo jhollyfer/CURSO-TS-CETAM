@@ -266,7 +266,7 @@ tsx ~/CURSO-TS-CETAM/Q16.ts
 
 ## 9. Operadores aritméticos
 
-**Questão 17** (arquivo `Q17.ts`). Um terreno retangular tem `base = 12` metros e `altura = 5` metros. Crie as duas constantes e mostre numa linha a área (base vezes altura) e o perímetro (a soma de todos os lados).
+**Questão 17** (arquivo `Q17.ts`). Um tapete retangular tem `comprimento = 12` decímetros e `largura = 5` decímetros. Crie as duas constantes e mostre numa linha a área (comprimento vezes largura) e o perímetro (a soma de todos os lados).
 
 Saída esperada:
 
@@ -280,7 +280,7 @@ Para executar:
 tsx ~/CURSO-TS-CETAM/Q17.ts
 ```
 
-**Questão 18** (arquivo `Q18.ts`). Um aluno tirou as notas `6`, `8` e `10`. Mostre a média das três, tomando cuidado com a ordem das operações. Na mesma linha, mostre o resto da divisão de `17` por `5` e o resultado de `2` elevado a `10`. Em comentário, explique o que o resto da divisão indica.
+**Questão 18** (arquivo `Q18.ts`). Um atleta fez três saltos de `6`, `8` e `10` metros. Mostre a média dos três, tomando cuidado com a ordem das operações. Na mesma linha, mostre o resto da divisão de `17` por `5` e o resultado de `2` elevado a `10`. Em comentário, explique o que o resto da divisão indica.
 
 Saída esperada:
 
@@ -296,7 +296,7 @@ tsx ~/CURSO-TS-CETAM/Q18.ts
 
 ## 10. Operadores de atribuição
 
-**Questão 19** (arquivo `Q19.ts`). Uma conta começa com `let saldo = 100`. Sem criar outras variáveis e usando só operadores de atribuição, faça, nesta ordem: some `50`, tire `30`, multiplique por `2` e divida por `4`. Mostre o `saldo` depois de cada passo.
+**Questão 19** (arquivo `Q19.ts`). Um estoque começa com `let caixas = 100`. Sem criar outras variáveis e usando só operadores de atribuição, faça, nesta ordem: some `50` (chegou carga), tire `30` (saiu venda), multiplique por `2` e divida por `4`. Mostre as `caixas` depois de cada passo.
 
 Saída esperada:
 
@@ -313,7 +313,7 @@ Para executar:
 tsx ~/CURSO-TS-CETAM/Q19.ts
 ```
 
-**Questão 20** (arquivo `Q20.ts`). Crie `let contador = 0`. Some 1 três vezes com `++` e mostre. Tire 1 uma vez com `--` e mostre. Eleve o contador a `3` com `**=` e mostre. Por fim, troque o contador pelo resto da divisão por `5` com `%=` e mostre.
+**Questão 20** (arquivo `Q20.ts`). Crie `let pontos = 0`. Some 1 três vezes com `++` e mostre. Tire 1 uma vez com `--` e mostre. Eleve os pontos a `3` com `**=` e mostre. Por fim, troque os pontos pelo resto da divisão por `5` com `%=` e mostre.
 
 Saída esperada:
 
@@ -332,7 +332,7 @@ tsx ~/CURSO-TS-CETAM/Q20.ts
 
 ## 11. Operadores relacionais
 
-**Questão 21** (arquivo `Q21.ts`). Crie `const a = 10` e `const b = 4`. Mostre numa linha, nessa ordem, o resultado de `a > b`, `a < b`, `a >= 10` e `a <= 9`.
+**Questão 21** (arquivo `Q21.ts`). Num jogo, o time da casa fez `const golsCasa = 10` e o visitante `const golsFora = 4`. Mostre numa linha, nessa ordem, o resultado de `golsCasa > golsFora`, `golsCasa < golsFora`, `golsCasa >= 10` e `golsCasa <= 9`.
 
 Saída esperada:
 
@@ -346,7 +346,7 @@ Para executar:
 tsx ~/CURSO-TS-CETAM/Q21.ts
 ```
 
-**Questão 22** (arquivo `Q22.ts`). Mostre numa linha, nessa ordem, o resultado de `5 === "5"`, `5 == "5"`, `5 !== "5"` e `5 != "5"`. O editor vai sublinhar a linha de vermelho, mas o `tsx` roda mesmo assim. Em comentário, escreva qual dos dois jeitos de comparar a gente prefere e por quê.
+**Questão 22** (arquivo `Q22.ts`). Um site recebe a quantidade de vagas como número `5` e também como texto `"5"`. Mostre numa linha, nessa ordem, o resultado de `5 === "5"`, `5 == "5"`, `5 !== "5"` e `5 != "5"`. O editor vai sublinhar a linha de vermelho, mas o `tsx` roda mesmo assim. Em comentário, escreva qual dos dois jeitos de comparar a gente prefere e por quê.
 
 Saída esperada:
 
@@ -362,7 +362,7 @@ tsx ~/CURSO-TS-CETAM/Q22.ts
 
 ## 12. Operadores lógicos
 
-**Questão 23** (arquivo `Q23.ts`). Uma pessoa tem `idade = 20`, tem carteira de motorista (`temCarteira = true`) e hoje não está chovendo (`estaChovendo = false`). Crie essas três constantes e depois crie, a partir delas: `podeDirigir`, que é verdadeiro quando a idade é 18 ou mais e a pessoa tem carteira; `passeioLivre`, que é o contrário de `estaChovendo`; e `ficaEmCasa`, que é verdadeiro quando está chovendo ou a idade é menor que 18. Mostre as três numa linha.
+**Questão 23** (arquivo `Q23.ts`). Uma pessoa foi ao teatro, tem `idade = 20`, tem ingresso (`temIngresso = true`) e a sala não está lotada (`salaLotada = false`). Crie essas três constantes e depois crie, a partir delas: `podeEntrar`, que é verdadeiro quando a idade é 18 ou mais e a pessoa tem ingresso; `temLugar`, que é o contrário de `salaLotada`; e `vaiEmbora`, que é verdadeiro quando a sala está lotada ou a idade é menor que 18. Mostre as três numa linha.
 
 Saída esperada:
 
