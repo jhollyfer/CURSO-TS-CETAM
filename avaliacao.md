@@ -650,9 +650,9 @@ Para executar:
 tsx ~/CURSO-TS-CETAM/Q40.ts
 ```
 
-## 21. Arrow function
+## 21. Função anônima (function expression)
 
-**Questão 41** (arquivo `Q41.ts`). Escreva `subtrair`, uma arrow function sem chaves que recebe dois números e devolve a diferença, e `multiplicar`, uma arrow function com chaves e `return` que devolve o produto. Mostre, numa linha, `subtrair(10, 4)` e `multiplicar(3, 7)`.
+**Questão 41** (arquivo `Q41.ts`). Escreva `subtrair` e `multiplicar` como funções anônimas, cada uma guardada numa constante: `const subtrair = function (...) { ... }`. As duas recebem dois números; `subtrair` devolve a diferença e `multiplicar` devolve o produto, com o tipo de retorno `number` escrito. Mostre, numa linha, `subtrair(10, 4)` e `multiplicar(3, 7)`.
 
 Saída esperada:
 
@@ -666,7 +666,7 @@ Para executar:
 tsx ~/CURSO-TS-CETAM/Q41.ts
 ```
 
-**Questão 42** (arquivo `Q42.ts`). Escreva `dobro`, uma arrow function que recebe um número `n` e devolve o dobro, sem escrever o tipo de retorno, e `ehMaior`, uma arrow function que recebe uma `idade` e devolve se ela é 18 ou mais (tipo de retorno `boolean`). Mostre, numa linha, `dobro(8)`, `ehMaior(15)` e `ehMaior(18)`. Em comentário, escreva qual tipo de retorno o TypeScript descobriu para `dobro`.
+**Questão 42** (arquivo `Q42.ts`). Escreva `dobro`, uma função anônima que recebe um número `n` e devolve o dobro, sem escrever o tipo de retorno, e `ehMaior`, uma função anônima que recebe uma `idade` e devolve se ela é 18 ou mais (tipo de retorno `boolean`). Mostre, numa linha, `dobro(8)`, `ehMaior(15)` e `ehMaior(18)`. Em comentário, escreva qual tipo de retorno o TypeScript descobriu para `dobro`.
 
 Saída esperada:
 
@@ -680,9 +680,111 @@ Para executar:
 tsx ~/CURSO-TS-CETAM/Q42.ts
 ```
 
-## 22. Vetores (criação, acesso, `push`, `pop`, `shift`, `unshift`)
+## 22. Objetos (criação, acesso, alteração e objeto dentro de objeto)
 
-**Questão 43** (arquivo `Q43.ts`). Crie o vetor `const frutas: string[] = ["maçã", "banana", "uva"]`. Mostre o vetor inteiro, o primeiro item e a quantidade de itens, cada um em uma linha.
+**Questão 43** (arquivo `Q43.ts`). Uma biblioteca cadastrou o livro `"Dom Casmurro"`, do autor `"Machado de Assis"`, com `256` páginas. Crie o objeto `livro` com `const` e as chaves `titulo`, `autor` e `paginas`, e mostre o objeto inteiro. Depois mostre, numa linha, o título (acessando com ponto) e as páginas (acessando com colchetes). A biblioteca corrigiu o número de páginas para `260`: altere o valor e mostre o objeto de novo. Em comentário, explique por que dá para alterar `paginas` mesmo com o objeto criado com `const`.
+
+Saída esperada:
+
+```
+{ titulo: 'Dom Casmurro', autor: 'Machado de Assis', paginas: 256 }
+Dom Casmurro 256
+{ titulo: 'Dom Casmurro', autor: 'Machado de Assis', paginas: 260 }
+```
+
+Para executar:
+
+```bash
+tsx ~/CURSO-TS-CETAM/Q43.ts
+```
+
+**Questão 44** (arquivo `Q44.ts`). Uma loja registrou o pedido número `15`, de total `89.9`, da cliente `"Carla"`, que mora em `"Manaus"`. Crie o objeto `pedido` com as chaves `numero`, `total` e `cliente`, onde `cliente` é outro objeto com as chaves `nome` e `cidade`. Mostre, numa linha, o número do pedido, o nome da cliente e a cidade. A cliente mudou o endereço de entrega para `"Parintins"`: troque a cidade e mostre `Entrega em ` seguido da cidade, com template string.
+
+Saída esperada:
+
+```
+15 Carla Manaus
+Entrega em Parintins
+```
+
+Para executar:
+
+```bash
+tsx ~/CURSO-TS-CETAM/Q44.ts
+```
+
+## 23. Tipo de objeto (`type`, `?` e `readonly`) e métodos
+
+**Questão 45** (arquivo `Q45.ts`). Crie o tipo `Produto` com `type`, com as chaves `codigo` (`number`, que não pode ser alterado), `nome` (`string`), `preco` (`number`) e `desconto` (`number`, opcional). Crie a constante `caneta` do tipo `Produto`, com código `1`, nome `"caneta"` e preço `3`, sem desconto, e mostre o objeto. Depois coloque o desconto `0.5` e mostre o objeto de novo. Em comentário, escreva o que acontece se você tentar fazer `caneta.codigo = 2` e por quê.
+
+Saída esperada:
+
+```
+{ codigo: 1, nome: 'caneta', preco: 3 }
+{ codigo: 1, nome: 'caneta', preco: 3, desconto: 0.5 }
+```
+
+Para executar:
+
+```bash
+tsx ~/CURSO-TS-CETAM/Q45.ts
+```
+
+**Questão 46** (arquivo `Q46.ts`). Crie o objeto `lampada` com a chave `ligada`, que começa `false`, e dois métodos escritos com `function`: `alternar`, que inverte o valor de `ligada` e não devolve nada, e `estado`, que devolve `"acesa"` quando a lâmpada está ligada e `"apagada"` quando não está. Dentro dos métodos, use `this` para chegar em `ligada`. Mostre o estado, chame `alternar`, mostre o estado, chame `alternar` de novo e mostre o estado mais uma vez.
+
+Saída esperada:
+
+```
+apagada
+acesa
+apagada
+```
+
+Para executar:
+
+```bash
+tsx ~/CURSO-TS-CETAM/Q46.ts
+```
+
+## 24. Objetos (`Object.keys`, `Object.values`, `in`, cópia, desestruturação e `for in`)
+
+**Questão 47** (arquivo `Q47.ts`). Dado `const boletim = { matematica: 8, portugues: 6.5, historia: 9 }`, mostre, uma em cada linha: um vetor com as matérias (as chaves), um vetor com as notas (os valores) e se o boletim tem a matéria `"ciencias"`. Depois percorra o boletim com `for in` e mostre cada matéria numa linha, no formato `Matéria: ` seguido do nome.
+
+Saída esperada:
+
+```
+[ 'matematica', 'portugues', 'historia' ]
+[ 8, 6.5, 9 ]
+false
+Matéria: matematica
+Matéria: portugues
+Matéria: historia
+```
+
+Para executar:
+
+```bash
+tsx ~/CURSO-TS-CETAM/Q47.ts
+```
+
+**Questão 48** (arquivo `Q48.ts`). Dado `const configuracao = { tema: "claro", fonte: 14, notificacoes: true }`, crie `configuracaoNova`, uma cópia feita com spread (`...`) em que o tema passa a ser `"escuro"`. Mostre, numa linha, o tema das duas configurações. Depois tire `fonte` e `notificacoes` de `configuracaoNova` por desestruturação e mostre as duas numa linha. Em comentário, explique por que o tema de `configuracao` não mudou.
+
+Saída esperada:
+
+```
+claro escuro
+14 true
+```
+
+Para executar:
+
+```bash
+tsx ~/CURSO-TS-CETAM/Q48.ts
+```
+
+## 25. Vetores (criação, acesso, `push`, `pop`, `shift`, `unshift`)
+
+**Questão 49** (arquivo `Q49.ts`). Crie o vetor `const frutas: string[] = ["maçã", "banana", "uva"]`. Mostre o vetor inteiro, o primeiro item e a quantidade de itens, cada um em uma linha.
 
 Saída esperada:
 
@@ -695,10 +797,10 @@ maçã
 Para executar:
 
 ```bash
-tsx ~/CURSO-TS-CETAM/Q43.ts
+tsx ~/CURSO-TS-CETAM/Q49.ts
 ```
 
-**Questão 44** (arquivo `Q44.ts`). Crie de novo `const frutas: string[] = ["maçã", "banana", "uva"]`. Coloque `"laranja"` no fim e `"morango"` no início e mostre o vetor. Depois tire o último item e o primeiro item e mostre o vetor de novo.
+**Questão 50** (arquivo `Q50.ts`). Crie de novo `const frutas: string[] = ["maçã", "banana", "uva"]`. Coloque `"laranja"` no fim e `"morango"` no início e mostre o vetor. Depois tire o último item e o primeiro item e mostre o vetor de novo.
 
 Saída esperada:
 
@@ -710,12 +812,12 @@ Saída esperada:
 Para executar:
 
 ```bash
-tsx ~/CURSO-TS-CETAM/Q44.ts
+tsx ~/CURSO-TS-CETAM/Q50.ts
 ```
 
-## 23. Vetores (`includes`, `indexOf`, `join`, `slice`, `reverse`)
+## 26. Vetores (`includes`, `indexOf`, `join`, `slice`, `reverse`)
 
-**Questão 45** (arquivo `Q45.ts`). Dado `const cores = ["azul", "verde", "rosa"]`, mostre numa linha: se o vetor inclui `"verde"`, a posição de `"rosa"`, a posição de `"preto"` e todos os itens juntos em um texto, separados por vírgula e espaço.
+**Questão 51** (arquivo `Q51.ts`). Dado `const cores = ["azul", "verde", "rosa"]`, mostre numa linha: se o vetor inclui `"verde"`, a posição de `"rosa"`, a posição de `"preto"` e todos os itens juntos em um texto, separados por vírgula e espaço.
 
 Saída esperada:
 
@@ -726,10 +828,10 @@ true 2 -1 azul, verde, rosa
 Para executar:
 
 ```bash
-tsx ~/CURSO-TS-CETAM/Q45.ts
+tsx ~/CURSO-TS-CETAM/Q51.ts
 ```
 
-**Questão 46** (arquivo `Q46.ts`). Crie de novo `const cores = ["azul", "verde", "rosa"]`. Copie os dois primeiros itens com `slice` e mostre a cópia e depois o vetor original. Em seguida, inverta a ordem com `reverse`, mostre o resultado e mostre o vetor original de novo. Em comentário, escreva qual dos dois métodos altera o vetor original.
+**Questão 52** (arquivo `Q52.ts`). Crie de novo `const cores = ["azul", "verde", "rosa"]`. Copie os dois primeiros itens com `slice` e mostre a cópia e depois o vetor original. Em seguida, inverta a ordem com `reverse`, mostre o resultado e mostre o vetor original de novo. Em comentário, escreva qual dos dois métodos altera o vetor original.
 
 Saída esperada:
 
@@ -743,12 +845,12 @@ Saída esperada:
 Para executar:
 
 ```bash
-tsx ~/CURSO-TS-CETAM/Q46.ts
+tsx ~/CURSO-TS-CETAM/Q52.ts
 ```
 
-## 24. Vetores (`map`, `filter`, `find`, `reduce`, `forEach`)
+## 27. Vetores (`map`, `filter`, `find`, `reduce`, `forEach`)
 
-**Questão 47** (arquivo `Q47.ts`). Dado `const numeros = [1, 2, 3, 4, 5]`, mostre, uma em cada linha: um vetor novo com o dobro de cada número, um vetor novo só com os números pares e a soma de todos os números, começando de `0`.
+**Questão 53** (arquivo `Q53.ts`). Dado `const numeros = [1, 2, 3, 4, 5]`, mostre, uma em cada linha: um vetor novo com o dobro de cada número, um vetor novo só com os números pares e a soma de todos os números, começando de `0`.
 
 Saída esperada:
 
@@ -761,10 +863,10 @@ Saída esperada:
 Para executar:
 
 ```bash
-tsx ~/CURSO-TS-CETAM/Q47.ts
+tsx ~/CURSO-TS-CETAM/Q53.ts
 ```
 
-**Questão 48** (arquivo `Q48.ts`). Dado `const numeros = [1, 2, 3, 4, 5]`, mostre o primeiro número maior que `3`. Depois mostre cada número numa linha, no formato `Item: ` seguido do número.
+**Questão 54** (arquivo `Q54.ts`). Dado `const numeros = [1, 2, 3, 4, 5]`, mostre o primeiro número maior que `3`. Depois mostre cada número numa linha, no formato `Item: ` seguido do número.
 
 Saída esperada:
 
@@ -780,12 +882,12 @@ Item: 5
 Para executar:
 
 ```bash
-tsx ~/CURSO-TS-CETAM/Q48.ts
+tsx ~/CURSO-TS-CETAM/Q54.ts
 ```
 
-## 25. Vetores (outros métodos de alta ordem)
+## 28. Vetores (outros métodos de alta ordem)
 
-**Questão 49** (arquivo `Q49.ts`). Dado `const notas = [7, 9.5, 4, 8, 6]`, mostre numa linha: a posição da primeira nota abaixo de 5, se alguma nota está abaixo de 5, se todas as notas são 4 ou mais e a última nota que é 8 ou mais.
+**Questão 55** (arquivo `Q55.ts`). Dado `const notas = [7, 9.5, 4, 8, 6]`, mostre numa linha: a posição da primeira nota abaixo de 5, se alguma nota está abaixo de 5, se todas as notas são 4 ou mais e a última nota que é 8 ou mais.
 
 Saída esperada:
 
@@ -796,10 +898,10 @@ Saída esperada:
 Para executar:
 
 ```bash
-tsx ~/CURSO-TS-CETAM/Q49.ts
+tsx ~/CURSO-TS-CETAM/Q55.ts
 ```
 
-**Questão 50** (arquivo `Q50.ts`). Ordene o vetor `[3, 1, 10, 2]` três vezes, sempre partindo do vetor original: com `sort()` sem função, com `sort((a, b) => a - b)` e com `sort((a, b) => b - a)`. Mostre cada resultado numa linha e, em comentário, explique por que o primeiro ficou diferente do segundo.
+**Questão 56** (arquivo `Q56.ts`). Ordene o vetor `[3, 1, 10, 2]` três vezes, sempre partindo do vetor original: com `sort()` sem função, com `sort(function (a, b) { return a - b })` e com `sort(function (a, b) { return b - a })`. Mostre cada resultado numa linha e, em comentário, explique por que o primeiro ficou diferente do segundo.
 
 Saída esperada:
 
@@ -812,12 +914,12 @@ Saída esperada:
 Para executar:
 
 ```bash
-tsx ~/CURSO-TS-CETAM/Q50.ts
+tsx ~/CURSO-TS-CETAM/Q56.ts
 ```
 
-## 26. Vetores (`splice`, `Array.from` e encadeamento)
+## 29. Vetores (`splice`, `Array.from` e encadeamento)
 
-**Questão 51** (arquivo `Q51.ts`). Dado `const numeros = [1, 2, 3, 4, 5]`, faça uma cópia com `[...numeros]` e, nessa cópia, remova 2 itens a partir da posição 1 e mostre a cópia. Depois insira o número `99` na posição 1, sem remover nada, e mostre a cópia. Por fim, mostre o vetor `numeros` original.
+**Questão 57** (arquivo `Q57.ts`). Dado `const numeros = [1, 2, 3, 4, 5]`, faça uma cópia com `[...numeros]` e, nessa cópia, remova 2 itens a partir da posição 1 e mostre a cópia. Depois insira o número `99` na posição 1, sem remover nada, e mostre a cópia. Por fim, mostre o vetor `numeros` original.
 
 Saída esperada:
 
@@ -830,10 +932,10 @@ Saída esperada:
 Para executar:
 
 ```bash
-tsx ~/CURSO-TS-CETAM/Q51.ts
+tsx ~/CURSO-TS-CETAM/Q57.ts
 ```
 
-**Questão 52** (arquivo `Q52.ts`). Dado `const numeros = [1, 2, 3, 4, 5]`, encadeie `filter`, `map` e `reduce` para somar o cubo (`n ** 3`) dos números ímpares. Em outra linha, use `Array.from` para criar o vetor `[0, 3, 6, 9]`, com 4 itens, cada um sendo a posição vezes 3.
+**Questão 58** (arquivo `Q58.ts`). Dado `const numeros = [1, 2, 3, 4, 5]`, encadeie `filter`, `map` e `reduce` para somar o cubo (`n ** 3`) dos números ímpares. Em outra linha, use `Array.from` para criar o vetor `[0, 3, 6, 9]`, com 4 itens, cada um sendo a posição vezes 3.
 
 Saída esperada:
 
@@ -845,10 +947,10 @@ Saída esperada:
 Para executar:
 
 ```bash
-tsx ~/CURSO-TS-CETAM/Q52.ts
+tsx ~/CURSO-TS-CETAM/Q58.ts
 ```
 
-## 27. Vetor de objetos
+## 30. Vetor de objetos
 
 Nas questões deste assunto e do seguinte, copie este vetor para o arquivo:
 
@@ -860,7 +962,7 @@ const produtos = [
 ]
 ```
 
-**Questão 53** (arquivo `Q53.ts`). Mostre, uma em cada linha: um vetor só com os nomes dos produtos, os produtos que têm estoque (estoque maior que 0) e o produto cujo nome é `"mochila"`.
+**Questão 59** (arquivo `Q59.ts`). Mostre, uma em cada linha: um vetor só com os nomes dos produtos, os produtos que têm estoque (estoque maior que 0) e o produto cujo nome é `"mochila"`.
 
 Saída esperada:
 
@@ -873,10 +975,10 @@ Saída esperada:
 Para executar:
 
 ```bash
-tsx ~/CURSO-TS-CETAM/Q53.ts
+tsx ~/CURSO-TS-CETAM/Q59.ts
 ```
 
-**Questão 54** (arquivo `Q54.ts`). Mostre numa linha: o valor total em estoque (a soma de `preco * estoque` de todos os produtos), se algum produto está esgotado (estoque `0`) e se todos os produtos têm preço maior que 0. Em outra linha, mostre os produtos do mais barato para o mais caro, sem alterar o vetor `produtos`.
+**Questão 60** (arquivo `Q60.ts`). Mostre numa linha: o valor total em estoque (a soma de `preco * estoque` de todos os produtos), se algum produto está esgotado (estoque `0`) e se todos os produtos têm preço maior que 0. Em outra linha, mostre os produtos do mais barato para o mais caro, sem alterar o vetor `produtos`.
 
 Saída esperada:
 
@@ -888,12 +990,12 @@ Saída esperada:
 Para executar:
 
 ```bash
-tsx ~/CURSO-TS-CETAM/Q54.ts
+tsx ~/CURSO-TS-CETAM/Q60.ts
 ```
 
-## 28. `for of`
+## 31. `for of`
 
-**Questão 55** (arquivo `Q55.ts`). Dado `const notas: number[] = [7, 9, 5]`, percorra o vetor com `for of` mostrando cada nota numa linha. Durante o percurso, vá somando as notas em `let total = 0` e, depois do laço, mostre `Total: ` seguido da soma.
+**Questão 61** (arquivo `Q61.ts`). Dado `const notas: number[] = [7, 9, 5]`, percorra o vetor com `for of` mostrando cada nota numa linha. Durante o percurso, vá somando as notas em `let total = 0` e, depois do laço, mostre `Total: ` seguido da soma.
 
 Saída esperada:
 
@@ -907,10 +1009,10 @@ Total: 21
 Para executar:
 
 ```bash
-tsx ~/CURSO-TS-CETAM/Q55.ts
+tsx ~/CURSO-TS-CETAM/Q61.ts
 ```
 
-**Questão 56** (arquivo `Q56.ts`). Copie o vetor `produtos` do assunto 27 para o arquivo e percorra-o com `for of` e mostre uma linha para cada produto, no formato `nome - R$ preco`. Quando o estoque do produto for `0`, acrescente ` (esgotado)` no fim da linha.
+**Questão 62** (arquivo `Q62.ts`). Copie o vetor `produtos` do assunto 30 para o arquivo e percorra-o com `for of` e mostre uma linha para cada produto, no formato `nome - R$ preco`. Quando o estoque do produto for `0`, acrescente ` (esgotado)` no fim da linha.
 
 Saída esperada:
 
@@ -923,12 +1025,12 @@ mochila - R$ 120
 Para executar:
 
 ```bash
-tsx ~/CURSO-TS-CETAM/Q56.ts
+tsx ~/CURSO-TS-CETAM/Q62.ts
 ```
 
-## 29. `for` com índice
+## 32. `for` com índice
 
-**Questão 57** (arquivo `Q57.ts`). Dado `const frutas = ["maçã", "banana", "uva"]`, use `for` com índice para mostrar a lista numerada a partir de 1, no formato `1 - maçã`. Depois mostre os itens do último para o primeiro, um por linha, também com `for` e índice.
+**Questão 63** (arquivo `Q63.ts`). Dado `const frutas = ["maçã", "banana", "uva"]`, use `for` com índice para mostrar a lista numerada a partir de 1, no formato `1 - maçã`. Depois mostre os itens do último para o primeiro, um por linha, também com `for` e índice.
 
 Saída esperada:
 
@@ -944,10 +1046,10 @@ maçã
 Para executar:
 
 ```bash
-tsx ~/CURSO-TS-CETAM/Q57.ts
+tsx ~/CURSO-TS-CETAM/Q63.ts
 ```
 
-**Questão 58** (arquivo `Q58.ts`). Dado `const numeros = [10, 20, 30, 40, 50]`, use `for` com índice para mostrar só os itens que estão em posições pares (0, 2 e 4), no formato `Posição 0: 10`.
+**Questão 64** (arquivo `Q64.ts`). Dado `const numeros = [10, 20, 30, 40, 50]`, use `for` com índice para mostrar só os itens que estão em posições pares (0, 2 e 4), no formato `Posição 0: 10`.
 
 Saída esperada:
 
@@ -960,5 +1062,5 @@ Posição 4: 50
 Para executar:
 
 ```bash
-tsx ~/CURSO-TS-CETAM/Q58.ts
+tsx ~/CURSO-TS-CETAM/Q64.ts
 ```
