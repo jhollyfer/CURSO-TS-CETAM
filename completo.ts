@@ -258,6 +258,68 @@ const dobro = function (n: number) {
 }
 console.log(subtrair(5, 2), multiplicar(3, 4), dobro(8))
 
+// OBJETOS
+// agrupa valores relacionados em pares chave: valor, dentro de { }
+const aluno = {
+    nome: "Lucas",
+    idade: 13,
+    matriculado: true,
+}
+console.log(aluno)
+console.log(aluno.nome)          // acessa com ponto
+console.log(aluno["idade"])      // acessa com colchetes (chave como texto)
+aluno.idade = 14                 // altera o valor (const impede trocar o objeto, não o conteúdo)
+console.log(aluno.idade)
+// aluno.email = "x"  // descomente para ver o erro: o TS não deixa criar chave que não existe
+
+// TIPO DE OBJETO (type)
+// "type" dá nome ao formato do objeto; ? = opcional; readonly = não pode alterar
+type Pessoa = {
+    readonly cpf: string
+    nome: string
+    idade: number
+    email?: string
+}
+const professor: Pessoa = { cpf: "123", nome: "Ana", idade: 35 }
+professor.email = "ana@escola.com"   // opcional: pode entrar depois
+// professor.cpf = "999"  // descomente para ver o erro: readonly
+console.log(professor)
+
+// OBJETO DENTRO DE OBJETO
+const escola = {
+    nome: "CETAM",
+    endereco: { cidade: "Manaus", bairro: "Centro" },
+}
+console.log(escola.endereco.cidade)  // encadeia os pontos
+
+// MÉTODOS (função dentro do objeto)
+// "this" é o próprio objeto
+const contaBancaria = {
+    saldo: 100,
+    depositar: function (quantia: number): void {
+        this.saldo += quantia
+    },
+}
+contaBancaria.depositar(50)
+console.log(contaBancaria.saldo)     // 150
+
+// MÉTODOS DO Object
+console.log(Object.keys(aluno))      // vetor com as chaves: ["nome", "idade", "matriculado"]
+console.log(Object.values(aluno))    // vetor com os valores
+console.log(Object.entries(aluno))   // vetor de pares [chave, valor]
+console.log("nome" in aluno)         // a chave existe? true
+
+// CÓPIA E DESESTRUTURAÇÃO
+const alunoCopia = { ...aluno, idade: 15 } // spread copia e sobrescreve o que vier depois
+console.log(aluno.idade, alunoCopia.idade) // 14 15 (o original não muda)
+const { nome: nomeAluno, matriculado } = aluno // tira valores do objeto para variáveis
+console.log(nomeAluno, matriculado)
+
+// FOR IN (percorre as chaves do objeto)
+for (const chave in escola) {
+    console.log("for in", chave)
+}
+
 // VETORES (ARRAYS)
 // lista de valores; string[] = vetor de strings; índices começam em 0
 const frutas: string[] = ["maçã", "banana", "uva"]
