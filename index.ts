@@ -272,19 +272,6 @@ aluno.idade = 14                 // altera o valor (const impede trocar o objeto
 console.log(aluno.idade)
 // aluno.email = "x"  // descomente para ver o erro: o TS não deixa criar chave que não existe
 
-// TIPO DE OBJETO (type)
-// "type" dá nome ao formato do objeto; ? = opcional; readonly = não pode alterar
-type Pessoa = {
-    readonly cpf: string
-    nome: string
-    idade: number
-    email?: string
-}
-const professor: Pessoa = { cpf: "123", nome: "Ana", idade: 35 }
-professor.email = "ana@escola.com"   // opcional: pode entrar depois
-// professor.cpf = "999"  // descomente para ver o erro: readonly
-console.log(professor)
-
 // OBJETO DENTRO DE OBJETO
 const escola = {
     nome: "CETAM",
@@ -302,6 +289,21 @@ const contaBancaria = {
 }
 contaBancaria.depositar(50)
 console.log(contaBancaria.saldo)     // 150
+
+
+// TIPO DE OBJETO (type)
+// "type" dá nome ao formato do objeto; ? = opcional; readonly = não pode alterar
+type Pessoa = {
+    readonly cpf: string
+    nome: string
+    idade: number
+    email?: string
+}
+const professor: Pessoa = { cpf: "123", nome: "Ana", idade: 35 }
+professor.email = "ana@escola.com"   // opcional: pode entrar depois
+// professor.cpf = "999"  // descomente para ver o erro: readonly
+console.log(professor)
+
 
 // MÉTODOS DO Object
 console.log(Object.keys(aluno))      // vetor com as chaves: ["nome", "idade", "matriculado"]
@@ -350,7 +352,6 @@ console.log(numeros.findIndex(function (n) { return n > 3 }))   // índice do pr
 console.log(numeros.findLast(function (n) { return n < 4 }))    // último item que passa no teste: 3
 console.log(numeros.some(function (n) { return n > 4 }))        // ALGUM item passa no teste? true
 console.log(numeros.every(function (n) { return n > 0 }))       // TODOS os itens passam no teste? true
-console.log(numeros.reduceRight(function (acc, n) { return acc + n }, "")) // como reduce, mas da direita p/ esquerda: "54321"
 console.log([3, 1, 10, 2].sort())              // sort sem função ordena como TEXTO: [1, 10, 2, 3]
 console.log([3, 1, 10, 2].sort(function (a, b) { return a - b })) // ordem numérica crescente: [1, 2, 3, 10]
 console.log([3, 1, 10, 2].sort(function (a, b) { return b - a })) // ordem numérica decrescente: [10, 3, 2, 1]
