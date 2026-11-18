@@ -244,3 +244,36 @@ function saudacao(pessoa: string): void {
 }
 console.log(somar(2, 3))
 saudacao("Lucas")
+
+// Funcoes anonimas
+const subtracao = function (a: number, b: number) {
+  return a - b;
+}
+
+console.log(subtracao(1, 1))
+
+// Funcoes de seta (arrow function)
+const soma = (a: number, b: number) => a + b;
+console.log(soma(1, 1))
+
+// Objetos
+const pessoa = {
+  nome: "Lucas",
+  idade: 12,
+  peso: 45.9
+}
+
+console.log(pessoa, console.log(pessoa.nome))
+
+// alterando valor
+pessoa['nome'] = "Pedro Lucas"
+pessoa.idade = pessoa.idade + 1
+
+console.log(pessoa, console.log(pessoa.nome))
+
+//vetores
+const numeros = [1, 2, 4]
+
+// adicionando no final
+numeros.push(16)
+numeros.push(20, 24, 25)
