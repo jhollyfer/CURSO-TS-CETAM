@@ -271,9 +271,87 @@ pessoa.idade = pessoa.idade + 1
 
 console.log(pessoa, console.log(pessoa.nome))
 
-//vetores
-const numeros = [1, 2, 4]
+// VETORES (ARRAYS)
+const numeros: number[] = [1, 2, 4]
+console.log("Vetor inicial", numeros)
 
-// adicionando no final
-numeros.push(16)
-numeros.push(20, 24, 25)
+// Métodos que alteram o vetor
+// [...numeros] faz uma cópia para cada exemplo começar com os mesmos valores.
+
+// push() adiciona no final e devolve o novo tamanho.
+const comNumerosNoFinal = [...numeros]
+comNumerosNoFinal.push(16)
+const tamanhoAposPush = comNumerosNoFinal.push(20, 24, 25)
+console.log("push", comNumerosNoFinal, tamanhoAposPush) // [1, 2, 4, 16, 20, 24, 25], 7
+
+// pop() remove e devolve o último número (undefined se o vetor estiver vazio).
+const semUltimo = [...numeros]
+const ultimoRemovido = semUltimo.pop()
+console.log("pop", ultimoRemovido, semUltimo) // 4, [1, 2]
+
+// unshift() adiciona no início e devolve o novo tamanho.
+const comNumeroNoInicio = [...numeros]
+const tamanhoAposUnshift = comNumeroNoInicio.unshift(0)
+console.log("unshift", comNumeroNoInicio, tamanhoAposUnshift) // [0, 1, 2, 4], 4
+
+// shift() remove e devolve o primeiro número (undefined se o vetor estiver vazio).
+const semPrimeiro = [...numeros]
+const primeiroRemovido = semPrimeiro.shift()
+console.log("shift", primeiroRemovido, semPrimeiro) // 1, [2, 4]
+
+// splice(índice, quantidade, ...itens) remove e/ou insere; devolve os itens removidos.
+const comSubstituicao = [...numeros]
+const numerosRemovidos = comSubstituicao.splice(1, 1, 3)
+console.log("splice", numerosRemovidos, comSubstituicao) // [2], [1, 3, 4]
+
+// sort() ordena. Para números, a comparação a - b coloca os menores primeiro.
+const ordenados = [...numeros, 10, 3]
+ordenados.sort((a, b) => a - b)
+console.log("sort", ordenados) // [1, 2, 3, 4, 10]
+
+// reverse() inverte a ordem atual.
+const invertidos = [...numeros]
+invertidos.reverse()
+console.log("reverse", invertidos) // [4, 2, 1]
+
+// Métodos que mantêm o vetor original
+
+// slice() copia do índice inicial até antes do índice final.
+console.log("slice", numeros.slice(0, 2)) // [1, 2]
+
+// includes() verifica se o número está no vetor.
+console.log("includes", numeros.includes(4)) // true
+
+// indexOf() devolve o primeiro índice do valor, ou -1 se ele não existir.
+console.log("indexOf", numeros.indexOf(4), numeros.indexOf(10)) // 2, -1
+
+// find() devolve o primeiro número que passa no teste, ou undefined.
+console.log("find", numeros.find((numero) => numero % 2 === 0)) // 2
+
+// filter() devolve um novo vetor com todos os números que passam no teste.
+console.log("filter", numeros.filter((numero) => numero % 2 === 0)) // [2, 4]
+
+// map() cria um novo vetor com o resultado da transformação de cada número.
+console.log("map", numeros.map((numero) => numero * 2)) // [2, 4, 8]
+
+// forEach() executa uma ação para cada número.
+numeros.forEach((numero) => console.log("forEach", numero)) // 1, 2 e 4, um por linha
+
+// reduce() acumula um resultado. Aqui a soma começa em 0.
+console.log("reduce", numeros.reduce((total, numero) => total + numero, 0)) // 7
+
+// join() junta os números em um texto com o separador escolhido.
+console.log("join", numeros.join(" - ")) // "1 - 2 - 4"
+
+// concat() devolve um novo vetor juntando os valores.
+console.log("concat", numeros.concat([8, 16])) // [1, 2, 4, 8, 16]
+
+// some() verifica se pelo menos um número passa no teste.
+console.log("some", numeros.some((numero) => numero > 3)) // true
+
+// every() verifica se todos os números passam no teste.
+console.log("every", numeros.every((numero) => numero % 2 === 0)) // false
+
+// flat() junta os vetores internos em um único vetor.
+const gruposDeNumeros = [numeros, [8, 16]]
+console.log("flat", gruposDeNumeros.flat()) // [1, 2, 4, 8, 16]
