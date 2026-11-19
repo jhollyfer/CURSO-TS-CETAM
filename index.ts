@@ -245,113 +245,162 @@ function saudacao(pessoa: string): void {
 console.log(somar(2, 3))
 saudacao("Lucas")
 
-// Funcoes anonimas
-const subtracao = function (a: number, b: number) {
-  return a - b;
+// FUNÇÃO ANÔNIMA (function expression)
+// function sem nome guardada numa constante; chama pelo nome da constante
+const subtrair = function (a: number, b: number): number {
+    return a - b
 }
-
-console.log(subtracao(1, 1))
-
-// Funcoes de seta (arrow function)
-const soma = (a: number, b: number) => a + b;
-console.log(soma(1, 1))
-
-// Objetos
-const pessoa = {
-  nome: "Lucas",
-  idade: 12,
-  peso: 45.9
+const multiplicar = function (a: number, b: number): number {
+    return a * b
 }
+const dobro = function (n: number) {
+    return n * 2 // tipo de retorno inferido
+}
+console.log(subtrair(5, 2), multiplicar(3, 4), dobro(8))
 
-console.log(pessoa, console.log(pessoa.nome))
+// OBJETOS
+// agrupa valores relacionados em pares chave: valor, dentro de { }
+const aluno = {
+    nome: "Lucas",
+    idade: 13,
+    matriculado: true,
+}
+console.log(aluno)
+console.log(aluno.nome)          // acessa com ponto
+console.log(aluno["idade"])      // acessa com colchetes (chave como texto)
+aluno.idade = 14                 // altera o valor (const impede trocar o objeto, não o conteúdo)
+console.log(aluno.idade)
+// aluno.email = "x"  // descomente para ver o erro: o TS não deixa criar chave que não existe
 
-// alterando valor
-pessoa['nome'] = "Pedro Lucas"
-pessoa.idade = pessoa.idade + 1
+// OBJETO DENTRO DE OBJETO
+const escola = {
+    nome: "CETAM",
+    endereco: { cidade: "Manaus", bairro: "Centro" },
+}
+console.log(escola.endereco.cidade)  // encadeia os pontos
 
-console.log(pessoa, console.log(pessoa.nome))
+// MÉTODOS (função dentro do objeto)
+// "this" é o próprio objeto
+const contaBancaria = {
+    saldo: 100,
+    depositar: function (quantia: number): void {
+        this.saldo += quantia
+    },
+}
+contaBancaria.depositar(50)
+console.log(contaBancaria.saldo)     // 150
+
+
+// TIPO DE OBJETO (type)
+// "type" dá nome ao formato do objeto; ? = opcional; readonly = não pode alterar
+type Pessoa = {
+    readonly cpf: string
+    nome: string
+    idade: number
+    email?: string
+}
+const professor: Pessoa = { cpf: "123", nome: "Ana", idade: 35 }
+professor.email = "ana@escola.com"   // opcional: pode entrar depois
+// professor.cpf = "999"  // descomente para ver o erro: readonly
+console.log(professor)
+
+
+// MÉTODOS DO Object
+console.log(Object.keys(aluno))      // vetor com as chaves: ["nome", "idade", "matriculado"]
+console.log(Object.values(aluno))    // vetor com os valores
+console.log(Object.entries(aluno))   // vetor de pares [chave, valor]
+console.log("nome" in aluno)         // a chave existe? true
+
+// CÓPIA E DESESTRUTURAÇÃO
+const alunoCopia = { ...aluno, idade: 15 } // spread copia e sobrescreve o que vier depois
+console.log(aluno.idade, alunoCopia.idade) // 14 15 (o original não muda)
+const { nome: nomeAluno, matriculado } = aluno // tira valores do objeto para variáveis
+console.log(nomeAluno, matriculado)
+
+// FOR IN (percorre as chaves do objeto)
+for (const chave in escola) {
+    console.log("for in", chave)
+}
 
 // VETORES (ARRAYS)
-const numeros: number[] = [1, 2, 4]
-console.log("Vetor inicial", numeros)
+// lista de valores; string[] = vetor de strings; índices começam em 0
+const frutas: string[] = ["maçã", "banana", "uva"]
+console.log(frutas)
+console.log(frutas[0])          // acessa pelo índice: "maçã"
+console.log(frutas.length)      // quantidade de itens
+frutas.push("laranja")          // adiciona no fim
+frutas.unshift("morango")       // adiciona no início
+frutas.pop()                    // remove do fim
+frutas.shift()                  // remove do início
+console.log(frutas)
+console.log(frutas.includes("uva"))   // existe no vetor? true/false
+console.log(frutas.indexOf("banana")) // índice do item (-1 se não achar)
+console.log(frutas.join(", "))        // junta tudo em uma string
+console.log(frutas.slice(0, 2))       // copia um pedaço (não altera o original)
+console.log(frutas.reverse())         // inverte a ordem (ALTERA o original)
 
-// Métodos que alteram o vetor
-// [...numeros] faz uma cópia para cada exemplo começar com os mesmos valores.
+const numeros: number[] = [1, 2, 3, 4, 5]
+console.log(numeros.map(function (n) { return n * 2 }))           // cria novo vetor transformando cada item
+console.log(numeros.filter(function (n) { return n % 2 === 0 }))  // novo vetor só com os que passam no teste (pares)
+console.log(numeros.find(function (n) { return n > 3 }))          // primeiro item que passa no teste: 4
+console.log(numeros.reduce(function (acc, n) { return acc + n }, 0)) // reduz a um valor só (soma): 15; 0 é o valor inicial
+numeros.forEach(function (n) { console.log("forEach", n) })   // executa algo para cada item
 
-// push() adiciona no final e devolve o novo tamanho.
-const comNumerosNoFinal = [...numeros]
-comNumerosNoFinal.push(16)
-const tamanhoAposPush = comNumerosNoFinal.push(20, 24, 25)
-console.log("push", comNumerosNoFinal, tamanhoAposPush) // [1, 2, 4, 16, 20, 24, 25], 7
+// VETORES (mais métodos de alta ordem)
+// recebem uma função (callback) que roda para cada item
+console.log(numeros.findIndex(function (n) { return n > 3 }))   // índice do primeiro que passa no teste: 3 (-1 se não achar)
+console.log(numeros.findLast(function (n) { return n < 4 }))    // último item que passa no teste: 3
+console.log(numeros.some(function (n) { return n > 4 }))        // ALGUM item passa no teste? true
+console.log(numeros.every(function (n) { return n > 0 }))       // TODOS os itens passam no teste? true
+console.log([3, 1, 10, 2].sort())              // sort sem função ordena como TEXTO: [1, 10, 2, 3]
+console.log([3, 1, 10, 2].sort(function (a, b) { return a - b })) // ordem numérica crescente: [1, 2, 3, 10]
+console.log([3, 1, 10, 2].sort(function (a, b) { return b - a })) // ordem numérica decrescente: [10, 3, 2, 1]
+console.log(numeros.flatMap(function (n) { return [n, n * 10] }))  // map + achata um nível: [1, 10, 2, 20, ...]
+console.log([[1, 2], [3, [4]]].flat())         // achata sub-vetores (1 nível): [1, 2, 3, [4]]
+console.log(numeros.concat([6, 7]))            // junta vetores, devolve novo vetor
+console.log([...numeros, 6, 7])                // spread (...) espalha os itens: outra forma de juntar
+console.log(numeros.at(-1))                    // acessa pelo índice, aceita negativo: último item (5)
+console.log(Array.from({ length: 3 }, function (_, i) { return i * 2 })) // cria vetor por regra: [0, 2, 4]
 
-// pop() remove e devolve o último número (undefined se o vetor estiver vazio).
-const semUltimo = [...numeros]
-const ultimoRemovido = semUltimo.pop()
-console.log("pop", ultimoRemovido, semUltimo) // 4, [1, 2]
+// splice altera o vetor original: splice(início, quantosRemover, ...itensParaInserir)
+const copia = [...numeros]                     // cópia para não mexer em "numeros"
+copia.splice(1, 2)                             // remove 2 itens a partir do índice 1
+console.log(copia)                             // [1, 4, 5]
+copia.splice(1, 0, 99)                         // insere 99 no índice 1 sem remover nada
+console.log(copia)                             // [1, 99, 4, 5]
 
-// unshift() adiciona no início e devolve o novo tamanho.
-const comNumeroNoInicio = [...numeros]
-const tamanhoAposUnshift = comNumeroNoInicio.unshift(0)
-console.log("unshift", comNumeroNoInicio, tamanhoAposUnshift) // [0, 1, 2, 4], 4
+// Encadeando métodos: o resultado de um vira entrada do próximo
+const somaDosQuadradosPares = numeros
+    .filter(function (n) { return n % 2 === 0 })                // [2, 4]
+    .map(function (n) { return n ** 2 })                        // [4, 16]
+    .reduce(function (acc, n) { return acc + n }, 0)            // 20
+console.log(somaDosQuadradosPares)
 
-// shift() remove e devolve o primeiro número (undefined se o vetor estiver vazio).
-const semPrimeiro = [...numeros]
-const primeiroRemovido = semPrimeiro.shift()
-console.log("shift", primeiroRemovido, semPrimeiro) // 1, [2, 4]
+// Vetor de objetos: onde map/filter/find/reduce mais aparecem no dia a dia
+const produtos = [
+    { nome: "caneta", preco: 3, estoque: 10 },
+    { nome: "caderno", preco: 15, estoque: 0 },
+    { nome: "mochila", preco: 120, estoque: 4 },
+]
+console.log(produtos.map(function (p) { return p.nome }))                       // só os nomes
+console.log(produtos.filter(function (p) { return p.estoque > 0 }))             // só os que têm estoque
+console.log(produtos.find(function (p) { return p.nome === "mochila" }))        // o objeto da mochila
+console.log(produtos.reduce(function (total, p) { return total + p.preco * p.estoque }, 0)) // valor total em estoque: 510
+console.log(produtos.some(function (p) { return p.estoque === 0 }))             // algum esgotado? true
+console.log(produtos.every(function (p) { return p.preco > 0 }))                // todos com preço válido? true
+console.log([...produtos].sort(function (a, b) { return a.preco - b.preco }))   // ordena por preço (cópia, não altera o original)
 
-// splice(índice, quantidade, ...itens) remove e/ou insere; devolve os itens removidos.
-const comSubstituicao = [...numeros]
-const numerosRemovidos = comSubstituicao.splice(1, 1, 3)
-console.log("splice", numerosRemovidos, comSubstituicao) // [2], [1, 3, 4]
+// FOR OF (percorre os valores do vetor)
+// mais simples que o for quando não precisa do índice
+for (const fruta of frutas) {
+    console.log("for of", fruta)
+}
+for (const n of numeros) {
+    console.log("for of", n)
+}
 
-// sort() ordena. Para números, a comparação a - b coloca os menores primeiro.
-const ordenados = [...numeros, 10, 3]
-ordenados.sort((a, b) => a - b)
-console.log("sort", ordenados) // [1, 2, 3, 4, 10]
-
-// reverse() inverte a ordem atual.
-const invertidos = [...numeros]
-invertidos.reverse()
-console.log("reverse", invertidos) // [4, 2, 1]
-
-// Métodos que mantêm o vetor original
-
-// slice() copia do índice inicial até antes do índice final.
-console.log("slice", numeros.slice(0, 2)) // [1, 2]
-
-// includes() verifica se o número está no vetor.
-console.log("includes", numeros.includes(4)) // true
-
-// indexOf() devolve o primeiro índice do valor, ou -1 se ele não existir.
-console.log("indexOf", numeros.indexOf(4), numeros.indexOf(10)) // 2, -1
-
-// find() devolve o primeiro número que passa no teste, ou undefined.
-console.log("find", numeros.find((numero) => numero % 2 === 0)) // 2
-
-// filter() devolve um novo vetor com todos os números que passam no teste.
-console.log("filter", numeros.filter((numero) => numero % 2 === 0)) // [2, 4]
-
-// map() cria um novo vetor com o resultado da transformação de cada número.
-console.log("map", numeros.map((numero) => numero * 2)) // [2, 4, 8]
-
-// forEach() executa uma ação para cada número.
-numeros.forEach((numero) => console.log("forEach", numero)) // 1, 2 e 4, um por linha
-
-// reduce() acumula um resultado. Aqui a soma começa em 0.
-console.log("reduce", numeros.reduce((total, numero) => total + numero, 0)) // 7
-
-// join() junta os números em um texto com o separador escolhido.
-console.log("join", numeros.join(" - ")) // "1 - 2 - 4"
-
-// concat() devolve um novo vetor juntando os valores.
-console.log("concat", numeros.concat([8, 16])) // [1, 2, 4, 8, 16]
-
-// some() verifica se pelo menos um número passa no teste.
-console.log("some", numeros.some((numero) => numero > 3)) // true
-
-// every() verifica se todos os números passam no teste.
-console.log("every", numeros.every((numero) => numero % 2 === 0)) // false
-
-// flat() junta os vetores internos em um único vetor.
-const gruposDeNumeros = [numeros, [8, 16]]
-console.log("flat", gruposDeNumeros.flat()) // [1, 2, 4, 8, 16]
+// FOR com vetor (usando índice)
+// use quando precisar da posição (i) além do valor
+for (let i = 0; i < frutas.length; i++) {
+    console.log("for", i, frutas[i])
+}
