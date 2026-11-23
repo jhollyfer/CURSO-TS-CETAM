@@ -21,9 +21,10 @@ const cliente: Cliente = {
 //github.com/jhollyfer/CURSO-TS-CETAM/readme.md
 // sacar
 function sacar(valor: number) {
-  const saldoEMaiorQueZero = cliente.saldo > 0;
-  const valorMenorQueSaldo = valor < cliente.saldo;
-  const podeSacar = saldoEMaiorQueZero && valorMenorQueSaldo;
+  const saldoValido = cliente.saldo > 0;
+  const valorValido = valor < cliente.saldo;
+  const podeSacar = saldoValido && valorValido;
+
   if (podeSacar) {
     cliente.saldo -= valor;
 
