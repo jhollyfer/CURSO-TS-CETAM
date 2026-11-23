@@ -2,7 +2,8 @@
 ```bash
 cd ~
 
-npm install --global tsx pnpm
+npm install --global tsx 
+npm install --global pnpm
 
 sudo rm -rf ~/CURSO-TS-CETAM
 
@@ -21,4 +22,3 @@ zed .
 ```bash
 tsx ~/CURSO-TS-CETAM/index.ts
 ```
-
