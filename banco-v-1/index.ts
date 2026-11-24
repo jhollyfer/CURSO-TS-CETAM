@@ -26,7 +26,6 @@ const cliente: Cliente = {
 function sacar(valor: number) {
   const saldoValido = cliente.saldo > 0;
   const valorValido = valor < cliente.saldo;
-  const podeSacar = saldoValido && valorValido;
 
   if (!saldoValido) {
     const operacao: Operacao = {
