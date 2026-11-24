@@ -25,6 +25,17 @@ function sacar(valor: number) {
   const valorValido = valor < cliente.saldo;
   const podeSacar = saldoValido && valorValido;
 
+  if (!saldoValido) {
+    const operacao: Operacao = {
+      data: new Date().toISOString(),
+      tipo: 'SAQUE',
+      valor: -valor
+    }
+
+    cliente.operacoes.push(operacao)
+    return
+  }
+
   if (podeSacar) {
     cliente.saldo -= valor;
 
@@ -36,6 +47,7 @@ function sacar(valor: number) {
 
     cliente.operacoes.push(operacao);
   } else {
+
     console.log("Operacao nao pode ser realizada.")
   }
 }
