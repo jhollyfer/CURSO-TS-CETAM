@@ -2,6 +2,9 @@ type Operacao = {
   data: string;
   tipo: "SAQUE" | "DEPOSITO";
   valor: number;
+  erro?: {
+    mensagem: string;
+  }
 };
 
 type Cliente = {
@@ -29,9 +32,11 @@ function sacar(valor: number) {
     const operacao: Operacao = {
       data: new Date().toISOString(),
       tipo: 'SAQUE',
-      valor: -valor
+      valor: -valor,
+      erro: {
+        mensagem: "Saldo inválido."
+      }
     }
-
     cliente.operacoes.push(operacao)
     return
   }
@@ -86,4 +91,4 @@ sacar(200);
 console.log(cliente.saldo);
 depositar(-40);
 console.log(cliente.saldo);
-// console.log(cliente.operacoes);
+console.log(cliente.operacoes);
