@@ -4,7 +4,7 @@ type Operacao = {
   valor: number;
   erro?: {
     mensagem: string;
-  }
+  };
 };
 
 type Cliente = {
@@ -30,27 +30,27 @@ function sacar(valor: number) {
   if (!saldoValido) {
     const operacao: Operacao = {
       data: new Date().toISOString(),
-      tipo: 'SAQUE',
+      tipo: "SAQUE",
       valor: -valor,
       erro: {
-        mensagem: "Saldo insuficiente."
-      }
-    }
-    cliente.operacoes.push(operacao)
-    return
+        mensagem: "Saldo insuficiente.",
+      },
+    };
+    cliente.operacoes.push(operacao);
+    return;
   }
 
   if (!valorValido) {
     const operacao: Operacao = {
       data: new Date().toISOString(),
-      tipo: 'SAQUE',
+      tipo: "SAQUE",
       valor: -valor,
       erro: {
-        mensagem: "Valor de saque não pode ser maior que saldo."
-      }
-    }
-    cliente.operacoes.push(operacao)
-    return
+        mensagem: "Valor de saque não pode ser maior que saldo.",
+      },
+    };
+    cliente.operacoes.push(operacao);
+    return;
   }
 
   // Sucesso ao efetuar operacao
@@ -69,18 +69,26 @@ function sacar(valor: number) {
 function depositar(valor: number) {
   if (valor > 0) {
     cliente.saldo = cliente.saldo + valor;
-
     const operacao: Operacao = {
       data: new Date().toISOString(),
-      // valor: valor,
       valor,
       tipo: "DEPOSITO",
     };
-
     cliente.operacoes.push(operacao);
-  } else {
-    console.log("Operacao nao pode ser realizada.")
-    console.log("Valor de deposito negativo")
+    return;
+  }
+
+  if (!(valor > 0)) {
+    const operacao: Operacao = {
+      data: new Date().toISOString(),
+      valor,
+      tipo: "DEPOSITO",
+      erro: {
+        mensagem: "Valor de depósito inválido.",
+      },
+    };
+    cliente.operacoes.push(operacao);
+    return
   }
 }
 
