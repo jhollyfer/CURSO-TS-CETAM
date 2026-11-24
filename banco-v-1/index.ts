@@ -34,27 +34,36 @@ function sacar(valor: number) {
       tipo: 'SAQUE',
       valor: -valor,
       erro: {
-        mensagem: "Saldo inválido."
+        mensagem: "Saldo insuficiente."
       }
     }
     cliente.operacoes.push(operacao)
     return
   }
 
-  if (podeSacar) {
-    cliente.saldo -= valor;
-
+  if (!valorValido) {
     const operacao: Operacao = {
       data: new Date().toISOString(),
+      tipo: 'SAQUE',
       valor: -valor,
-      tipo: "SAQUE",
-    };
-
-    cliente.operacoes.push(operacao);
-  } else {
-
-    console.log("Operacao nao pode ser realizada.")
+      erro: {
+        mensagem: "Valor de saque não pode ser maior que saldo."
+      }
+    }
+    cliente.operacoes.push(operacao)
+    return
   }
+
+  // Sucesso ao efetuar operacao
+  cliente.saldo -= valor;
+
+  const operacao: Operacao = {
+    data: new Date().toISOString(),
+    valor: -valor,
+    tipo: "SAQUE",
+  };
+
+  cliente.operacoes.push(operacao);
 }
 
 // depositar
