@@ -94,6 +94,11 @@ function depositar(valor: number) {
   }
 }
 
+function visualizarSaldo() {
+  const saida = `Saldo atual: ${cliente.saldo}`
+  console.log(saida)
+}
+
 let opcao: number;
 
 do {
