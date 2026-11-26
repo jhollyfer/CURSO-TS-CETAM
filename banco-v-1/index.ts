@@ -1,3 +1,5 @@
+import { input } from "#core/input.ts";
+
 type Operacao = {
   data: string;
   tipo: "SAQUE" | "DEPOSITO";
@@ -88,23 +90,36 @@ function depositar(valor: number) {
       },
     };
     cliente.operacoes.push(operacao);
-    return
+    return;
   }
 }
 
-console.log(cliente.saldo);
-depositar(8000);
-console.log(cliente.saldo);
-sacar(45);
-console.log(cliente.saldo);
-sacar(15);
-console.log(cliente.saldo);
-sacar(8000);
-console.log(cliente.saldo);
-sacar(140);
-console.log(cliente.saldo);
-sacar(200);
-console.log(cliente.saldo);
-depositar(-40);
-console.log(cliente.saldo);
-console.log(cliente.operacoes);
+let opcao: number;
+
+do {
+  console.log("========================");
+  console.log("1 - Depositar");
+  console.log("2 - Sacar");
+  console.log("3 - Ver saldo\n");
+  console.log("4 - Ver extrato\n");
+  console.log("0 - Sair\n");
+  console.log("========================");
+  opcao = Number(input("Digite opção: "));
+
+  switch (opcao) {
+    case 1:
+      const d = Number(input("Digite valor para depósito: "));
+      depositar(d);
+      break;
+    case 2:
+      const s = Number(input("Digite valor para saque: "));
+      sacar(s);
+      break;
+    case 3:
+      console.log(`Saldo atual: ${cliente.saldo.toFixed(2)}`)
+      break;
+    default:
+      console.log("Opção inválida. Tente novamente.")
+
+  }
+} while (opcao !== 0);
