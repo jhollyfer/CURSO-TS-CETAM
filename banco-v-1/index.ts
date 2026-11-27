@@ -121,7 +121,7 @@ do {
       sacar(s);
       break;
     case 3:
-      console.log(`Saldo atual: ${cliente.saldo.toFixed(2)}`)
+      visualizarSaldo()
       break;
     default:
       console.log("Opção inválida. Tente novamente.")
