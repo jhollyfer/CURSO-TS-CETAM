@@ -68,17 +68,12 @@ Depois rode `pnpm typecheck` e confira se não há erros nos arquivos do `banco-
 
 ## Defesa
 
-Além do código, cada aluno (ou dupla) deve entregar uma defesa das mudanças, escrita no arquivo `defesa.md`, dentro da pasta `banco-v-1`, e apresentada em sala.
+Além do código, cada aluno (ou dupla) deve defender as mudanças em uma exposição em sala, mostrando o próprio código.
 
-A defesa deve ter três partes:
+A exposição deve passar por três partes:
 
-1. **O que mudou.** Para cada função alterada, mostrar a assinatura antes e depois e explicar em poucas linhas o que mudou no comportamento.
-2. **Vantagens x desvantagens.** Uma tabela comparando a versão que lia `cliente` direto com a versão que recebe tudo por parâmetro. Apresentar pelo menos três vantagens e duas desvantagens, cada uma com um exemplo concreto do próprio código.
-
-   | Aspecto | Antes (lendo `cliente`) | Depois (por parâmetro) |
-   |---|---|---|
-   | ... | ... | ... |
-
+1. **O que mudou.** Para cada função alterada, mostrar a assinatura antes e depois e explicar o que mudou no comportamento.
+2. **Vantagens x desvantagens.** Comparar a versão que lia `cliente` direto com a versão que recebe tudo por parâmetro. Apresentar pelo menos três vantagens e duas desvantagens, cada uma com um exemplo concreto do próprio código.
 3. **Por que das decisões.** Justificar as escolhas feitas durante o trabalho, respondendo:
    1. Por que a ordem dos parâmetros ficou essa?
    2. Por que o saldo volta pelo `return` e não é alterado dentro da função?
@@ -86,7 +81,7 @@ A defesa deve ter três partes:
    4. Se fez o desafio extra: por que vale (ou não vale) a pena não alterar o array recebido?
    5. Que outra solução foi considerada e por que foi descartada?
 
-A apresentação deve durar no máximo 5 minutos, e a turma pode fazer perguntas no final.
+A exposição deve durar no máximo 5 minutos, e a turma pode fazer perguntas no final.
 
 ## Critérios de avaliação
 
