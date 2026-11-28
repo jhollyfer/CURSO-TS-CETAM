@@ -20,25 +20,89 @@ No fim, o arquivo `modulos.ts` não pode ter nenhum `import { cliente }`.
 
 ## Requisitos
 
-1. [ ] **`visualizarSaldo`**
-   1. [ ] Receber o saldo por parâmetro em vez de ler `cliente.saldo`.
-   2. [ ] Continuar exibindo o saldo formatado com `formatarMoeda`.
-2. [ ] **`depositar`**
-   1. [ ] Receber o saldo atual, a lista de operações e o valor do depósito.
-   2. [ ] Não alterar a lista recebida: nada de `push`. Criar uma lista nova com a operação (aprovada ou recusada) no final.
-   3. [ ] Devolver um objeto com o novo saldo e a nova lista. Se o depósito for recusado, o saldo volta sem alteração.
-3. [ ] **`sacar`**
-   1. [ ] Receber o saldo atual, a lista de operações e o valor do saque.
-   2. [ ] Manter as mesmas validações de hoje.
-   3. [ ] Não alterar a lista recebida: nada de `push`. Criar uma lista nova com a operação (aprovada ou recusada) no final.
-   4. [ ] Devolver um objeto com o novo saldo e a nova lista. Se o saque for recusado, o saldo volta sem alteração.
-4. [ ] **`tipos.ts`**
-   1. [ ] Criar o tipo `ResultadoOperacao` para o objeto devolvido por `sacar` e `depositar`.
-5. [ ] **`index.ts`**
-   1. [ ] Passar os dados do `cliente` em cada chamada.
-   2. [ ] Guardar o saldo e a lista devolvidos por `sacar` e `depositar` de volta em `cliente.saldo` e `cliente.operacoes`.
-6. [ ] **`modulos.ts`**
-   1. [ ] Remover o `import { cliente } from "./constantes"`.
+### 1. `visualizarSaldo`
+
+1. [ ] Receber um único parâmetro, `saldo: number`.
+2. [ ] Não ler nem alterar nada de `cliente`.
+3. [ ] Formatar o valor recebido com `formatarMoeda`.
+4. [ ] Exibir no terminal a mensagem no formato `Saldo atual: R$ 100,00`.
+5. [ ] Não devolver nada (`void`).
+
+### 2. `depositar`
+
+1. [ ] Receber três parâmetros, nesta ordem:
+   - `saldo: number`, o saldo atual da conta;
+   - `operacoes: Operacao[]`, o extrato atual;
+   - `valor: number`, o valor digitado para o depósito.
+2. [ ] Não ler nem alterar nada de `cliente`.
+3. [ ] Não alterar a lista `operacoes` recebida: sem `push`, `splice`, `pop` ou atribuição em posições do array.
+4. [ ] Criar a operação com os campos:
+   - `data`: a data e hora atual, com `new Date().toISOString()`;
+   - `tipo`: `"DEPOSITO"`;
+   - `valor`: o valor do depósito, positivo.
+5. [ ] **Depósito recusado.** Se o valor não for maior que zero (zero, negativo ou texto convertido em `NaN`):
+   1. [ ] Acrescentar à operação o campo `erro` com a mensagem `"Valor de depósito inválido."`.
+   2. [ ] Devolver o mesmo saldo recebido.
+   3. [ ] Devolver uma lista nova com todas as operações recebidas e a operação recusada no final.
+6. [ ] **Depósito aprovado.** Se o valor for maior que zero:
+   1. [ ] Devolver o saldo recebido somado ao valor.
+   2. [ ] Devolver uma lista nova com todas as operações recebidas e a operação aprovada no final, sem o campo `erro`.
+7. [ ] Devolver sempre um objeto do tipo `ResultadoOperacao`.
+
+### 3. `sacar`
+
+1. [ ] Receber três parâmetros, nesta ordem:
+   - `saldo: number`, o saldo atual da conta;
+   - `operacoes: Operacao[]`, o extrato atual;
+   - `valor: number`, o valor digitado para o saque.
+2. [ ] Não ler nem alterar nada de `cliente`.
+3. [ ] Não alterar a lista `operacoes` recebida: sem `push`, `splice`, `pop` ou atribuição em posições do array.
+4. [ ] Criar a operação com os campos:
+   - `data`: a data e hora atual, com `new Date().toISOString()`;
+   - `tipo`: `"SAQUE"`;
+   - `valor`: o valor do saque, negativo (um saque de `50` é registrado como `-50`).
+5. [ ] Manter as mesmas validações de hoje, na mesma ordem:
+   1. [ ] Se o saldo não for maior que zero, recusar com a mensagem `"Saldo insuficiente."`.
+   2. [ ] Se o valor for maior que o saldo, recusar com a mensagem `"Valor de saque não pode ser maior que saldo."`.
+6. [ ] **Saque recusado.** Em qualquer um dos casos acima:
+   1. [ ] Acrescentar à operação o campo `erro` com a mensagem correspondente.
+   2. [ ] Devolver o mesmo saldo recebido.
+   3. [ ] Devolver uma lista nova com todas as operações recebidas e a operação recusada no final.
+7. [ ] **Saque aprovado.** Se passar nas validações:
+   1. [ ] Devolver o saldo recebido menos o valor. Sacar o saldo inteiro é permitido e deixa o saldo em zero.
+   2. [ ] Devolver uma lista nova com todas as operações recebidas e a operação aprovada no final, sem o campo `erro`.
+8. [ ] Devolver sempre um objeto do tipo `ResultadoOperacao`.
+
+### 4. `tipos.ts`
+
+1. [ ] Criar e exportar o tipo `ResultadoOperacao` com dois campos:
+   - `saldo: number`;
+   - `operacoes: Operacao[]`.
+2. [ ] Não alterar os tipos `Operacao` e `Cliente`.
+
+### 5. `index.ts`
+
+1. [ ] Na opção **1 - Depositar**:
+   1. [ ] Chamar `depositar` com `cliente.saldo`, `cliente.operacoes` e o valor digitado.
+   2. [ ] Guardar o `saldo` devolvido em `cliente.saldo`.
+   3. [ ] Guardar as `operacoes` devolvidas em `cliente.operacoes`.
+2. [ ] Na opção **2 - Sacar**:
+   1. [ ] Chamar `sacar` com `cliente.saldo`, `cliente.operacoes` e o valor digitado.
+   2. [ ] Guardar o `saldo` devolvido em `cliente.saldo`.
+   3. [ ] Guardar as `operacoes` devolvidas em `cliente.operacoes`.
+3. [ ] Na opção **3 - Ver saldo**, chamar `visualizarSaldo` com `cliente.saldo`.
+4. [ ] O `index.ts` é o único arquivo, além de `constantes.ts`, que pode usar `cliente`.
+
+### 6. `modulos.ts`
+
+1. [ ] Remover o `import { cliente } from "./constantes"`.
+2. [ ] Importar `ResultadoOperacao` de `./tipos`.
+3. [ ] Não ter nenhuma ocorrência da palavra `cliente` no arquivo.
+4. [ ] Não alterar `formatarMoeda` nem `visualizarExtrato`.
+
+### 7. `constantes.ts`
+
+1. [ ] Não alterar o arquivo. A conta continua começando com saldo de R$ 100,00 e extrato vazio.
 
 ## Assinaturas esperadas
 
