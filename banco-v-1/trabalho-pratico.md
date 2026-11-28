@@ -21,25 +21,21 @@ No fim, o arquivo `modulos.ts` não pode ter nenhum `import { cliente }`.
 ## Requisitos
 
 1. [ ] **`visualizarSaldo`**
-   1. [ ] Receber o saldo por parâmetro em vez de ler `cliente.saldo`.  
-      *Dica. Veja quantos dados do cliente a função realmente usa.*
+   1. [ ] Receber o saldo por parâmetro em vez de ler `cliente.saldo`.
    2. [ ] Continuar exibindo o saldo formatado com `formatarMoeda`.
 2. [ ] **`depositar`**
    1. [ ] Receber o saldo atual, a lista de operações e o valor do depósito.
    2. [ ] Registrar a operação (aprovada ou recusada) na lista recebida.
-   3. [ ] Devolver o novo saldo com `return`. Se o depósito for recusado, devolver o saldo sem alteração.  
-      *Dica. Teste: se a função fizer `saldo = saldo + valor` no parâmetro, o `cliente.saldo` muda?*
+   3. [ ] Devolver o novo saldo com `return`. Se o depósito for recusado, devolver o saldo sem alteração.
 3. [ ] **`sacar`**
    1. [ ] Receber o saldo atual, a lista de operações e o valor do saque.
    2. [ ] Manter as mesmas validações de hoje e registrar a operação na lista recebida.
    3. [ ] Devolver o novo saldo com `return`. Se o saque for recusado, devolver o saldo sem alteração.
 4. [ ] **`index.ts`**
    1. [ ] Passar os dados do `cliente` em cada chamada.
-   2. [ ] Guardar o saldo devolvido por `sacar` e `depositar` de volta em `cliente.saldo`.  
-      *Dica. `cliente.saldo = depositar(...)`.*
+   2. [ ] Guardar o saldo devolvido por `sacar` e `depositar` de volta em `cliente.saldo`.
 5. [ ] **`modulos.ts`**
-   1. [ ] Remover o `import { cliente } from "./constantes"`.  
-      *Dica. Se o TypeScript reclamar de `cliente` depois de remover o import, ainda falta trocar alguma coisa por parâmetro.*
+   1. [ ] Remover o `import { cliente } from "./constantes"`.
 
 ## Assinaturas esperadas
 
@@ -52,8 +48,6 @@ export function sacar(saldo: number, operacoes: Operacao[], valor: number): numb
 ## Ponto para pensar
 
 Por que o **saldo** precisa ser devolvido com `return`, mas as **operações** não?
-
-*Dica. Compare o que acontece ao mudar um parâmetro do tipo `number` e ao fazer `push` em um parâmetro do tipo array. Pesquise "passagem por valor e por referência em JavaScript".*
 
 Escreva a resposta em duas ou três linhas, em um comentário no topo do `modulos.ts`.
 
@@ -89,5 +83,3 @@ Faça `sacar` e `depositar` também **não alterarem** o array recebido. Em vez 
 ```ts
 return { saldo: novoSaldo, operacoes: [...operacoes, operacao] };
 ```
-
-*Dica. Pesquise "spread operator" na MDN.*
