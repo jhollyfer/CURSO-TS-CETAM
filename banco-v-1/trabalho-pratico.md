@@ -66,15 +66,39 @@ Rode o programa e faça a sequência abaixo. O saldo inicial é R$ 100,00.
 
 Depois rode `pnpm typecheck` e confira se não há erros nos arquivos do `banco-v-1`.
 
+## Defesa
+
+Além do código, cada aluno (ou dupla) deve entregar uma defesa das mudanças, escrita no arquivo `defesa.md`, dentro da pasta `banco-v-1`, e apresentada em sala.
+
+A defesa deve ter três partes:
+
+1. **O que mudou.** Para cada função alterada, mostrar a assinatura antes e depois e explicar em poucas linhas o que mudou no comportamento.
+2. **Vantagens x desvantagens.** Uma tabela comparando a versão que lia `cliente` direto com a versão que recebe tudo por parâmetro. Apresentar pelo menos três vantagens e duas desvantagens, cada uma com um exemplo concreto do próprio código.
+
+   | Aspecto | Antes (lendo `cliente`) | Depois (por parâmetro) |
+   |---|---|---|
+   | ... | ... | ... |
+
+3. **Por que das decisões.** Justificar as escolhas feitas durante o trabalho, respondendo:
+   1. Por que a ordem dos parâmetros ficou essa?
+   2. Por que o saldo volta pelo `return` e não é alterado dentro da função?
+   3. Por que as validações ficaram dentro de `sacar` e `depositar`, e não no `index.ts`?
+   4. Se fez o desafio extra: por que vale (ou não vale) a pena não alterar o array recebido?
+   5. Que outra solução foi considerada e por que foi descartada?
+
+A apresentação deve durar no máximo 5 minutos, e a turma pode fazer perguntas no final.
+
 ## Critérios de avaliação
 
 | Critério | Peso |
 |---|---|
-| `modulos.ts` sem nenhuma referência a `cliente` | 30% |
-| `sacar` e `depositar` devolvem o saldo certo em todos os casos (aprovado e recusado) | 30% |
-| `index.ts` atualiza `cliente.saldo` com o retorno das funções | 20% |
+| `modulos.ts` sem nenhuma referência a `cliente` | 20% |
+| `sacar` e `depositar` devolvem o saldo certo em todos os casos (aprovado e recusado) | 20% |
+| `index.ts` atualiza `cliente.saldo` com o retorno das funções | 15% |
 | Sequência de teste com os saldos esperados | 10% |
-| Resposta do "Ponto para pensar" | 10% |
+| Resposta do "Ponto para pensar" | 5% |
+| Defesa: vantagens x desvantagens com exemplos do código | 15% |
+| Defesa: justificativa das decisões | 15% |
 
 ## Desafio extra (opcional)
 
