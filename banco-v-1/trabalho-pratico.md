@@ -68,7 +68,7 @@ Depois rode `pnpm typecheck` e confira se não há erros nos arquivos do `banco-
 
 ## Defesa
 
-Além do código, cada aluno (ou dupla) deve defender as mudanças em uma exposição em sala, mostrando o próprio código.
+Além do código, cada aluno deve defender as mudanças em uma exposição em sala, mostrando o próprio código.
 
 A exposição deve passar por três partes:
 
@@ -81,7 +81,7 @@ A exposição deve passar por três partes:
    4. Se fez o desafio extra: por que vale (ou não vale) a pena não alterar o array recebido?
    5. Que outra solução foi considerada e por que foi descartada?
 
-A exposição deve durar no máximo 5 minutos, e a turma pode fazer perguntas no final.
+Cada aluno tem 5 minutos para a exposição, e a turma pode fazer perguntas no final.
 
 ## Critérios de avaliação
 
