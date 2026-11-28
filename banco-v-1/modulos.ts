@@ -70,7 +70,7 @@ export function depositar(valor: number) {
 }
 
 export function visualizarSaldo() {
-  const saldoFormatado = formatarMoeda(cliente.saldo)
+  const saldoFormatado = formatarMoeda(cliente.saldo);
   const saida = `Saldo atual: ${saldoFormatado}`;
   console.log(saida);
 }
@@ -78,8 +78,18 @@ export function visualizarSaldo() {
 export function formatarMoeda(valor: number) {
   const configuracao = new Intl.NumberFormat("pt-BR", {
     style: "currency",
-    currency: "BRL"
-  })
+    currency: "BRL",
+  });
 
-  return configuracao.format(valor)
+  return configuracao.format(valor);
+}
+
+export function visualizarExtrato(operacoes: Operacao[]) {
+  for (let operacao of operacoes) {
+    let tipo = "Tipo de operação: ";
+
+    if (operacao.tipo === "DEPOSITO") tipo.concat(operacao.tipo);
+
+    if (operacao.tipo === "SAQUE") tipo.concat(operacao.tipo);
+  }
 }
